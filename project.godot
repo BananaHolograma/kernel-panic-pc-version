@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="godot-personal-template"
+config/name="hands-up"
 config/version="1.0.0"
 config/tags=PackedStringArray("new_projects", "template")
 config/features=PackedStringArray("4.2", "GL Compatibility")
@@ -28,10 +28,11 @@ GameEvents="*res://autoload/game_events.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=320
+window/size/viewport_height=180
 window/size/window_width_override=1280
 window/size/window_height_override=720
+window/stretch/mode="viewport"
 
 [dotnet]
 
@@ -99,5 +100,6 @@ locale/translations=PackedStringArray("res://localization/Localization.de.transl
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
