@@ -1,0 +1,14 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://7ipvnoj60hcu"]
+
+[ext_resource type="Texture2D" uid="uid://d3207b3o2fj8d" path="res://ui/themes/classic-95/button/textures/DropDownPressed.png" id="1_58b0a"]
+
+[resource]
+content_margin_left = 5.0
+texture = ExtResource("1_58b0a")
+texture_margin_left = 2.0
+texture_margin_top = 3.0
+texture_margin_right = 18.0
+texture_margin_bottom = 3.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 21, 21)
