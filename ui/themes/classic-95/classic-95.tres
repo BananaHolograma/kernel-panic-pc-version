@@ -1,0 +1,29 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dy5cnpv5srqs3"]
+
+[ext_resource type="StyleBox" uid="uid://dshsilfttf6hm" path="res://ui/themes/classic-95/button/disabled.tres" id="1_yjp5k"]
+[ext_resource type="StyleBox" uid="uid://dtsy3nqa71l10" path="res://ui/themes/classic-95/button/focused.tres" id="2_yqpjw"]
+[ext_resource type="StyleBox" uid="uid://jot2bsqtvh8m" path="res://ui/themes/classic-95/button/button.tres" id="3_1m4jk"]
+[ext_resource type="Texture2D" uid="uid://4w57src4eu02" path="res://ui/themes/classic-95/button/textures/Pressed.png" id="4_6kw4y"]
+[ext_resource type="FontFile" uid="uid://vvqo346kg6xj" path="res://ui/themes/fonts/Windows Regular.ttf" id="5_jmg7n"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_byr6w"]
+texture = ExtResource("4_6kw4y")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(0, 0, 6, 6)
+
+[resource]
+default_font = ExtResource("5_jmg7n")
+default_font_size = 16
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.52549, 0.541176, 0.556863, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/disabled = ExtResource("1_yjp5k")
+Button/styles/focus = ExtResource("2_yqpjw")
+Button/styles/hover = ExtResource("3_1m4jk")
+Button/styles/normal = ExtResource("3_1m4jk")
+Button/styles/pressed = SubResource("StyleBoxTexture_byr6w")
