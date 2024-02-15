@@ -26,7 +26,8 @@ func _process(_delta):
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
 			finished.emit()
 		else:
-			failed.emit(status)
+			if status != ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+				failed.emit(status)
 
 
 func on_finished():
@@ -36,5 +37,6 @@ func on_finished():
 		
 
 func on_failed(_status: ResourceLoader.ThreadLoadStatus):
+	push_error("Error loading the scene %s with status %s" % [SceneTransitioner.next_scene_path, str(_status)])
 	loading = false
 	SceneTransitioner.next_scene_path = ""

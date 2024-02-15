@@ -1,9 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqasovtthfamc"]
+[gd_scene load_steps=7 format=3 uid="uid://dqasovtthfamc"]
 
 [ext_resource type="LabelSettings" uid="uid://001lx81li1qk" path="res://ui/themes/classic-95/general/boot_label.tres" id="1_pdn0d"]
 [ext_resource type="Script" path="res://scenes/computer/bootloader.gd" id="1_v7kka"]
 [ext_resource type="Texture2D" uid="uid://c2vd7ss1qnbvd" path="res://assets/images/hoodie_fight_position.jpg" id="2_gk67m"]
-[ext_resource type="AudioStream" uid="uid://bysy1l6id4v7o" path="res://assets/sounds/bootUp4.wav" id="4_3kadm"]
+[ext_resource type="Shader" path="res://shaders/vhs/crt.gdshader" id="4_378xa"]
+[ext_resource type="AudioStream" uid="uid://bysy1l6id4v7o" path="res://assets/sounds/boot_old_computer.wav" id="4_enee1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofaa7"]
+shader = ExtResource("4_378xa")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.099
+shader_parameter/scanlines_width = 0.5
+shader_parameter/grille_opacity = 0.173
+shader_parameter/resolution = Vector2(960, 540)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.0
+shader_parameter/noise_opacity = 0.119
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.0
+shader_parameter/aberration = 4.75e-08
+shader_parameter/brightness = 1.2
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.215
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.2
+shader_parameter/vignette_opacity = 0.483
 
 [node name="Bootloader" type="Control"]
 layout_mode = 3
@@ -187,6 +212,16 @@ size_flags_horizontal = 0
 text = "Starting Windows 95 . . ."
 label_settings = ExtResource("1_pdn0d")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ofaa7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_3kadm")
+stream = ExtResource("4_enee1")
 autoplay = true
+bus = &"Music"

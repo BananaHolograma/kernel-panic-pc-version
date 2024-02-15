@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://5i5dxxnuqbkl"]
+[gd_scene load_steps=22 format=3 uid="uid://5i5dxxnuqbkl"]
 
 [ext_resource type="Texture2D" uid="uid://kh4t4jmm3bo2" path="res://ui/themes/classic-95/icons/Flag.png" id="1_pnk2v"]
+[ext_resource type="Script" path="res://scenes/computer/computer_desktop.gd" id="1_r1nf6"]
 [ext_resource type="Texture2D" uid="uid://dk2cljmb73hwe" path="res://ui/themes/classic-95/icons/recycle_bin_empty.png" id="2_dgcc5"]
 [ext_resource type="Texture2D" uid="uid://c82hfhjdvkwqe" path="res://ui/themes/classic-95/panel/PatchInverted.png" id="2_noqrn"]
 [ext_resource type="PackedScene" uid="uid://ce0gokjcgsr7v" path="res://scenes/computer/app_icon.tscn" id="3_ai10v"]
@@ -9,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://bnxw85ia4on7b" path="res://ui/themes/classic-95/icons/program.png" id="5_leo2q"]
 [ext_resource type="Texture2D" uid="uid://c6d0f06bxue7r" path="res://ui/themes/classic-95/icons/parsec.png" id="6_4l077"]
 [ext_resource type="Texture2D" uid="uid://c73xo18serm8v" path="res://ui/themes/classic-95/icons/sounds.png" id="7_a8lvv"]
+[ext_resource type="PackedScene" uid="uid://c72yylpxqbp7h" path="res://scenes/computer/cursor.tscn" id="11_4bako"]
+[ext_resource type="Shader" path="res://shaders/sharpness/sharpness.gdshader" id="12_7knjg"]
+[ext_resource type="AudioStream" uid="uid://bo47h3e1wn2nu" path="res://assets/sounds/mouse_click.wav" id="12_ciopo"]
+[ext_resource type="Shader" path="res://shaders/vhs/vhs.gdshader" id="13_se0mf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24o6u"]
 bg_color = Color(0.764706, 0.780392, 0.796078, 1)
@@ -22,11 +27,87 @@ texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnh7q"]
+shader = ExtResource("12_7knjg")
+shader_parameter/sharpen_amount = 0.25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kainm"]
+shader = ExtResource("13_se0mf")
+shader_parameter/shake = 0.0
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0
+shader_parameter/offsetIntensity = 0.0169
+shader_parameter/colorOffsetIntensity = 0.1
+
+[sub_resource type="Animation" id="Animation_vaol2"]
+resource_name = "exe_click"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Interface/Cursor:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(622, 217), Vector2(508, 172), Vector2(416, 188), Vector2(385, 218)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Interface/AmazonCouponMalware")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"grab_focus"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Interface/Cursor")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1.5],
+"method": &"load_click"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_egsm4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Interface/Cursor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(622, 217)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cefjj"]
+_data = {
+"RESET": SubResource("Animation_egsm4"),
+"exe_click": SubResource("Animation_vaol2")
+}
+
 [node name="ComputerDesktop" type="Node"]
+script = ExtResource("1_r1nf6")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Interface" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +115,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="CanvasLayer/Control"]
+[node name="Background" type="ColorRect" parent="Interface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,7 +124,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.00392157, 0.509804, 0.505882, 1)
 
-[node name="RecycleBin" parent="CanvasLayer/Control" instance=ExtResource("3_ai10v")]
+[node name="RecycleBin" parent="Interface" instance=ExtResource("3_ai10v")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -56,7 +137,7 @@ grow_vertical = 2
 icon_texture = ExtResource("2_dgcc5")
 icon_name = "Recycle bin"
 
-[node name="Drive" parent="CanvasLayer/Control" instance=ExtResource("3_ai10v")]
+[node name="Drive" parent="Interface" instance=ExtResource("3_ai10v")]
 offset_left = 36.0
 offset_top = 28.0
 offset_right = 36.0
@@ -64,7 +145,7 @@ offset_bottom = 28.0
 icon_texture = ExtResource("3_lqdvw")
 icon_name = "C:\\"
 
-[node name="Mail" parent="CanvasLayer/Control" instance=ExtResource("3_ai10v")]
+[node name="Mail" parent="Interface" instance=ExtResource("3_ai10v")]
 offset_left = 32.0
 offset_top = 96.0
 offset_right = 32.0
@@ -72,15 +153,15 @@ offset_bottom = 96.0
 icon_texture = ExtResource("4_g88qr")
 icon_name = "Email"
 
-[node name="RandomProgram" parent="CanvasLayer/Control" instance=ExtResource("3_ai10v")]
-offset_left = 38.0
-offset_top = 224.0
-offset_right = 38.0
-offset_bottom = 224.0
+[node name="AmazonCouponMalware" parent="Interface" instance=ExtResource("3_ai10v")]
+offset_left = 374.0
+offset_top = 198.0
+offset_right = 374.0
+offset_bottom = 198.0
 icon_texture = ExtResource("5_leo2q")
-icon_name = "hosts.exe"
+icon_name = "amazon_coupon.exe"
 
-[node name="Network" parent="CanvasLayer/Control" instance=ExtResource("3_ai10v")]
+[node name="Network" parent="Interface" instance=ExtResource("3_ai10v")]
 offset_left = 374.0
 offset_top = 28.0
 offset_right = 374.0
@@ -88,7 +169,7 @@ offset_bottom = 28.0
 icon_texture = ExtResource("6_4l077")
 icon_name = "Network"
 
-[node name="TaskBar" type="Panel" parent="CanvasLayer/Control"]
+[node name="TaskBar" type="Panel" parent="Interface"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -99,7 +180,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_24o6u")
 
-[node name="Button" type="Button" parent="CanvasLayer/Control/TaskBar"]
+[node name="Button" type="Button" parent="Interface/TaskBar"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -113,7 +194,7 @@ text = "Start"
 icon = ExtResource("1_pnk2v")
 expand_icon = true
 
-[node name="Time" type="Panel" parent="CanvasLayer/Control/TaskBar"]
+[node name="Time" type="Panel" parent="Interface/TaskBar"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -128,7 +209,7 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_r23k4")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/TaskBar/Time"]
+[node name="Label" type="Label" parent="Interface/TaskBar/Time"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -139,7 +220,7 @@ text = "12:30 PM"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sound" parent="CanvasLayer/Control/TaskBar" instance=ExtResource("3_ai10v")]
+[node name="Sound" parent="Interface/TaskBar" instance=ExtResource("3_ai10v")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -154,3 +235,91 @@ grow_horizontal = 0
 grow_vertical = 2
 icon_texture = ExtResource("7_a8lvv")
 icon_size = Vector2(16, 16)
+
+[node name="Cursor" parent="Interface" instance=ExtResource("11_4bako")]
+position = Vector2(622, 217)
+click_sound = ExtResource("12_ciopo")
+
+[node name="PostProcessingLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Control" type="Control" parent="PostProcessingLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sharpness" type="ColorRect" parent="PostProcessingLayer/Control"]
+material = SubResource("ShaderMaterial_bnh7q")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CRT" type="ColorRect" parent="PostProcessingLayer/Control"]
+material = SubResource("ShaderMaterial_kainm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="PostProcessingLayer"]
+unique_name_in_owner = true
+ignore_rotation = false
+process_callback = 0
+limit_left = 0
+limit_top = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+rotation_smoothing_enabled = true
+
+[node name="BlackBars" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Control" type="Control" parent="BlackBars"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="BlackBars/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+color = Color(0.0156863, 0.0156863, 0.0156863, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="BlackBars/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.0156863, 0.0156863, 0.0156863, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cefjj")
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="Ambient" type="AudioStreamPlayer" parent="."]
+bus = &"Ambient"

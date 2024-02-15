@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c72yylpxqbp7h"]
+
+[ext_resource type="Texture2D" uid="uid://c5brl47dvpvhx" path="res://assets/cursors/Win95/Win95Def.png" id="1_o2dwx"]
+[ext_resource type="Script" path="res://scenes/computer/cursor.gd" id="2_5l3at"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("2_5l3at")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_o2dwx")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
