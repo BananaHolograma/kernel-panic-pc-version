@@ -49,6 +49,10 @@ folder_colors={
 "res://ui/": "green"
 }
 
+[gui]
+
+theme/custom="res://ui/themes/classic-95/classic-95.tres"
+
 [input]
 
 move_left={
