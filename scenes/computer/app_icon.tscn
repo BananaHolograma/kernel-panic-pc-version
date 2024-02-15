@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce0gokjcgsr7v"]
+
+[ext_resource type="Texture2D" uid="uid://dk2cljmb73hwe" path="res://ui/themes/classic-95/icons/recycle_bin_empty.png" id="1_ggi55"]
+
+[node name="AppIcon" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="FocusedBG" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = 40.0
+offset_right = 59.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.054902, 0.396078, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ggi55")
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_right = 36.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Recycle bin
+"

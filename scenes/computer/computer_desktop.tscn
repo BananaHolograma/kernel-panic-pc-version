@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://5i5dxxnuqbkl"]
+[gd_scene load_steps=6 format=3 uid="uid://5i5dxxnuqbkl"]
 
 [ext_resource type="Texture2D" uid="uid://kh4t4jmm3bo2" path="res://ui/themes/classic-95/icons/Flag.png" id="1_pnk2v"]
 [ext_resource type="Texture2D" uid="uid://c82hfhjdvkwqe" path="res://ui/themes/classic-95/panel/PatchInverted.png" id="2_noqrn"]
+[ext_resource type="PackedScene" uid="uid://ce0gokjcgsr7v" path="res://scenes/computer/app_icon.tscn" id="3_ai10v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24o6u"]
 bg_color = Color(0.764706, 0.780392, 0.796078, 1)
@@ -86,3 +87,9 @@ grow_vertical = 2
 text = "12:30 PM"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AppIcon" parent="CanvasLayer" instance=ExtResource("3_ai10v")]
+offset_left = 17.0
+offset_top = 425.0
+offset_right = 17.0
+offset_bottom = 425.0

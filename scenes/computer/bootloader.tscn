@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://dqasovtthfamc"]
+[gd_scene load_steps=3 format=3 uid="uid://dqasovtthfamc"]
+
+[ext_resource type="LabelSettings" uid="uid://001lx81li1qk" path="res://ui/themes/classic-95/general/boot_label.tres" id="1_pdn0d"]
+[ext_resource type="Script" path="res://scenes/computer/bootloader.gd" id="1_v7kka"]
 
 [node name="Bootloader" type="Control"]
 layout_mode = 3
@@ -7,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_v7kka")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -16,3 +20,134 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="StartScreen" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ModularBIOSContainer" type="MarginContainer" parent="MarginContainer/StartScreen"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/StartScreen/ModularBIOSContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/StartScreen/ModularBIOSContainer/VBoxContainer"]
+layout_mode = 2
+text = "Award Modular BIOS V4.51PG, An Energy Start Ally"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="Label2" type="Label" parent="MarginContainer/StartScreen/ModularBIOSContainer/VBoxContainer"]
+layout_mode = 2
+text = "Copyright (C) 1984-97, Award Software, Inc."
+label_settings = ExtResource("1_pdn0d")
+
+[node name="PS1430BIOSContainer" type="MarginContainer" parent="MarginContainer/StartScreen"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label3" type="Label" parent="MarginContainer/StartScreen/PS1430BIOSContainer"]
+layout_mode = 2
+text = "PS1430TX Titatnium 1B+ BIOS V1.0S 9/13/97"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="Label" type="Label" parent="MarginContainer/StartScreen"]
+layout_mode = 2
+text = "PENTIUM-MMX CPU AT 200MHz"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="Label2" type="Label" parent="MarginContainer/StartScreen"]
+layout_mode = 2
+text = "Memory Test   :      32768K OK"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="HardDriveInfoContainer" type="MarginContainer" parent="MarginContainer/StartScreen"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/StartScreen/HardDriveInfoContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/StartScreen/HardDriveInfoContainer/VBoxContainer"]
+layout_mode = 2
+text = "Award Plug and Play BIOS Extension       v1.0A"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="Label2" type="Label" parent="MarginContainer/StartScreen/HardDriveInfoContainer/VBoxContainer"]
+layout_mode = 2
+text = "Copyright (C) 1997, Award Software,        Inc."
+label_settings = ExtResource("1_pdn0d")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/StartScreen/HardDriveInfoContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/StartScreen/HardDriveInfoContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/StartScreen/HardDriveInfoContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Detecting HDD Primary Master       . . .   SAMSUNG WV32543A (2.54GB)"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="Label2" type="Label" parent="MarginContainer/StartScreen/HardDriveInfoContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Detecting HDD Primary Slave         . . .    HL-DT-ST GCE-8525B"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="Label3" type="Label" parent="MarginContainer/StartScreen/HardDriveInfoContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Detecting HDD Secondary Master  . . .   None"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="Label4" type="Label" parent="MarginContainer/StartScreen/HardDriveInfoContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Detecting HDD Secondary Slave    . . .   None"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="SetupContainer" type="MarginContainer" parent="MarginContainer/StartScreen"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/StartScreen/SetupContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/StartScreen/SetupContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.694118, 0.694118, 0.694118, 1)
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 18
+bbcode_enabled = true
+text = "Press [b]DEL[/b] to enter SETUP"
+fit_content = true
+scroll_active = false
+
+[node name="Label" type="Label" parent="MarginContainer/StartScreen/SetupContainer/VBoxContainer"]
+layout_mode = 2
+text = "09/13/97-i430TX-MS3309-2A59IQ1GC-00"
+label_settings = ExtResource("1_pdn0d")
+
+[node name="StartingWindows" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/StartingWindows"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Starting Windows 95 . . ."
+label_settings = ExtResource("1_pdn0d")

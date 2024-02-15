@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://001lx81li1qk"]
+
+[ext_resource type="FontFile" uid="uid://vvqo346kg6xj" path="res://ui/themes/fonts/Windows Regular.ttf" id="1_xextl"]
+
+[resource]
+font = ExtResource("1_xextl")
+font_size = 20
+font_color = Color(0.694118, 0.694118, 0.694118, 1)

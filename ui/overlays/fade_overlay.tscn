@@ -11,4 +11,3 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_0elae")
-fade_in_duration = 1.0
