@@ -18,10 +18,12 @@ func _ready():
 	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	texture_rect.size = icon_size
 	
-	focused_bg.size = label.size
 	focused_bg.hide()
 
-
+func show_bg():
+	focused_bg.show()
+	
+	
 func _on_focus_entered():
 	focused_bg.show()
 
