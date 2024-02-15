@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://ce0gokjcgsr7v"]
+[gd_scene load_steps=3 format=3 uid="uid://ce0gokjcgsr7v"]
 
-[ext_resource type="Texture2D" uid="uid://dk2cljmb73hwe" path="res://ui/themes/classic-95/icons/recycle_bin_empty.png" id="1_ggi55"]
+[ext_resource type="Script" path="res://scenes/computer/app_icon.gd" id="1_mj4hp"]
+[ext_resource type="Texture2D" uid="uid://beju8e0457h8k" path="res://ui/themes/classic-95/icons/folder_closed.png" id="2_ah8s7"]
 
 [node name="AppIcon" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_mj4hp")
 
 [node name="FocusedBG" type="ColorRect" parent="."]
 visible = false
@@ -22,9 +24,10 @@ color = Color(0.0470588, 0.054902, 0.396078, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("1_ggi55")
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("2_ah8s7")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="TextureRect"]
 layout_mode = 1
@@ -39,5 +42,10 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Recycle bin
+text = "
+I am a folder
 "
+horizontal_alignment = 1
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

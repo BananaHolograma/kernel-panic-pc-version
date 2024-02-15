@@ -10,6 +10,7 @@ signal finished
 var loading := false
 
 func _ready():
+	next_scene_path = SceneTransitioner.next_scene_path
 	finished.connect(on_finished)
 	failed.connect(on_failed)
 	
@@ -18,7 +19,7 @@ func _ready():
 		loading = true
 		
 		
-func _process(delta):
+func _process(_delta):
 	if loading:
 		var status = ResourceLoader.load_threaded_get_status(next_scene_path, progress)
 		
@@ -30,8 +31,10 @@ func _process(delta):
 
 func on_finished():
 	loading = false
+	SceneTransitioner.next_scene_path = ""
 	get_tree().call_deferred("change_scene_to_packed", ResourceLoader.load_threaded_get(next_scene_path))
 		
 
-func on_failed(status: ResourceLoader.ThreadLoadStatus):
+func on_failed(_status: ResourceLoader.ThreadLoadStatus):
 	loading = false
+	SceneTransitioner.next_scene_path = ""

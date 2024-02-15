@@ -14,8 +14,10 @@ config/name="Kernel Panic"
 config/version="1.0.0"
 config/tags=PackedStringArray("new_projects", "template")
 config/features=PackedStringArray("4.2", "GL Compatibility")
+boot_splash/bg_color=Color(0.0117647, 0.0117647, 0.0117647, 1)
+boot_splash/image="res://assets/splash/square-dark.png"
 config/icon="res://icon.svg"
-boot_splash/minimum_display_time=1500
+boot_splash/minimum_display_time=2000
 
 [autoload]
 
@@ -25,6 +27,7 @@ Utilities="*res://autoload/utilities.gd"
 VectorWizard="*res://autoload/vector_wizard.gd"
 SaveManager="*res://autoload/save_manager.gd"
 GameEvents="*res://autoload/game_events.gd"
+SceneTransitioner="*res://autoload/scene_transitioner.gd"
 
 [display]
 
