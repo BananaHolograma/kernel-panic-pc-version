@@ -1,32 +1,19 @@
-[gd_scene load_steps=23 format=3 uid="uid://5i5dxxnuqbkl"]
+[gd_scene load_steps=20 format=3 uid="uid://5i5dxxnuqbkl"]
 
-[ext_resource type="Texture2D" uid="uid://kh4t4jmm3bo2" path="res://ui/themes/classic-95/icons/Flag.png" id="1_pnk2v"]
 [ext_resource type="Script" path="res://scenes/computer/computer_desktop.gd" id="1_r1nf6"]
 [ext_resource type="Texture2D" uid="uid://dk2cljmb73hwe" path="res://ui/themes/classic-95/icons/recycle_bin_empty.png" id="2_dgcc5"]
-[ext_resource type="Texture2D" uid="uid://c82hfhjdvkwqe" path="res://ui/themes/classic-95/panel/PatchInverted.png" id="2_noqrn"]
 [ext_resource type="PackedScene" uid="uid://ce0gokjcgsr7v" path="res://scenes/computer/app_icon.tscn" id="3_ai10v"]
 [ext_resource type="Texture2D" uid="uid://1iamritjom30" path="res://ui/themes/classic-95/icons/drive.png" id="3_lqdvw"]
 [ext_resource type="Texture2D" uid="uid://djl7ay4kxfpo1" path="res://ui/themes/classic-95/icons/mail.png" id="4_g88qr"]
 [ext_resource type="Texture2D" uid="uid://bnxw85ia4on7b" path="res://ui/themes/classic-95/icons/program.png" id="5_leo2q"]
 [ext_resource type="Texture2D" uid="uid://c6d0f06bxue7r" path="res://ui/themes/classic-95/icons/parsec.png" id="6_4l077"]
-[ext_resource type="Texture2D" uid="uid://c73xo18serm8v" path="res://ui/themes/classic-95/icons/sounds.png" id="7_a8lvv"]
+[ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="8_ykctq"]
 [ext_resource type="PackedScene" uid="uid://c72yylpxqbp7h" path="res://scenes/computer/cursor.tscn" id="11_4bako"]
 [ext_resource type="Shader" path="res://shaders/sharpness/sharpness.gdshader" id="12_7knjg"]
 [ext_resource type="AudioStream" uid="uid://bo47h3e1wn2nu" path="res://assets/sounds/mouse_click.wav" id="12_ciopo"]
 [ext_resource type="Shader" path="res://shaders/vhs/vhs.gdshader" id="13_se0mf"]
+[ext_resource type="PackedScene" uid="uid://b72hyerr5cjrb" path="res://scenes/world/game_camera.tscn" id="15_fvlwn"]
 [ext_resource type="PackedScene" uid="uid://ciuqq47uqiywk" path="res://scenes/computer/black_bars.tscn" id="15_yf3ao"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24o6u"]
-bg_color = Color(0.764706, 0.780392, 0.796078, 1)
-border_width_top = 1
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r23k4"]
-texture = ExtResource("2_noqrn")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bnh7q"]
 shader = ExtResource("12_7knjg")
@@ -39,6 +26,21 @@ shader_parameter/noiseQuality = 250.0
 shader_parameter/noiseIntensity = 0.0
 shader_parameter/offsetIntensity = 0.0169
 shader_parameter/colorOffsetIntensity = 0.1
+
+[sub_resource type="Animation" id="Animation_egsm4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Interface/Cursor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(622, 217)]
+}
 
 [sub_resource type="Animation" id="Animation_vaol2"]
 resource_name = "exe_click"
@@ -83,20 +85,19 @@ tracks/2/keys = {
 "method": &"show_bg"
 }]
 }
-
-[sub_resource type="Animation" id="Animation_egsm4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Interface/Cursor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PostProcessingLayer/GameCamera")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(622, 217)]
+"values": [{
+"args": [],
+"method": &"shake"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cefjj"]
@@ -170,72 +171,8 @@ offset_bottom = 28.0
 icon_texture = ExtResource("6_4l077")
 icon_name = "Network"
 
-[node name="TaskBar" type="Panel" parent="Interface"]
+[node name="TaskBar" parent="Interface" instance=ExtResource("8_ykctq")]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -35.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_24o6u")
-
-[node name="Button" type="Button" parent="Interface/TaskBar"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 3.0
-offset_top = -13.5
-offset_right = 60.0
-offset_bottom = 14.5
-grow_vertical = 2
-text = "Start"
-icon = ExtResource("1_pnk2v")
-expand_icon = true
-
-[node name="Time" type="Panel" parent="Interface/TaskBar"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -71.0
-offset_top = -12.5
-offset_right = -2.0
-offset_bottom = 12.5
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_r23k4")
-
-[node name="Label" type="Label" parent="Interface/TaskBar/Time"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "12:30 PM"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Sound" parent="Interface/TaskBar" instance=ExtResource("3_ai10v")]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -99.0
-offset_top = -8.5
-offset_right = -99.0
-offset_bottom = -8.5
-grow_horizontal = 0
-grow_vertical = 2
-icon_texture = ExtResource("7_a8lvv")
-icon_size = Vector2(16, 16)
 
 [node name="Cursor" parent="Interface" instance=ExtResource("11_4bako")]
 position = Vector2(622, 217)
@@ -279,16 +216,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0.219608, 0.0784314, 0)
 
-[node name="Camera2D" type="Camera2D" parent="PostProcessingLayer"]
+[node name="GameCamera" parent="PostProcessingLayer" instance=ExtResource("15_fvlwn")]
 unique_name_in_owner = true
-ignore_rotation = false
-process_callback = 0
-limit_left = 0
-limit_top = 0
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-rotation_smoothing_enabled = true
 
 [node name="Cinematic" type="CanvasLayer" parent="."]
 layer = 2

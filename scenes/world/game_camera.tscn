@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b72hyerr5cjrb"]
+
+[ext_resource type="Script" path="res://scenes/world/game_camera.gd" id="1_6j3un"]
+[ext_resource type="Script" path="res://components/camera/shake_camera.gd" id="1_kgsrw"]
+
+[node name="Camera2D" type="Camera2D" groups=["camera"]]
+ignore_rotation = false
+process_callback = 0
+limit_left = 0
+limit_top = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 10.0
+script = ExtResource("1_6j3un")
+
+[node name="ShakeCameraComponent2D" type="Node2D" parent="."]
+script = ExtResource("1_kgsrw")

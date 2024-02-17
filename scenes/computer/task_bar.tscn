@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://3npwtq6dd873"]
+
+[ext_resource type="Texture2D" uid="uid://kh4t4jmm3bo2" path="res://ui/themes/classic-95/icons/Flag.png" id="1_ryw1p"]
+[ext_resource type="Texture2D" uid="uid://c82hfhjdvkwqe" path="res://ui/themes/classic-95/panel/PatchInverted.png" id="2_co85n"]
+[ext_resource type="PackedScene" uid="uid://ce0gokjcgsr7v" path="res://scenes/computer/app_icon.tscn" id="3_6qbt5"]
+[ext_resource type="Texture2D" uid="uid://c73xo18serm8v" path="res://ui/themes/classic-95/icons/sounds.png" id="4_i66l6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24o6u"]
+bg_color = Color(0.764706, 0.780392, 0.796078, 1)
+border_width_top = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r23k4"]
+texture = ExtResource("2_co85n")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[node name="TaskBar" type="Panel"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_24o6u")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -13.5
+offset_right = 60.0
+offset_bottom = 14.5
+grow_vertical = 2
+text = "Start"
+icon = ExtResource("1_ryw1p")
+expand_icon = true
+
+[node name="Time" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -12.5
+offset_right = -2.0
+offset_bottom = 12.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r23k4")
+
+[node name="Label" type="Label" parent="Time"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "12:30 PM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sound" parent="." instance=ExtResource("3_6qbt5")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -8.5
+offset_right = -99.0
+offset_bottom = -8.5
+grow_horizontal = 0
+grow_vertical = 2
+icon_texture = ExtResource("4_i66l6")
+icon_size = Vector2(16, 16)

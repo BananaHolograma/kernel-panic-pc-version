@@ -8,7 +8,7 @@ extends Node
 @onready var post_processing_layer: CanvasLayer = $PostProcessingLayer
 @onready var crt: ColorRect = $PostProcessingLayer/Control/CRT
 @onready var danger_color: ColorRect = $PostProcessingLayer/Control/DangerColor
-@onready var camera_2d: Camera2D = %Camera2D
+@onready var game_camera: GameCamera = %GameCamera
 @onready var black_bars: BlackBars = $Cinematic/BlackBars
 
 
@@ -22,7 +22,7 @@ func _ready():
 	SceneTransitioner.next_scene_path = "res://scenes/computer/main.tscn"
 	SceneTransitioner.no_background = true
 	
-	camera_2d.global_position = get_viewport().get_visible_rect().size / 2
+	game_camera.global_position = get_viewport().get_visible_rect().size / 2
 	
 	animation_player.animation_finished.connect(on_animation_finished)
 	
@@ -35,7 +35,6 @@ func _ready():
 	await black_bars.entered
 	
 	animation_player.play("exe_click")
-
 
 func windows_beat():
 	sfx.stream = WINDOWS_BEAT
@@ -58,8 +57,8 @@ func on_animation_finished(animation_name: String):
 		tween = create_tween()
 		tween.set_parallel(true)
 		tween.tween_property(danger_color, "color", Color(1.0, 0.21, 0.07, 0.58) , sfx.stream.get_length() - 1).from_current().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-		tween.tween_property(camera_2d, "zoom", Vector2(10, 10), sfx.stream.get_length())
-		tween.tween_property(camera_2d, "position", camera_2d.position - Vector2(75, 75), sfx.stream.get_length()).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+		tween.tween_property(game_camera, "zoom", Vector2(10, 10), sfx.stream.get_length())
+		tween.tween_property(game_camera, "position", game_camera.position - Vector2(75, 75), sfx.stream.get_length()).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 		tween.tween_property(crt.material, "shader_parameter/noiseIntensity", 0.05, sfx.stream.get_length()).from(0.015)
 		tween.tween_property(crt.material, "shader_parameter/shake", 0.015, sfx.stream.get_length()).from_current()
 		
