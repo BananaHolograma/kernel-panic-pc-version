@@ -7,7 +7,7 @@ signal text_changed(new_text)
 @export var icon_size := Vector2(32, 32)
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var label: Label = $Label
-@onready var focused_bg: ColorRect = $Label/FocusedBG
+@onready var focused_bg: ColorRect = $FocusedBG
 
 
 func _ready():
@@ -18,8 +18,6 @@ func _ready():
 	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	texture_rect.size = icon_size
 	
-	focused_bg.hide()
-
 func show_bg():
 	focused_bg.show()
 	
