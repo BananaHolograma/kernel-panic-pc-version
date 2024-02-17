@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dlbbnag8ikm5e"]
+[gd_scene load_steps=52 format=3 uid="uid://dlbbnag8ikm5e"]
 
 [ext_resource type="Script" path="res://scenes/computer/player.gd" id="1_c3fr3"]
 [ext_resource type="Texture2D" uid="uid://bji51b0bemxqi" path="res://assets/character/spr_player_hurt_strip4.png" id="1_ugrp8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://components/collision/2d/hurtbox.gd" id="6_20d5t"]
 [ext_resource type="Script" path="res://addons/health_component/health_component.gd" id="8_2vufd"]
 [ext_resource type="Script" path="res://addons/finite-state-machine/finite-state-machine.gd" id="9_l8f28"]
+[ext_resource type="Script" path="res://scenes/computer/states/player/idle.gd" id="10_wwsee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lcyn"]
 size = Vector2(24, 53)
@@ -320,7 +321,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pvm1"]
 size = Vector2(25, 51)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 4
 script = ExtResource("1_c3fr3")
 
@@ -344,8 +345,17 @@ debug_color = Color(0.847059, 0.298039, 0.141176, 0.419608)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("8_2vufd")
+MAX_HEALTH = 3
+CURRENT_HEALTH = 3
 
-[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("actor")]
-process_mode = 4
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "current_state")]
 script = ExtResource("9_l8f28")
 actor = NodePath("..")
+current_state = NodePath("Ground/Idle")
+flush_stack_when_reach_capacity = true
+
+[node name="Ground" type="Node" parent="FiniteStateMachine"]
+
+[node name="Idle" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("animated_sprite")]
+script = ExtResource("10_wwsee")
+animated_sprite = NodePath("../../../AnimatedSprite2D")

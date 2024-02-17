@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://7qonb4nkejb3"]
+[gd_scene load_steps=7 format=3 uid="uid://7qonb4nkejb3"]
 
 [ext_resource type="Script" path="res://scenes/computer/main.gd" id="1_lsw24"]
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
 [ext_resource type="PackedScene" uid="uid://b72hyerr5cjrb" path="res://scenes/world/game_camera.tscn" id="3_2vvdm"]
 [ext_resource type="PackedScene" uid="uid://dlbbnag8ikm5e" path="res://scenes/computer/player.tscn" id="4_8m6kg"]
+[ext_resource type="PackedScene" uid="uid://65qc1wlrer7u" path="res://scenes/computer/antivirus.tscn" id="5_mbfhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3t14w"]
 size = Vector2(960, 35)
@@ -53,9 +54,15 @@ limit_smoothed = false
 [node name="Player" parent="." instance=ExtResource("4_8m6kg")]
 position = Vector2(58, 480)
 
+[node name="Antivirus" parent="." instance=ExtResource("5_mbfhl")]
+position = Vector2(480, 50)
+
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(480, 523)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape2D_3t14w")
+
+[node name="AntivirusResetPosition" type="Marker2D" parent="."]
+position = Vector2(480, 50)

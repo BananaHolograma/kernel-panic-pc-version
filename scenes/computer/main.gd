@@ -22,6 +22,7 @@ func on_fade_in_completed(overlay):
 	overlay.queue_free()
 	game_camera.limit_smoothed = true
 
+
 func _add_overlay():
 	var fade_overlay = FADE_OVERLAY.instantiate()
 	fade_overlay.auto_fade_in = true

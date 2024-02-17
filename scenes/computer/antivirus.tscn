@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://65qc1wlrer7u"]
+
+[ext_resource type="Texture2D" uid="uid://dxyk5rvqdgcdh" path="res://assets/emojies/emoji2.png" id="1_sufan"]
+[ext_resource type="Script" path="res://addons/finite-state-machine/finite-state-machine.gd" id="2_v8tyo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cfg3"]
+atlas = ExtResource("1_sufan")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xe7qy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cfg3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fu22t"]
+radius = 16.0
+
+[node name="Antivirus" type="CharacterBody2D" groups=["antivirus"]]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_xe7qy")
+animation = &"idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fu22t")
+debug_color = Color(0.647059, 0.521569, 0.0666667, 0.419608)
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+process_mode = 4
+script = ExtResource("2_v8tyo")
