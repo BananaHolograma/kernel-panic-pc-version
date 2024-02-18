@@ -1,5 +1,7 @@
 class_name Cursor extends Node2D
 
+## The node name for this cursor
+@export var cursor_name: String
 ## The node that will be used as center reference for this cursor to orbit
 @export var rotation_reference: Node2D
 ## The texture of the cursor

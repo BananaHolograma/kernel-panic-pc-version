@@ -13,13 +13,13 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 var seconds_passed := 0
 
 func _ready():
-	#GameEvents.lock_player.emit()
+	GameEvents.lock_player.emit()
 	game_camera.limit_smoothed = false
 	game_camera.global_position = get_viewport().get_visible_rect().size / 2
-	#_add_overlay()
+	_add_overlay()
 	
 	game_timer.timeout.connect(on_game_timer_second_passed)
-	start_gameplay_timer() ## TODO - move after overlay is loaded
+	start_gameplay_timer() ## TODO - move after all animations are loaded
 
 
 func start_gameplay_timer():
@@ -36,7 +36,7 @@ func start_gameplay_timer():
 func on_fade_in_completed(overlay):
 	overlay.queue_free()
 	game_camera.limit_smoothed = true
-	#GameEvents.unlock_player.emit()
+	GameEvents.unlock_player.emit()
 
 
 func on_game_timer_second_passed():
@@ -52,7 +52,7 @@ func on_game_timer_second_passed():
 func _add_overlay():
 	var fade_overlay = FADE_OVERLAY.instantiate()
 	fade_overlay.auto_fade_in = true
-	fade_overlay.fade_in_duration = 3.5
+	fade_overlay.fade_in_duration = 1.5
 	add_child(fade_overlay)
 	fade_overlay.on_complete_fade_in.connect(on_fade_in_completed.bind(fade_overlay))
 	

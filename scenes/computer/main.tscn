@@ -64,7 +64,7 @@ icon_name = "Recycle bin"
 limit_smoothed = false
 
 [node name="Player" parent="." instance=ExtResource("4_8m6kg")]
-position = Vector2(58, 452)
+position = Vector2(54, 476)
 
 [node name="Antivirus" parent="." instance=ExtResource("5_mbfhl")]
 position = Vector2(480, 50)
@@ -92,3 +92,9 @@ position = Vector2(975, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 position = Vector2(-7, 253.5)
 shape = SubResource("RectangleShape2D_bgky4")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="Ambient" type="AudioStreamPlayer" parent="."]
+bus = &"Ambient"
