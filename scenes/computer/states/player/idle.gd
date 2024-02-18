@@ -8,3 +8,5 @@ func _enter():
 
 func physics_update(delta):
 	super.physics_update(delta)
+	
+	FSM.actor.move_and_slide()
