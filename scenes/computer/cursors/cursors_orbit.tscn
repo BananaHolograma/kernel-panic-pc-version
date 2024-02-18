@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://mypx056pfphn"]
+
+[ext_resource type="Script" path="res://scenes/computer/cursors/cursors_orbit.gd" id="1_x2oy6"]
+
+[node name="Cursors" type="Node2D"]
+script = ExtResource("1_x2oy6")

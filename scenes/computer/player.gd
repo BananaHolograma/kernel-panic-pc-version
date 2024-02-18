@@ -19,7 +19,7 @@ func _ready():
 	finite_state_machine.state_changed.connect(on_state_changed)
 	
 	
-func _process(delta):
+func _process(_delta):
 	_update_sprite_flip()
 	
 	velocity_label.text = str(velocity)

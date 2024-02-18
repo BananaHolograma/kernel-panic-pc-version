@@ -56,3 +56,5 @@ func _add_overlay():
 	add_child(fade_overlay)
 	fade_overlay.on_complete_fade_in.connect(on_fade_in_completed.bind(fade_overlay))
 	
+
+	

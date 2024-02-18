@@ -1,0 +1,1 @@
+class_name Antivirus extends CharacterBody2D

@@ -1,8 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://65qc1wlrer7u"]
+[gd_scene load_steps=16 format=3 uid="uid://65qc1wlrer7u"]
 
+[ext_resource type="Script" path="res://scenes/computer/antivirus.gd" id="1_ihe21"]
 [ext_resource type="Texture2D" uid="uid://dxyk5rvqdgcdh" path="res://assets/emojies/emoji2.png" id="1_sufan"]
 [ext_resource type="Script" path="res://addons/finite-state-machine/finite-state-machine.gd" id="2_v8tyo"]
+[ext_resource type="Texture2D" uid="uid://c5brl47dvpvhx" path="res://assets/cursors/Win95/Win95Def.png" id="3_dk0t2"]
+[ext_resource type="PackedScene" uid="uid://mypx056pfphn" path="res://scenes/computer/cursors/cursors_orbit.tscn" id="3_f7m72"]
 [ext_resource type="Script" path="res://scenes/computer/states/antivirus/idle.gd" id="3_svcvq"]
+[ext_resource type="Script" path="res://scenes/computer/cursors/cursor.gd" id="4_pp8bq"]
+[ext_resource type="Texture2D" uid="uid://1xyhsxm2qjob" path="res://assets/cursors/Win95/Win95DefGrab.png" id="6_r62oh"]
+[ext_resource type="Texture2D" uid="uid://5pobq7ovney3" path="res://assets/cursors/Win95/Win95ZIn.png" id="7_yp8yj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2cfg3"]
 atlas = ExtResource("1_sufan")
@@ -18,6 +24,45 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }]
+
+[sub_resource type="Animation" id="Animation_fgps3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_w0unb"]
 resource_name = "idle"
@@ -60,45 +105,6 @@ tracks/2/keys = {
 "values": [Vector2(0, 0), Vector2(0, -15), Vector2(0, 0), Vector2(0, -15)]
 }
 
-[sub_resource type="Animation" id="Animation_fgps3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oflo7"]
 _data = {
 "RESET": SubResource("Animation_fgps3"),
@@ -109,6 +115,7 @@ _data = {
 radius = 16.0
 
 [node name="Antivirus" type="CharacterBody2D" groups=["antivirus"]]
+script = ExtResource("1_ihe21")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -123,6 +130,25 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fu22t")
 debug_color = Color(0.647059, 0.521569, 0.0666667, 0.419608)
+
+[node name="Cursors" parent="." instance=ExtResource("3_f7m72")]
+
+[node name="Cursor" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
+script = ExtResource("4_pp8bq")
+rotation_reference = NodePath("..")
+texture = ExtResource("3_dk0t2")
+
+[node name="Cursor2" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
+script = ExtResource("4_pp8bq")
+rotation_reference = NodePath("..")
+texture = ExtResource("6_r62oh")
+angle = 2.356
+
+[node name="Cursor3" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
+script = ExtResource("4_pp8bq")
+rotation_reference = NodePath("..")
+texture = ExtResource("7_yp8yj")
+angle = 3.403
 
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "current_state")]
 script = ExtResource("2_v8tyo")
