@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://7qonb4nkejb3"]
+[gd_scene load_steps=10 format=3 uid="uid://7qonb4nkejb3"]
 
 [ext_resource type="Script" path="res://scenes/computer/main.gd" id="1_lsw24"]
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
 [ext_resource type="PackedScene" uid="uid://b72hyerr5cjrb" path="res://scenes/world/game_camera.tscn" id="3_2vvdm"]
+[ext_resource type="PackedScene" uid="uid://ce0gokjcgsr7v" path="res://scenes/computer/app_icon.tscn" id="3_rhoc0"]
 [ext_resource type="PackedScene" uid="uid://dlbbnag8ikm5e" path="res://scenes/computer/player.tscn" id="4_8m6kg"]
+[ext_resource type="Texture2D" uid="uid://xk4d1l55lpkl" path="res://ui/themes/classic-95/icons/recycle_bin_full.png" id="4_tr2gv"]
 [ext_resource type="PackedScene" uid="uid://65qc1wlrer7u" path="res://scenes/computer/antivirus.tscn" id="5_mbfhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3t14w"]
 size = Vector2(960, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bgky4"]
+size = Vector2(20, 505)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lsw24")
@@ -43,10 +48,17 @@ offset_top = 510.0
 offset_right = -124.0
 offset_bottom = 536.0
 grow_horizontal = 2
-value = 1.0
+step = 1.0
+
+[node name="AppIcon" parent="Control" instance=ExtResource("3_rhoc0")]
+offset_left = 36.0
+offset_top = 20.0
+offset_right = 36.0
+offset_bottom = 20.0
+icon_texture = ExtResource("4_tr2gv")
+icon_name = "Recycle bin"
 
 [node name="GameTimer" type="Timer" parent="."]
-process_callback = 0
 
 [node name="GameCamera" parent="." instance=ExtResource("3_2vvdm")]
 limit_smoothed = false
@@ -66,3 +78,17 @@ shape = SubResource("RectangleShape2D_3t14w")
 
 [node name="AntivirusResetPosition" type="Marker2D" parent="."]
 position = Vector2(480, 50)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(-7, 253.5)
+shape = SubResource("RectangleShape2D_bgky4")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(975, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(-7, 253.5)
+shape = SubResource("RectangleShape2D_bgky4")

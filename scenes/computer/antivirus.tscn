@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://65qc1wlrer7u"]
+[gd_scene load_steps=10 format=3 uid="uid://65qc1wlrer7u"]
 
 [ext_resource type="Texture2D" uid="uid://dxyk5rvqdgcdh" path="res://assets/emojies/emoji2.png" id="1_sufan"]
 [ext_resource type="Script" path="res://addons/finite-state-machine/finite-state-machine.gd" id="2_v8tyo"]
+[ext_resource type="Script" path="res://scenes/computer/states/antivirus/idle.gd" id="3_svcvq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2cfg3"]
 atlas = ExtResource("1_sufan")
@@ -18,6 +19,92 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_w0unb"]
+resource_name = "idle"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.5, 1.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -15), Vector2(0, 0), Vector2(0, -15)]
+}
+
+[sub_resource type="Animation" id="Animation_fgps3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oflo7"]
+_data = {
+"RESET": SubResource("Animation_fgps3"),
+"idle": SubResource("Animation_w0unb")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_fu22t"]
 radius = 16.0
 
@@ -29,11 +116,19 @@ sprite_frames = SubResource("SpriteFrames_xe7qy")
 animation = &"idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oflo7")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fu22t")
 debug_color = Color(0.647059, 0.521569, 0.0666667, 0.419608)
 
-[node name="FiniteStateMachine" type="Node" parent="."]
-process_mode = 4
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "current_state")]
 script = ExtResource("2_v8tyo")
+actor = NodePath("..")
+current_state = NodePath("BossIdle")
+
+[node name="BossIdle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("3_svcvq")
+animation_player = NodePath("../../AnimationPlayer")

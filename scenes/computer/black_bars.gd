@@ -14,8 +14,8 @@ signal exited
 func enter():
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(top_bar, "position:y", top_bar.position.y + 50, time_to_enter).set_ease(Tween.EASE_IN)
-	tween.tween_property(bottom_bar, "position:y", bottom_bar.position.y - 50, time_to_enter).set_ease(Tween.EASE_IN)
+	tween.tween_property(top_bar, "position:y", top_bar.position.y + top_bar.size.y, time_to_enter).set_ease(Tween.EASE_IN)
+	tween.tween_property(bottom_bar, "position:y", bottom_bar.position.y - top_bar.size.y, time_to_enter).set_ease(Tween.EASE_IN)
 	
 	await tween.finished
 	entered.emit()
@@ -24,8 +24,8 @@ func enter():
 func exit():
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(top_bar, "position:y", top_bar.position.y - 100, time_to_exit).set_ease(Tween.EASE_IN)
-	tween.tween_property(bottom_bar, "position:y", bottom_bar.position.y + 100, time_to_exit).set_ease(Tween.EASE_IN)
+	tween.tween_property(top_bar, "position:y", top_bar.position.y - (top_bar.size.y * 2), time_to_exit).set_ease(Tween.EASE_IN)
+	tween.tween_property(bottom_bar, "position:y", bottom_bar.position.y + (top_bar.size.y * 2), time_to_exit).set_ease(Tween.EASE_IN)
 	
 	await tween.finished
 	exited.emit()

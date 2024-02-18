@@ -61,7 +61,7 @@ signal dash_free_from_cooldown(position: Vector2, dash_queue: Array[Vector2])
 	set(value):
 		dash_cooldown = max(0.05, value)
 		
-@export var dash_duration: float:
+@export var dash_duration := 1.5:
 	set(value):
 		dash_duration = max(0.05, value)
 		_create_dash_duration_timer(dash_duration)
