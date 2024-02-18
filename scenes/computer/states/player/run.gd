@@ -6,16 +6,20 @@ func _enter():
 		animated_sprite.play("run")
 
 
+func _ready():
+	motion_component.stopped.connect(on_stopped)
+
+
 func physics_update(delta):
 	super.physics_update(delta)
 	
 	if horizontal_direction.is_zero_approx():
-		if FSM.actor.velocity.is_zero_approx():
-			state_finished.emit("Idle", {})
-			return
-		else:
-			motion_component.decelerate(delta)
+		motion_component.decelerate(true, delta)
 	else:
 		motion_component.accelerate(horizontal_direction, delta)
 
 	FSM.actor.move_and_slide()
+
+
+func on_stopped():
+	state_finished.emit("Idle", {})

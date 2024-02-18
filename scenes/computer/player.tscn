@@ -359,6 +359,9 @@ jump_time_to_fall = 0.4
 [node name="MotionComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("10_nkwac")
 actor = NodePath("..")
+max_speed = 250.0
+acceleration = 850.0
+friction = 0.0
 
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "current_state")]
 script = ExtResource("9_l8f28")
