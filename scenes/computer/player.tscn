@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dlbbnag8ikm5e"]
+[gd_scene load_steps=63 format=3 uid="uid://dlbbnag8ikm5e"]
 
 [ext_resource type="Script" path="res://scenes/computer/player.gd" id="1_c3fr3"]
 [ext_resource type="Texture2D" uid="uid://bji51b0bemxqi" path="res://assets/character/spr_player_hurt_strip4.png" id="1_ugrp8"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://components/movement/motion_component.gd" id="10_nkwac"]
 [ext_resource type="Script" path="res://scenes/computer/states/player/idle.gd" id="10_wwsee"]
 [ext_resource type="Script" path="res://scenes/computer/states/player/run.gd" id="13_cif2g"]
+[ext_resource type="Script" path="res://scenes/computer/states/player/jump.gd" id="14_quw81"]
+[ext_resource type="Script" path="res://scenes/computer/states/player/fall.gd" id="15_fqxo2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lcyn"]
 size = Vector2(24, 53)
@@ -65,7 +67,15 @@ region = Rect2(512, 0, 64, 64)
 atlas = ExtResource("2_w82xx")
 region = Rect2(576, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_37xgc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdba8"]
+atlas = ExtResource("3_gh1u5")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2724"]
+atlas = ExtResource("3_gh1u5")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_px8xw"]
 atlas = ExtResource("3_gh1u5")
 region = Rect2(576, 0, 64, 64)
 
@@ -132,6 +142,22 @@ region = Rect2(448, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_spcxg"]
 atlas = ExtResource("3_gh1u5")
 region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io2af"]
+atlas = ExtResource("3_gh1u5")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1secs"]
+atlas = ExtResource("3_gh1u5")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_no2xp"]
+atlas = ExtResource("3_gh1u5")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dov12"]
+atlas = ExtResource("4_2q2rj")
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iuqg5"]
 atlas = ExtResource("5_5oqaq")
@@ -213,17 +239,23 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7jj6m")
 }],
-"loop": true,
+"loop": false,
 "name": &"dash",
 "speed": 13.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_37xgc")
+"texture": SubResource("AtlasTexture_rdba8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2724")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_px8xw")
 }],
 "loop": false,
 "name": &"fall",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -290,6 +322,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_io2af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1secs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_no2xp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dov12")
+}],
+"loop": false,
+"name": &"land",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_iuqg5")
 }, {
 "duration": 1.0,
@@ -328,13 +377,41 @@ size = Vector2(25, 51)
 collision_layer = 4
 script = ExtResource("1_c3fr3")
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VelocityLabel" type="Label" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -42.0
+offset_top = -69.0
+offset_right = 33.0
+offset_bottom = -49.0
+theme_override_colors/font_color = Color(0.913725, 0.913725, 0.913725, 1)
+text = "(10, 2)"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -42.0
+offset_top = -50.0
+offset_right = 33.0
+offset_bottom = -30.0
+theme_override_colors/font_color = Color(0.913725, 0.913725, 0.913725, 1)
+text = "State"
+horizontal_alignment = 1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 5.5)
 shape = SubResource("RectangleShape2D_5lcyn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4tvt5")
-animation = &"idle"
+animation = &"dash"
 
 [node name="Hurtbox2D" type="Area2D" parent="."]
 script = ExtResource("6_20d5t")
@@ -352,9 +429,9 @@ CURRENT_HEALTH = 3
 [node name="GravityComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("9_x4l1p")
 actor = NodePath("..")
-jump_height = 50.0
+jump_height = 90.0
 jump_time_to_peak = 0.4
-jump_time_to_fall = 0.4
+jump_time_to_fall = 0.39
 
 [node name="MotionComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("10_nkwac")
@@ -379,6 +456,20 @@ motion_component = NodePath("../../../MotionComponent")
 
 [node name="Run" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("animated_sprite", "gravity_component", "motion_component")]
 script = ExtResource("13_cif2g")
+animated_sprite = NodePath("../../../AnimatedSprite2D")
+gravity_component = NodePath("../../../GravityComponent")
+motion_component = NodePath("../../../MotionComponent")
+
+[node name="Air" type="Node" parent="FiniteStateMachine"]
+
+[node name="Jump" type="Node" parent="FiniteStateMachine/Air" node_paths=PackedStringArray("animated_sprite", "gravity_component", "motion_component")]
+script = ExtResource("14_quw81")
+animated_sprite = NodePath("../../../AnimatedSprite2D")
+gravity_component = NodePath("../../../GravityComponent")
+motion_component = NodePath("../../../MotionComponent")
+
+[node name="Fall" type="Node" parent="FiniteStateMachine/Air" node_paths=PackedStringArray("animated_sprite", "gravity_component", "motion_component")]
+script = ExtResource("15_fqxo2")
 animated_sprite = NodePath("../../../AnimatedSprite2D")
 gravity_component = NodePath("../../../GravityComponent")
 motion_component = NodePath("../../../MotionComponent")

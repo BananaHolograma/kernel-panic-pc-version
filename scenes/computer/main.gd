@@ -10,6 +10,7 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 
 
 func _ready():
+	#GameEvents.lock_player.emit()
 	game_camera.limit_smoothed = false
 	game_camera.global_position = get_viewport().get_visible_rect().size / 2
 	#_add_overlay()
@@ -21,6 +22,7 @@ func on_fade_in_completed(overlay):
 	
 	overlay.queue_free()
 	game_camera.limit_smoothed = true
+	#GameEvents.unlock_player.emit()
 
 
 func _add_overlay():

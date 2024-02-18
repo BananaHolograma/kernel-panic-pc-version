@@ -59,5 +59,27 @@ func decelerate(force_stop: bool = false, delta: float = get_physics_process_del
 	return self
 
 
+func accelerate_horizontally(direction: Vector2, delta: float = get_physics_process_delta_time()) -> MotionComponent:
+	facing_direction = _normalize_vector(direction)
+	
+	if not facing_direction.is_zero_approx():
+		if acceleration > 0:
+			actor.velocity.x = move_toward(actor.velocity.x, facing_direction.x * current_speed, acceleration * delta)
+		else:
+			actor.velocity.x = facing_direction.x * current_speed
+
+	return self
+
+
+func decelerate_horizontally(force_stop: bool = false, delta: float = get_physics_process_delta_time()) -> MotionComponent:	
+	if force_stop or friction == 0:
+		if not actor.velocity.x == 0:
+			actor.velocity.x = 0
+	else:
+		actor.velocity.x = move_toward(actor.velocity.x, 0, friction * delta)
+	
+	return self
+
+
 func _normalize_vector(value: Vector2) -> Vector2:
 	return value if value.is_normalized() else value.normalized()
