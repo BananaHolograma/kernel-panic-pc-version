@@ -2,6 +2,7 @@ class_name Ground extends State
 
 @export var animated_sprite: AnimatedSprite2D
 @export var gravity_component: GravityComponent
+@export var motion_component: MotionComponent
 
 var horizontal_direction: Vector2 = Vector2.ZERO
 var input_direction: Vector2 = Vector2.ZERO
