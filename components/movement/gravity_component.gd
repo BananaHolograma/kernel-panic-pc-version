@@ -56,6 +56,8 @@ func _ready():
 	jump_velocity = _calculate_jump_velocity()
 	jump_gravity = _calculate_jump_gravity()
 	fall_gravity = _calculate_fall_gravity()
+	
+	suspended_gravity_temporary.connect(on_suspended_gravity_temporary)
 
 
 func gravity() -> float:
@@ -66,7 +68,7 @@ func gravity() -> float:
 		
 
 func apply_gravity(delta: float = get_physics_process_delta_time()) -> GravityComponent:
-	if enabled:
+	if active:
 		var inverted_gravity = actor.up_direction.is_equal_approx(Vector2.DOWN)
 		var gravity_force = gravity() * delta
 		
@@ -126,8 +128,12 @@ func _create_suspend_gravity_duration_timer(time: float):
 	suspend_gravity_timer.wait_time = time
 	
 	add_child(suspend_gravity_timer)
-	suspend_gravity_timer.timeout.connect(on_suspend_gravity_timeout)
+	suspend_gravity_timer.timeout.connect(on_suspended_gravity_timeout)
 
 
-func on_suspend_gravity_timeout():
-	active = true
+func on_suspended_gravity_temporary(_time: float):
+	disable()
+	
+	
+func on_suspended_gravity_timeout():
+	enable()
