@@ -29,6 +29,7 @@ func _ready():
 		add_child(sprite)
 		
 		activated.connect(on_activated)
+		returned.connect(on_returned)
 
 
 func _process(delta):
@@ -61,3 +62,7 @@ func duplicate_sprite():
 	
 func on_activated():
 	activate_cursor()
+
+
+func on_returned():
+	return_cursor()
