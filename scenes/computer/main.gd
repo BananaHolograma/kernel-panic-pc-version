@@ -9,7 +9,8 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var game_camera: GameCamera = $GameCamera
 @onready var progress_bar: ProgressBar = $Control/ProgressBar
 @onready var game_timer: Timer = $GameTimer
-@onready var terminal: Control = $Control/Terminal
+@onready var terminal_frame: Control = %TerminalFrame
+@onready var antivirus: Antivirus = $Antivirus
 
 var seconds_passed := 0
 
@@ -21,6 +22,8 @@ func _ready():
 	
 	game_timer.timeout.connect(on_game_timer_second_passed)
 	start_gameplay_timer() ## TODO - move after all animations are loaded
+	
+	antivirus.prepared.connect(on_antivirus_prepared)
 
 
 func start_gameplay_timer():
@@ -37,8 +40,7 @@ func start_gameplay_timer():
 func on_fade_in_completed(overlay):
 	overlay.queue_free()
 	game_camera.limit_smoothed = true
-	GameEvents.unlock_player.emit()
-
+	
 
 func on_game_timer_second_passed():
 	seconds_passed += 1
@@ -58,4 +60,10 @@ func _add_overlay():
 	fade_overlay.on_complete_fade_in.connect(on_fade_in_completed.bind(fade_overlay))
 	
 
+func on_antivirus_prepared():
+	GameEvents.unlock_player.emit()
 	
+	var attack = ButtonWaveAttack.new()
+	attack.with_terminal(terminal_frame).with_cursor(antivirus.cursors.target())
+	add_child(attack)
+	attack.start()

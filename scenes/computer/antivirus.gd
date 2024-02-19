@@ -1,5 +1,7 @@
 class_name Antivirus extends CharacterBody2D
 
+signal prepared
+
 @onready var cursors: CursorsOrbit = $Cursors
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sfx: AudioStreamPlayer = $SFX
@@ -16,6 +18,8 @@ func _display_cursors(delay_between: float = 1.0):
 	for cursor_idx in range(cursors.get_child_count()):
 		cursors.display_cursor(cursor_idx)
 		await get_tree().create_timer(delay_between).timeout
+		
+	prepared.emit()
 
 
 func _holy_appear():

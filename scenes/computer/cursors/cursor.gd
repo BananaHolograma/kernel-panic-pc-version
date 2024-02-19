@@ -1,5 +1,8 @@
 class_name Cursor extends Node2D
 
+signal activated
+signal returned
+
 ## The node name for this cursor
 @export var cursor_name: String
 ## The node that will be used as center reference for this cursor to orbit
@@ -15,13 +18,17 @@ class_name Cursor extends Node2D
 ## The angular velocity which is used to rotate around the orbit.
 @export var angular_velocity = PI / 2
 
+var sprite: Sprite2D
+var in_battle := false
 
 func _ready():
 	if texture:
-		var sprite = Sprite2D.new()
+		sprite = Sprite2D.new()
 		sprite.texture = texture
 		sprite.scale = texture_scale
 		add_child(sprite)
+		
+		activated.connect(on_activated)
 
 
 func _process(delta):
@@ -36,3 +43,21 @@ func orbit(delta: float = get_process_delta_time()):
 	var offset = Vector2(cos(angle), sin(angle)) * radius
 	
 	position = rotation_reference.position + offset
+
+
+func return_cursor():
+	show()
+	in_battle = false
+	
+
+func activate_cursor():
+	hide()
+	in_battle = true
+
+
+func duplicate_sprite():
+	return sprite.duplicate()
+	
+	
+func on_activated():
+	activate_cursor()

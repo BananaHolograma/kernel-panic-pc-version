@@ -294,20 +294,20 @@ debug_color = Color(0.647059, 0.521569, 0.0666667, 0.419608)
 
 [node name="Cursors" parent="." instance=ExtResource("3_f7m72")]
 
-[node name="Cursor" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
+[node name="ArrowCursor" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
 visible = false
 script = ExtResource("4_pp8bq")
 rotation_reference = NodePath("..")
 texture = ExtResource("3_dk0t2")
 
-[node name="Cursor2" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
+[node name="HandCursor" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
 visible = false
 script = ExtResource("4_pp8bq")
 rotation_reference = NodePath("..")
 texture = ExtResource("6_r62oh")
 angle = 2.356
 
-[node name="Cursor3" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
+[node name="TargetCursor" type="Node2D" parent="Cursors" node_paths=PackedStringArray("rotation_reference")]
 visible = false
 script = ExtResource("4_pp8bq")
 rotation_reference = NodePath("..")

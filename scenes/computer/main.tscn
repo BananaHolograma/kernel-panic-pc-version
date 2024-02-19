@@ -78,7 +78,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control/Terminal"]
+[node name="TerminalFrame" type="TextureRect" parent="Control/Terminal"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -94,7 +95,7 @@ grow_vertical = 2
 texture = ExtResource("5_hhl76")
 expand_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="Control/Terminal"]
+[node name="Background" type="ColorRect" parent="Control/Terminal"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

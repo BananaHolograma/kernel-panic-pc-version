@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://u0awxsfyu6j1"]
+
+[ext_resource type="Script" path="res://scenes/computer/attacks/button_wave_attack.gd" id="1_ehxbx"]
+
+[node name="ButtonWaveAttack" type="Node2D"]
+script = ExtResource("1_ehxbx")
