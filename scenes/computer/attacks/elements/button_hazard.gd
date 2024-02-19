@@ -15,6 +15,7 @@ enum SPEED_MODE {
 @export var current_speed_mode := SPEED_MODE.CONSTANT
 @export var change_speed_after_seconds := 1
 @export var change_angle_after_seconds := 2
+@export var change_direction_after_seconds := 3
 @export var min_speed := 80
 @export var max_speed := 200
 
@@ -25,6 +26,7 @@ enum SPEED_MODE {
 @onready var button = $Button
 @onready var speed_variant_timer: Timer = $SpeedVariantTimer
 @onready var angle_step_variant_timer: Timer = $AngleStepVariantTimer
+@onready var change_direction_timer: Timer = $ChangeDirectionTimer
 @onready var hitbox: CollisionShape2D = %Hitbox2D/CollisionShape2D
 
 @onready var speed := randi_range(min_speed, max_speed)
@@ -54,6 +56,14 @@ func prepare_timers():
 	else:
 		angle_step_variant_timer.stop()
 		angle_step_variant_timer.autostart = false
+		
+	if change_direction_after_seconds:
+		change_direction_timer.stop()
+		change_direction_timer.wait_time = change_direction_after_seconds
+		change_direction_timer.autostart = false
+		change_direction_timer.one_shot = true
+		change_direction_timer.start()
+
 
 func prepare_hitbox():
 	# We need this timeout to not hitbox the player on the spawn and set the hitbox properly
@@ -94,3 +104,12 @@ func _on_angle_step_variant_timer_timeout():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
+
+
+func _on_change_direction_timer_timeout():
+	var new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
+  
+	while new_direction.is_zero_approx() or new_direction.is_equal_approx(direction):
+		new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
+		
+	direction = new_direction

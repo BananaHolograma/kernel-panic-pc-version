@@ -24,8 +24,12 @@ debug_color = Color(0.768627, 0.141176, 0.211765, 0.419608)
 
 [node name="AngleStepVariantTimer" type="Timer" parent="."]
 
+[node name="ChangeDirectionTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [connection signal="timeout" from="SpeedVariantTimer" to="." method="_on_speed_variant_timer_timeout"]
 [connection signal="timeout" from="AngleStepVariantTimer" to="." method="_on_angle_step_variant_timer_timeout"]
+[connection signal="timeout" from="ChangeDirectionTimer" to="." method="_on_change_direction_timer_timeout"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

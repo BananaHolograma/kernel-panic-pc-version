@@ -20,13 +20,12 @@ func _ready():
 	GameEvents.lock_player.emit()
 	game_camera.limit_smoothed = false
 	game_camera.global_position = get_viewport().get_visible_rect().size / 2
-	#_add_overlay()
+	_add_overlay()
 	
 	game_timer.timeout.connect(on_game_timer_second_passed)
 	start_gameplay_timer() ## TODO - move after all animations are loaded
 	
-	on_antivirus_prepared()
-	#antivirus.prepared.connect(on_antivirus_prepared)
+	antivirus.prepared.connect(on_antivirus_prepared)
 
 
 func start_gameplay_timer():

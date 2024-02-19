@@ -24,7 +24,6 @@ func _display_cursors(delay_between: float = 1.0):
 
 func _holy_appear():
 	## TEMPORARY
-	return
 	var sfx2 = AudioStreamPlayer.new()
 	sfx2.stream = HOLY_APPEAR
 	add_child(sfx2)
