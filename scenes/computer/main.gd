@@ -9,6 +9,7 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var game_camera: GameCamera = $GameCamera
 @onready var progress_bar: ProgressBar = $Control/ProgressBar
 @onready var game_timer: Timer = $GameTimer
+@onready var terminal: Control = $Control/Terminal
 
 var seconds_passed := 0
 

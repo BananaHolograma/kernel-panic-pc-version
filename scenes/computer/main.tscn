@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
 [ext_resource type="PackedScene" uid="uid://b72hyerr5cjrb" path="res://scenes/world/game_camera.tscn" id="3_2vvdm"]
 [ext_resource type="PackedScene" uid="uid://ce0gokjcgsr7v" path="res://scenes/computer/app_icon.tscn" id="3_rhoc0"]
-[ext_resource type="PackedScene" uid="uid://dlbbnag8ikm5e" path="res://scenes/computer/player.tscn" id="4_8m6kg"]
 [ext_resource type="Texture2D" uid="uid://xk4d1l55lpkl" path="res://ui/themes/classic-95/icons/recycle_bin_full.png" id="4_tr2gv"]
+[ext_resource type="Texture2D" uid="uid://dkso6ah3gedlq" path="res://assets/images/win95_terminal.png" id="5_hhl76"]
 [ext_resource type="PackedScene" uid="uid://65qc1wlrer7u" path="res://scenes/computer/antivirus.tscn" id="5_mbfhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3t14w"]
@@ -30,6 +30,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = 4.0
+offset_right = -9.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0784314, 0.0784314, 0.0784314, 1)
@@ -58,16 +62,56 @@ offset_bottom = 20.0
 icon_texture = ExtResource("4_tr2gv")
 icon_name = "Recycle bin"
 
+[node name="Terminal" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 5.0
+offset_right = 20.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/Terminal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -362.0
+offset_top = -174.0
+offset_right = 362.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_hhl76")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/Terminal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -334.0
+offset_top = -83.0
+offset_right = 338.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="GameTimer" type="Timer" parent="."]
 
 [node name="GameCamera" parent="." instance=ExtResource("3_2vvdm")]
 limit_smoothed = false
 
-[node name="Player" parent="." instance=ExtResource("4_8m6kg")]
-position = Vector2(54, 476)
-
 [node name="Antivirus" parent="." instance=ExtResource("5_mbfhl")]
-position = Vector2(480, 50)
+position = Vector2(480, 65)
 
 [node name="AntivirusResetPosition" type="Marker2D" parent="."]
 position = Vector2(480, 50)
