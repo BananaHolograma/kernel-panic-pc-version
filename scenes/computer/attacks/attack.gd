@@ -17,7 +17,6 @@ var duplicated_cursor: Sprite2D
 var original_scale: Vector2
 var new_scale_multiplier := 1.5
 
-var limits := {}
 
 func _enter_tree():
 	target = get_tree().get_first_node_in_group("player")
@@ -25,22 +24,6 @@ func _enter_tree():
 	
 func with_terminal(_terminal_limits: ColorRect) -> Attack:
 	terminal_limits = _terminal_limits
-	
-	var min_left =  terminal_limits.position.x
-	var min_top =  terminal_limits.position.y
-	var min_right =  terminal_limits.position.x + terminal_limits.size.x
-	var min_bottom =  terminal_limits.position.y + terminal_limits.size.y
-	
-	limits = {
-		"min_left":  min_left,
-		"min_top":  min_top,
-		"min_right":  min_right,
-		"min_bottom":  min_bottom,
-		"max_left":  min_right,  # Set max to the opposite wall for valid range
-		"max_top":  min_bottom,  # Set max to the opposite wall for valid range
-		"max_right":  min_left, # Set max to the opposite wall for valid range
-		"max_bottom":  min_top # Set max to the opposite wall for valid range
-	}
 
 	return self
 
@@ -55,12 +38,23 @@ func with_cursor(cursor: Cursor) -> Attack:
 func start():
 	pass
 
-func random_limit_position(limit: LIMITS) -> Vector2:
+
+func random_limit_position(limit = null) -> Dictionary:
+	
+	if limit == null:
+		limit = LIMITS.get(LIMITS.keys()[randi() % LIMITS.size()]) as LIMITS
+	
 	match limit:
 		LIMITS.LEFT:
-			return Vector2(0, randi_range(0, terminal_limits.size.y))
-
-	return Vector2.ZERO
+			return {"limit": limit, "position": Vector2(0, randi_range(0, terminal_limits.size.y))}
+		LIMITS.RIGHT:
+			return {"limit": limit, "position": Vector2(terminal_limits.size.x, randi_range(0, terminal_limits.size.y))}	
+		LIMITS.TOP:
+			return {"limit": limit, "position": Vector2(randi_range(0, terminal_limits.size.x), 0)}
+		LIMITS.BOTTOM:
+			return {"limit": limit, "position": Vector2(randi_range(0, terminal_limits.size.x), terminal_limits.size.y)}
+			
+	return {"limit": limit, "position": Vector2.ZERO}
 
 
 func send_cursor_to_target():
@@ -89,5 +83,6 @@ func remove_cursor_from_target():
 	
 	await tween.finished
 	duplicated_cursor.queue_free()
+	duplicated_cursor = null
 	active_cursor.returned.emit()
 	

@@ -118,3 +118,5 @@ motion_component = NodePath("../../../MotionComponent")
 script = ExtResource("13_cif2g")
 animated_sprite = NodePath("../../../AnimatedSprite2D")
 motion_component = NodePath("../../../MotionComponent")
+
+[connection signal="hitbox_detected" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hitbox_detected"]

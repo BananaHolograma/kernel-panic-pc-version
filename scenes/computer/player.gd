@@ -44,3 +44,7 @@ func lock_player(lock : bool) -> void:
 	
 func on_state_changed(from_state: State, state: State):
 	state_label.text = "%s --> %s" % [from_state.name, state.name]
+
+
+func _on_hurtbox_2d_hitbox_detected(hitbox):
+	print("DEAD BRO ", hitbox)

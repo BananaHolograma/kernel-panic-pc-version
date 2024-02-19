@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnvkbsbmpamy8"]
+[gd_scene load_steps=3 format=3 uid="uid://dnvkbsbmpamy8"]
 
 [ext_resource type="Script" path="res://scenes/computer/attacks/elements/button_hazard.gd" id="1_bs2ku"]
+[ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="2_1t8st"]
 
 [node name="ButtonHazard" type="Control"]
 layout_mode = 3
@@ -8,13 +9,23 @@ anchors_preset = 0
 script = ExtResource("1_bs2ku")
 
 [node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = -28.0
-offset_top = -13.0
-offset_right = 34.0
-offset_bottom = 15.0
-text = "DANGER"
+layout_mode = 1
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Hitbox2D" type="Area2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_1t8st")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox2D"]
+debug_color = Color(0.768627, 0.141176, 0.211765, 0.419608)
 
 [node name="SpeedVariantTimer" type="Timer" parent="."]
 
+[node name="AngleStepVariantTimer" type="Timer" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="timeout" from="SpeedVariantTimer" to="." method="_on_speed_variant_timer_timeout"]
+[connection signal="timeout" from="AngleStepVariantTimer" to="." method="_on_angle_step_variant_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
