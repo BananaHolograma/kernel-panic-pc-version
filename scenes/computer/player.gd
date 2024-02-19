@@ -20,16 +20,16 @@ func _ready():
 	
 	
 func _process(_delta):
-	_update_sprite_flip()
+	#_update_sprite_flip()
 	
 	velocity_label.text = str(velocity)
 
 
-func _update_sprite_flip():
-	is_left_direction = motion_component.last_faced_direction.x < 0
-	
-	if animated_sprite_2d.flip_h != is_left_direction:
-		animated_sprite_2d.flip_h = is_left_direction
+#func _update_sprite_flip():
+	#is_left_direction = motion_component.last_faced_direction.x < 0
+	#
+	#if animated_sprite_2d.flip_h != is_left_direction:
+		#animated_sprite_2d.flip_h = is_left_direction
 
 
 func lock_player(lock : bool) -> void:
