@@ -11,19 +11,10 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var game_camera: GameCamera = $GameCamera
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var game_timer: Timer = $GameTimer
-@onready var terminal_frame: Control = %TerminalFrame
-@onready var terminal_limits: ColorRect = %TerminalLimits
 @onready var antivirus: Antivirus = $Antivirus
-@onready var rail_follow = %RailFollow
+
 
 var seconds_passed := 0
-var remaining_attacks := 0:
-	set(value):
-		remaining_attacks = max(0, value)
-		
-		if value == 0:
-			attack_routine_finished.emit()
-
 
 func _ready():
 	GameEvents.lock_player.emit()
@@ -34,8 +25,6 @@ func _ready():
 	game_timer.timeout.connect(on_game_timer_second_passed)
 	start_gameplay_timer() ## TODO - move after all animations are loaded
 	
-	antivirus.prepared.connect(on_antivirus_prepared)
-
 
 func start_gameplay_timer():
 	progress_bar.value = 0
@@ -48,25 +37,6 @@ func start_gameplay_timer():
 	game_timer.start()
 
 
-func start_attack_routine():
-	var attacks = antivirus.select_attacks()
-	
-	remaining_attacks = attacks.size()
-	
-	attack_routine_started.emit()
-	
-	for attack in attacks:
-		var script = attack.script.new() as Attack
-		var phase = attack["phase"][antivirus.current_phase]
-		script.with_terminal(terminal_limits).with_cursor(attack.cursor).with_target(attack.target)
-		
-		for property in phase.keys():	
-			script[property] = phase[property]
-			
-		add_child(script)
-		script.finished.connect(func(): remaining_attacks -= 1)
-		script.start()
-	
 
 func on_fade_in_completed(overlay):
 	overlay.queue_free()
@@ -80,8 +50,7 @@ func on_game_timer_second_passed():
 	
 	antivirus.phase_transition(progress_bar.value / progress_bar.max_value)
 	
-	
-	if seconds_passed >= minutes_to_resist * 60:
+	if 	seconds_passed >= minutes_to_resist * 60:
 		game_timer.stop()
 		timer_ended.emit()
 	
@@ -94,10 +63,7 @@ func _add_overlay():
 	fade_overlay.on_complete_fade_in.connect(on_fade_in_completed.bind(fade_overlay))
 	
 
-func on_antivirus_prepared():
-	GameEvents.unlock_player.emit()
-	start_attack_routine()
 
-
-func on_attack_routine_finished():
-	start_attack_routine()
+#
+#func on_attack_routine_finished():
+	#start_attack_routine()

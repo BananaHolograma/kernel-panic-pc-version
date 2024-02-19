@@ -3,14 +3,8 @@ class_name Attack extends Node2D
 signal finished
 signal focused_target
 
-enum LIMITS {
-	TOP,
-	BOTTOM,
-	RIGHT,
-	LEFT
-}
-
-@export var terminal_limits: ColorRect
+@export var antivirus: Antivirus
+@export var terminal: MSDosTerminal
 @export var active_cursor: Cursor
 @export var target: Node
 
@@ -19,46 +13,32 @@ var original_scale: Vector2
 var new_scale_multiplier := 1.5
 
 
-	
-func with_terminal(_terminal_limits: ColorRect) -> Attack:
-	terminal_limits = _terminal_limits
+func with_terminal(_terminal: MSDosTerminal) -> Attack:
+	terminal = _terminal
+
+	return self
+
+
+func with_antivirus(_antivirus: Antivirus) -> Attack:
+	antivirus = _antivirus
 
 	return self
 
 
 func with_cursor(cursor: Cursor) -> Attack:
 	active_cursor = cursor
-	active_cursor.activated.emit()
-	
+
 	return self
 
 
 func with_target(_target: Node) -> Attack:
 	target = _target
-	
+
 	return self
 
 
 func start():
 	pass
-
-
-func random_limit_position(limit = null) -> Dictionary:
-	
-	if limit == null:
-		limit = LIMITS.get(LIMITS.keys()[randi() % LIMITS.size()]) as LIMITS
-	
-	match limit:
-		LIMITS.LEFT:
-			return {"limit": limit, "position": Vector2(0, randf_range(0, terminal_limits.size.y))}
-		LIMITS.RIGHT:
-			return {"limit": limit, "position": Vector2(terminal_limits.size.x, randf_range(0, terminal_limits.size.y))}	
-		LIMITS.TOP:
-			return {"limit": limit, "position": Vector2(randf_range(0, terminal_limits.size.x), 0)}
-		LIMITS.BOTTOM:
-			return {"limit": limit, "position": Vector2(randf_range(0, terminal_limits.size.x), terminal_limits.size.y)}
-			
-	return {"limit": limit, "position": Vector2.ZERO}
 
 
 func send_cursor_to_target(animation: bool = true):

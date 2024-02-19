@@ -21,6 +21,14 @@ signal returned
 var sprite: Sprite2D
 var in_battle := false
 
+var target: Node
+var following_target := false
+
+var duplicated_cursor: Sprite2D
+var original_scale: Vector2
+var new_scale_multiplier := 1.5
+
+
 func _ready():
 	if texture:
 		sprite = Sprite2D.new()
@@ -35,7 +43,11 @@ func _ready():
 func _process(delta):
 	if is_node_ready() and texture:
 		orbit(delta)
-
+		
+		if following_target and target:
+			duplicated_cursor.global_position += 20 * (duplicated_cursor.global_position.direction_to(target.global_position))
+		
+	
 
 func orbit(delta: float = get_process_delta_time()):
 	angle += delta * angular_velocity
@@ -58,6 +70,17 @@ func activate_cursor():
 
 func duplicate_sprite():
 	return sprite.duplicate()
+	
+	
+func follow_target(_target: Node):
+	target = _target
+	following_target = true
+	
+	duplicated_cursor = duplicate_sprite()
+	original_scale = duplicated_cursor.scale
+	duplicated_cursor.scale *= new_scale_multiplier
+	
+	get_tree().root.add_child(duplicated_cursor)
 	
 	
 func on_activated():

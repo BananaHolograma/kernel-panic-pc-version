@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjloaafjieww0"]
+
+[ext_resource type="Texture2D" uid="uid://dkso6ah3gedlq" path="res://assets/images/win95_terminal.png" id="1_7aftj"]
+[ext_resource type="Script" path="res://scenes/computer/terminal.gd" id="1_gsdmm"]
+
+[sub_resource type="Curve2D" id="Curve2D_rodwg"]
+
+[node name="Terminal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_gsdmm")
+
+[node name="TerminalFrame" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -426.0
+offset_top = -161.0
+offset_right = 430.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_7aftj")
+expand_mode = 1
+
+[node name="TerminalLimits" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -416.0
+offset_top = -82.0
+offset_right = 424.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Rail" type="Node2D" parent="."]
+
+[node name="CursorAttackRail" type="Path2D" parent="Rail"]
+curve = SubResource("Curve2D_rodwg")
+
+[node name="RailFollow" type="PathFollow2D" parent="Rail/CursorAttackRail"]
+unique_name_in_owner = true
+position = Vector2(104, 79)
+rotation = 1.5708

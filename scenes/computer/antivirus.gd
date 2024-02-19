@@ -2,6 +2,10 @@ class_name Antivirus extends CharacterBody2D
 
 signal prepared
 signal phase_changed(from: PHASES, to: PHASES)
+signal attack_routine_started
+signal attack_routine_finished
+
+@export var terminal: MSDosTerminal
 
 @onready var cursors: CursorsOrbit = %Cursors
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -19,55 +23,54 @@ enum PHASES {
 }
 
 @onready var available_attacks := {
-	#"button_wave": {
-		#"script": ButtonWaveAttack,
-		#"cursor": cursors.target(),
-		#"target": get_tree().get_first_node_in_group("player"),
-		#"phase": {
-			#PHASES.CALM: {
-				#"amount": 30,
-				#"delay_between_spawn": 1.1
-			#},
-			#PHASES.ALERT: {
-				#"amount": 45,
-				#"delay_between_spawn": 1.0
-			#},
-			#PHASES.DANGER: {
-				#"amount": 50,
-				#"delay_between_spawn": 0.9
-			#},
-			#PHASES.EXTREME: {
-				#"amount": 60,
-				#"delay_between_spawn": 0.7
-			#},
-		#}
-	#},
-	"rail_shooting": {
-		"script": RailShooting,
-		"cursor": cursors.arrow(),
-		"target": get_tree().get_first_node_in_group("battleground_rail"),
+	"button_wave": {
+		"script": ButtonWaveAttack,
+		"cursor": cursors.target(),
+		"target": get_tree().get_first_node_in_group("player"),
 		"phase": {
 			PHASES.CALM: {
-				"bullets_per_shoot": 2,
-				"shoot_delay": 1.2
+				"amount": 30,
+				"delay_between_spawn": 1.1
 			},
 			PHASES.ALERT: {
-				"bullets_per_shoot": 4,
-				"shoot_delay": 1
+				"amount": 45,
+				"delay_between_spawn": 1.0
 			},
 			PHASES.DANGER: {
-				"bullets_per_shoot": 6,
-				"shoot_delay": 0.8
+				"amount": 50,
+				"delay_between_spawn": 0.9
 			},
 			PHASES.EXTREME: {
-				"bullets_per_shoot": 10,
-				"shoot_delay": 0.5
+				"amount": 60,
+				"delay_between_spawn": 0.7
 			},
 		}
-	}
+	},
+	#"rail_shooting": {
+		#"script": RailShooting,
+		#"cursor": cursors.arrow(),
+		#"target": get_tree().get_first_node_in_group("battleground_rail"),
+		#"phase": {
+			#PHASES.CALM: {
+				#"bullets_per_shoot": 2,
+				#"shoot_delay": 1.2
+			#},
+			#PHASES.ALERT: {
+				#"bullets_per_shoot": 4,
+				#"shoot_delay": 1
+			#},
+			#PHASES.DANGER: {
+				#"bullets_per_shoot": 6,
+				#"shoot_delay": 0.8
+			#},
+			#PHASES.EXTREME: {
+				#"bullets_per_shoot": 10,
+				#"shoot_delay": 0.5
+			#},
+		#}
+	#}
 		
 }
-
 
 var current_phase := PHASES.CALM:
 	set(value):
@@ -76,12 +79,47 @@ var current_phase := PHASES.CALM:
 		
 		current_phase = value
 
+var remaining_attacks := 0:
+	set(value):
+		remaining_attacks = value
+		
+		if value == 0:
+			attack_routine_finished.emit()
+
 
 func _ready():
 	animation_player.animation_finished.connect(on_animation_finished)
 	animation_player.play("appear")
 	
+	prepared.connect(on_antivirus_prepared)
 	phase_changed.connect(on_phase_changed)
+	
+
+func start_attack_routine():
+	var attacks = select_attacks()
+	
+	remaining_attacks = attacks.size()
+	
+	attack_routine_started.emit()
+	
+	for attack in attacks:
+		var script = attack.script.new() as Attack
+		var phase = attack["phase"][current_phase]
+
+		script.with_terminal(terminal).with_antivirus(self)
+		
+		if attack.target:
+			script.with_target(attack.target)
+			
+		if attack.cursor is Cursor:
+			script.with_cursor(attack.cursor)
+		
+		for property in phase.keys():	
+			script[property] = phase[property]
+			
+		add_child(script)
+		script.finished.connect(func(): remaining_attacks -= 1)
+		script.start()
 	
 
 func select_attacks() -> Array:
@@ -152,6 +190,13 @@ func on_animation_finished(animation_name: String):
 		animation_player.play("idle")
 		_display_cursors()
 
+
 ## TODO - ANIMATIONS TO REFLECT THE PHASE CHANGE IN THE BATTLEGROUND
 func on_phase_changed(from: PHASES, to: PHASES):
 	pass
+	
+	
+func on_antivirus_prepared():
+	GameEvents.unlock_player.emit()
+	start_attack_routine()
+

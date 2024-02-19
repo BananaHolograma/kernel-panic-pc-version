@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://7qonb4nkejb3"]
+[gd_scene load_steps=11 format=3 uid="uid://7qonb4nkejb3"]
 
 [ext_resource type="Script" path="res://scenes/computer/main.gd" id="1_lsw24"]
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
@@ -6,21 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://ce0gokjcgsr7v" path="res://scenes/computer/app_icon.tscn" id="3_rhoc0"]
 [ext_resource type="PackedScene" uid="uid://dlbbnag8ikm5e" path="res://scenes/computer/player.tscn" id="4_8m6kg"]
 [ext_resource type="Texture2D" uid="uid://xk4d1l55lpkl" path="res://ui/themes/classic-95/icons/recycle_bin_full.png" id="4_tr2gv"]
-[ext_resource type="Texture2D" uid="uid://dkso6ah3gedlq" path="res://assets/images/win95_terminal.png" id="5_hhl76"]
 [ext_resource type="PackedScene" uid="uid://65qc1wlrer7u" path="res://scenes/computer/antivirus.tscn" id="5_mbfhl"]
-[ext_resource type="Script" path="res://scenes/computer/cursor_rail.gd" id="9_e67p7"]
+[ext_resource type="PackedScene" uid="uid://bjloaafjieww0" path="res://scenes/computer/terminal.tscn" id="5_n3pup"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3t14w"]
 size = Vector2(960, 16.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bgky4"]
 size = Vector2(20, 505)
-
-[sub_resource type="Curve2D" id="Curve2D_ouljs"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 475, 106, 0, 0, 0, 0, 101, 101, 0, 0, 0, 0, 102, 489, 0, 0, 0, 0, 856, 488, 0, 0, 0, 0, 853, 103, 0, 0, 0, 0, 475, 107, 0, 0, 0, 0, 474, 104)
-}
-point_count = 7
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lsw24")
@@ -68,59 +61,20 @@ offset_bottom = 20.0
 icon_texture = ExtResource("4_tr2gv")
 icon_name = "Recycle bin"
 
-[node name="Terminal" type="Control" parent="Control"]
+[node name="Terminal" parent="Control" instance=ExtResource("5_n3pup")]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 20.0
-grow_vertical = 2
-mouse_filter = 2
-metadata/_edit_lock_ = true
-
-[node name="TerminalFrame" type="TextureRect" parent="Control/Terminal"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 99.0
-offset_top = -149.0
-offset_right = 823.0
-offset_bottom = 199.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_hhl76")
-expand_mode = 1
-
-[node name="TerminalLimits" type="ColorRect" parent="Control/Terminal"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 127.0
-offset_top = -56.0
-offset_right = 796.0
-offset_bottom = 174.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
 [node name="GameTimer" type="Timer" parent="."]
 
 [node name="GameCamera" parent="." instance=ExtResource("3_2vvdm")]
 limit_smoothed = false
 
-[node name="Antivirus" parent="." instance=ExtResource("5_mbfhl")]
-position = Vector2(480, 65)
+[node name="Antivirus" parent="." node_paths=PackedStringArray("terminal") instance=ExtResource("5_mbfhl")]
+position = Vector2(478, 48)
+terminal = NodePath("../Control/Terminal")
 
 [node name="AntivirusResetPosition" type="Marker2D" parent="."]
-position = Vector2(480, 50)
+position = Vector2(478, 33)
 
 [node name="Player" parent="." instance=ExtResource("4_8m6kg")]
 position = Vector2(739, 317)
@@ -161,12 +115,3 @@ bus = &"Music"
 
 [node name="Ambient" type="AudioStreamPlayer" parent="."]
 bus = &"Ambient"
-
-[node name="CursorRail" type="Path2D" parent="."]
-curve = SubResource("Curve2D_ouljs")
-script = ExtResource("9_e67p7")
-
-[node name="RailFollow" type="PathFollow2D" parent="CursorRail" groups=["battleground_rail"]]
-unique_name_in_owner = true
-position = Vector2(475, 106)
-rotates = false

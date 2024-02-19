@@ -20,7 +20,6 @@ func start():
 	shooting_cursor = SHOOTING_CURSOR.instantiate()
 	target.add_child(shooting_cursor)
 
-
 	
 func shoot():
 	var origin = shooting_cursor.get_node("BulletOrigin")
