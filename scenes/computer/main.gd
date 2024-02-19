@@ -1,6 +1,8 @@
 extends Node
 
 signal timer_ended
+signal attack_routine_started
+signal attack_routine_finished
 
 const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 
@@ -11,10 +13,17 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var game_timer: Timer = $GameTimer
 @onready var terminal_frame: Control = %TerminalFrame
 @onready var terminal_limits: ColorRect = %TerminalLimits
-
 @onready var antivirus: Antivirus = $Antivirus
+@onready var rail_follow = %RailFollow
 
 var seconds_passed := 0
+var remaining_attacks := 0:
+	set(value):
+		remaining_attacks = max(0, value)
+		
+		if value == 0:
+			attack_routine_finished.emit()
+
 
 func _ready():
 	GameEvents.lock_player.emit()
@@ -39,6 +48,26 @@ func start_gameplay_timer():
 	game_timer.start()
 
 
+func start_attack_routine():
+	var attacks = antivirus.select_attacks()
+	
+	remaining_attacks = attacks.size()
+	
+	attack_routine_started.emit()
+	
+	for attack in attacks:
+		var script = attack.script.new() as Attack
+		var phase = attack["phase"][antivirus.current_phase]
+		script.with_terminal(terminal_limits).with_cursor(attack.cursor).with_target(attack.target)
+		
+		for property in phase.keys():	
+			script[property] = phase[property]
+			
+		add_child(script)
+		script.finished.connect(func(): remaining_attacks -= 1)
+		script.start()
+	
+
 func on_fade_in_completed(overlay):
 	overlay.queue_free()
 	game_camera.limit_smoothed = true
@@ -48,6 +77,9 @@ func on_game_timer_second_passed():
 	seconds_passed += 1
 	
 	progress_bar.value = seconds_passed
+	
+	antivirus.phase_transition(progress_bar.value / progress_bar.max_value)
+	
 	
 	if seconds_passed >= minutes_to_resist * 60:
 		game_timer.stop()
@@ -64,10 +96,8 @@ func _add_overlay():
 
 func on_antivirus_prepared():
 	GameEvents.unlock_player.emit()
-	
-	var attack = ButtonWaveAttack.new()
-	attack.with_terminal(terminal_limits).with_cursor(antivirus.cursors.target())
-	attack.amount = 35
-	attack.delay_between_spawn = 0.5
-	add_child(attack)
-	attack.start()
+	start_attack_routine()
+
+
+func on_attack_routine_finished():
+	start_attack_routine()

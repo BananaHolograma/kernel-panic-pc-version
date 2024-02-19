@@ -1,5 +1,8 @@
 class_name ButtonHazard extends Control
 
+const BEEP = preload("res://assets/sounds/beep.ogg")
+const BEEP_2 = preload("res://assets/sounds/beep_2.ogg")
+
 enum ROTATION_MODE {
 	FULL_ROTATION,
 	HALF_ROTATION,
@@ -15,13 +18,14 @@ enum SPEED_MODE {
 @export var current_speed_mode := SPEED_MODE.CONSTANT
 @export var change_speed_after_seconds := 1
 @export var change_angle_after_seconds := 2
-@export var change_direction_after_seconds := 3
+@export var change_direction_after_seconds := 2.5
+@export var change_direction_probability := 0.4
 @export var min_speed := 80
 @export var max_speed := 200
 
 @export var direction := Vector2.RIGHT
-@export var min_angle_step := deg_to_rad(15)
-@export var max_angle_step := deg_to_rad(45)
+@export var min_angle_step := PI / 6
+@export var max_angle_step := PI / 2
 
 @onready var button = $Button
 @onready var speed_variant_timer: Timer = $SpeedVariantTimer
@@ -40,6 +44,12 @@ func _ready():
 	
 	prepare_timers()
 	prepare_hitbox()
+	
+	var sfx = AudioStreamPlayer.new()
+	sfx.autoplay = true
+	sfx.stream = [BEEP, BEEP_2].pick_random()
+	sfx.pitch_scale = randf_range(0.95, 1.5)
+	add_child(sfx)
 
 
 func prepare_timers():
@@ -67,12 +77,12 @@ func prepare_timers():
 
 func prepare_hitbox():
 	# We need this timeout to not hitbox the player on the spawn and set the hitbox properly
-	await get_tree().create_timer(5 / 60).timeout
+	await get_tree().create_timer(5 / 60.0).timeout
 	
 	hitbox.position = Vector2(button.size.x / 2, button.size.y / 2)
 	hitbox.shape = RectangleShape2D.new()
 	hitbox.shape.extents = Vector2(button.size.x / 2, button.size.y / 2)
-		
+	
 		
 	
 func _physics_process(delta):
@@ -107,9 +117,10 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func _on_change_direction_timer_timeout():
-	var new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
-  
-	while new_direction.is_zero_approx() or new_direction.is_equal_approx(direction):
-		new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
-		
-	direction = new_direction
+	if randi() <= change_direction_probability:
+		var new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
+	  
+		while new_direction.is_zero_approx() or new_direction.is_equal_approx(direction):
+			new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
+			
+		direction = new_direction

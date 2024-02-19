@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://co2hujjo8ijqn"]
+
+[ext_resource type="Texture2D" uid="uid://c5brl47dvpvhx" path="res://assets/cursors/Win95/Win95Def.png" id="1_s55r5"]
+
+[node name="ShootingCursor" type="Sprite2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_s55r5")
+
+[node name="BulletOrigin" type="Marker2D" parent="."]
+position = Vector2(-13, -25)
