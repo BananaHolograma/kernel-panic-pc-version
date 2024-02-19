@@ -7,9 +7,11 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @export var minutes_to_resist := 10
 
 @onready var game_camera: GameCamera = $GameCamera
-@onready var progress_bar: ProgressBar = $Control/ProgressBar
+@onready var progress_bar: ProgressBar = %ProgressBar
 @onready var game_timer: Timer = $GameTimer
 @onready var terminal_frame: Control = %TerminalFrame
+@onready var terminal_limits: ColorRect = %TerminalLimits
+
 @onready var antivirus: Antivirus = $Antivirus
 
 var seconds_passed := 0
@@ -64,6 +66,6 @@ func on_antivirus_prepared():
 	GameEvents.unlock_player.emit()
 	
 	var attack = ButtonWaveAttack.new()
-	attack.with_terminal(terminal_frame).with_cursor(antivirus.cursors.target())
+	attack.with_terminal(terminal_limits).with_cursor(antivirus.cursors.target())
 	add_child(attack)
 	attack.start()

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/world/game_camera.gd" id="1_6j3un"]
 [ext_resource type="Script" path="res://components/camera/shake_camera.gd" id="1_kgsrw"]
 
-[node name="Camera2D" type="Camera2D" groups=["camera"]]
+[node name="GameCamera" type="Camera2D" groups=["camera"]]
 ignore_rotation = false
 process_callback = 0
 limit_left = 0

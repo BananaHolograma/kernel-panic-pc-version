@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnvkbsbmpamy8"]
+
+[ext_resource type="Script" path="res://scenes/computer/attacks/elements/button_hazard.gd" id="1_bs2ku"]
+
+[node name="ButtonHazard" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_bs2ku")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = -28.0
+offset_top = -13.0
+offset_right = 34.0
+offset_bottom = 15.0
+text = "DANGER"
+
+[node name="SpeedVariantTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="SpeedVariantTimer" to="." method="_on_speed_variant_timer_timeout"]
