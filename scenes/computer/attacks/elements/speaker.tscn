@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg8ydssm56hyc"]
+
+[ext_resource type="Texture2D" uid="uid://c73xo18serm8v" path="res://ui/themes/classic-95/icons/sounds.png" id="1_026mk"]
+[ext_resource type="Script" path="res://scenes/computer/attacks/elements/speaker.gd" id="1_np6ko"]
+
+[node name="Speaker" type="Node2D"]
+script = ExtResource("1_np6ko")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_026mk")

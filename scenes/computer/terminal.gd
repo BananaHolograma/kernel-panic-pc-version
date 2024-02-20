@@ -13,7 +13,7 @@ enum LIMITS {
 
 
 func generate_random_position_for_interior() -> Vector2:
-	return Vector2(randf_range(frame_limits.position.x, frame_limits.size.x), randf_range(frame_limits.position.y, frame_limits.size.y))
+	return Vector2(randf_range(0, frame_limits.size.x), randf_range(0, frame_limits.size.y))
 
 
 func generate_random_position_for_limit(limit: LIMITS) -> Dictionary:

@@ -1,7 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://b8ksnsyst86d6"]
+[gd_scene load_steps=22 format=3 uid="uid://b8ksnsyst86d6"]
 
 [ext_resource type="Script" path="res://scenes/computer/attacks/elements/bin_element.gd" id="1_rhxc4"]
-[ext_resource type="Texture2D" uid="uid://b7e5tto2nkyv7" path="res://ui/themes/classic-95/icons/world.png" id="2_c1626"]
 [ext_resource type="Texture2D" uid="uid://bjukxbml385o2" path="res://assets/vfx/laser.png" id="2_s4qqb"]
 [ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="3_a4m3w"]
 [ext_resource type="Texture2D" uid="uid://d11mkl8a4m1yj" path="res://assets/vfx/world_explosion.png" id="4_07484"]
@@ -166,9 +165,13 @@ radius = 31.1448
 script = ExtResource("1_rhxc4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_c1626")
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lt26s")
+}
+
+[node name="LaserLine2D" type="Line2D" parent="."]
 texture = ExtResource("2_s4qqb")
 texture_mode = 2
 
@@ -178,11 +181,6 @@ texture_mode = 2
 script = ExtResource("3_a4m3w")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LaserHitbox"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_lt26s")
-}
 
 [node name="WorldHitbox" type="Area2D" parent="."]
 script = ExtResource("3_a4m3w")

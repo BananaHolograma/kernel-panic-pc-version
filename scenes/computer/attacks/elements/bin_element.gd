@@ -7,8 +7,11 @@ signal finished
 const BEAM = preload("res://assets/sounds/Beam.ogg")
 const LASER = preload("res://assets/sounds/Laser.ogg")
 const WORLD_EXPLOSION = preload("res://assets/vfx/world_explosion.png")
+const WORLD_EXPLOSION_SOUND = preload("res://assets/sounds/WorldExplosion.wav")
+const SPEAKER = preload("res://scenes/computer/attacks/elements/speaker.tscn")
 
-@onready var line_2d: Line2D = $Line2D
+
+@onready var line_2d: Line2D = $LaserLine2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var visual_feedback_timer: Timer = $VisualFeedbackTimer
@@ -17,7 +20,7 @@ const WORLD_EXPLOSION = preload("res://assets/vfx/world_explosion.png")
 @onready var world_vfx: AnimatedSprite2D = %WorldVFX
 @onready var world_radius_explosion: CollisionShape2D = %WorldRadiusExplosion
 
-
+var antivirus: Antivirus
 var id: String
 var texture: Texture2D
 var origin_position := Vector2.ZERO
@@ -54,8 +57,8 @@ func _process(_delta):
 		
 func spawn():
 	var tween = create_tween()
-	tween.tween_property(self, "global_position", spawn_position, 1.0)\
-		.from(origin_position)\
+	tween.tween_property(self, "position", spawn_position, 1.0)\
+		.from(to_local(origin_position))\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 		
 	await tween.finished
@@ -95,7 +98,9 @@ func search_attack():
 	
 	
 func music_attack():
-	pass
+	for i in range(randi_range(1, 3)):
+		var speaker = SPEAKER.instantiate() as Speaker
+		add_child(speaker)
 	
 	
 func text_file_attack():
@@ -110,6 +115,13 @@ func world_attack():
 	world_vfx.show()
 	animation_player.play("world_explosion")
 	world_radius_explosion.disabled = false
+	
+	var sfx = AudioStreamPlayer.new()
+	sfx.bus  = "SFX"
+	sfx.pitch_scale = randf_range(0.75, 1.5)
+	sfx.stream = WORLD_EXPLOSION_SOUND
+	add_child(sfx)
+	sfx.play()
 	
 
 func visual_feedback_aim_player():

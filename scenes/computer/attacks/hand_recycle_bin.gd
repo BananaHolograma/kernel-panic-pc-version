@@ -50,15 +50,16 @@ func start():
 	
 	await focused_target
 	
-	for element in ["world", "world", "world"]: ## Temporary, change it to pick_random_elements() fn
+	for element in ["music", "music"]: ## Temporary, change it to pick_random_elements() fn
 		duplicated_cursor.show()
 		var bin_element = BIN_ELEMENT.instantiate() as BinElement
 		bin_element.set_id(element).set_texture(available_elements[element].texture)
+		bin_element.antivirus = antivirus
 		bin_element.spawn_position = terminal.generate_random_position_for_interior()
 		bin_element.origin_position = target.global_position
 		bin_element.cursor_to_show = duplicated_cursor.duplicate()
 		
-		terminal.add_child(bin_element)
+		terminal.frame_limits.add_child(bin_element)
 		duplicated_cursor.hide()
 		
 		await bin_element.spawned

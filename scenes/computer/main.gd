@@ -39,7 +39,6 @@ func start_gameplay_timer():
 	game_timer.start()
 
 
-
 func on_fade_in_completed(overlay):
 	overlay.queue_free()
 	game_camera.limit_smoothed = true
