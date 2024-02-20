@@ -120,23 +120,24 @@ func music_attack():
 
 
 func text_file_attack():
-	var sfx = AudioStreamPlayer.new()
-	sfx.bus = "SFX"
-	sfx.pitch_scale = randf_range(0.95, 1.3)
-	sfx.stream = [TEXT_FILE_SHOOT, TEXT_FILE_SHOOT_2, TEXT_FILE_SHOOT_3].pick_random()
-	add_child(sfx)
-	sfx.play()
-	
 	var current_angle = 0
 	var angle_step = params.angle_step
 	
 	for i in range(params.pulses):
+		var sfx = AudioStreamPlayer.new()
+		sfx.bus = "SFX"
+		sfx.pitch_scale = randf_range(0.95, 1.3)
+		sfx.stream = [TEXT_FILE_SHOOT, TEXT_FILE_SHOOT_2, TEXT_FILE_SHOOT_3].pick_random()
+		add_child(sfx)
+		sfx.play()
+
 		while current_angle <= rad_to_deg(PI * 2):
 			current_angle += angle_step
 			var letter = TEXT_FILE_LETTER.instantiate() as TextFileLetter
 			letter.angle = current_angle
 			letter.global_position = global_position
 			get_tree().root.add_child(letter)
+			
 		
 		current_angle = 0
 		if params.pulses > 1:

@@ -80,12 +80,19 @@ func on_antivirus_phase_changed(_previous: Antivirus.PHASES, current: Antivirus.
 			phase_alert_music.play()
 			animation_player.play("calm_to_alert")
 		Antivirus.PHASES.DANGER:
-			pass
+			phase_danger_music.play()
+			animation_player.play("alert_to_danger")
 		Antivirus.PHASES.EXTREME:
-			pass		
-	
+			phase_extreme_music.play()
+			animation_player.play("danger_to_extreme")		
+
+
 func on_animation_finished(animation_name: String):
 	match animation_name:
 		"calm_to_alert":
 			phase_calm_music.stop()
+		"alert_to_danger":
+			phase_alert_music.stop()
+		"danger_to_extreme":
+			phase_danger_music.stop()
 	

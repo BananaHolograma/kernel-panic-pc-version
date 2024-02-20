@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://7qonb4nkejb3"]
+[gd_scene load_steps=20 format=3 uid="uid://7qonb4nkejb3"]
 
 [ext_resource type="Script" path="res://scenes/computer/main.gd" id="1_lsw24"]
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
@@ -44,10 +44,68 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_futpa"]
 length = 0.001
 
+[sub_resource type="Animation" id="Animation_lr2nv"]
+resource_name = "alert_to_danger"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PhaseAlertMusic:volume_db")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PhaseDangerMusic:volume_db")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5u27y"]
+resource_name = "danger_to_extreme"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PhaseDangerMusic:volume_db")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PhaseExtremeMusic:volume_db")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_na4xf"]
 _data = {
 "RESET": SubResource("Animation_futpa"),
-"calm_to_alert": SubResource("Animation_6pscp")
+"alert_to_danger": SubResource("Animation_lr2nv"),
+"calm_to_alert": SubResource("Animation_6pscp"),
+"danger_to_extreme": SubResource("Animation_5u27y")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3t14w"]
