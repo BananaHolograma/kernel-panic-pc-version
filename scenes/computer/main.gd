@@ -19,7 +19,6 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var antivirus: Antivirus = $Antivirus
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-
 var seconds_passed := 0
 
 func _ready():
@@ -35,8 +34,7 @@ func _ready():
 	antivirus.phase_changed.connect(on_antivirus_phase_changed)
 	antivirus.prepared.connect(func(): phase_calm_music.play())
 	start_gameplay_timer() ## TODO - move after all animations are loaded
-
-
+	
 
 func start_gameplay_timer():
 	progress_bar.value = 0

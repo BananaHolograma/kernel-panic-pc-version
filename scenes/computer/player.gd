@@ -3,10 +3,11 @@ class_name Player extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var motion_component: MotionComponent = $MotionComponent
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @onready var finite_state_machine: FiniteStateMachine = $FiniteStateMachine
-@onready var velocity_label: Label = %VelocityLabel
-@onready var state_label: Label = %StateLabel
+
+const REDUCED_SPEED_PARTICLES = preload("res://scenes/computer/attacks/elements/reduced_speed_particles.tscn")
 
 var locked := false
 var is_left_direction: bool = false
@@ -15,23 +16,14 @@ var is_left_direction: bool = false
 func _ready():
 	GameEvents.lock_player.connect(lock_player.bind(true))
 	GameEvents.unlock_player.connect(lock_player.bind(false))
-	
-	finite_state_machine.state_changed.connect(on_state_changed)
+
 	health_component.died.connect(on_died)
+	health_component.invulnerability_changed.connect(func(active: bool):
+		if not active and animation_player.is_playing() and animation_player.current_animation == "hit":
+			animation_player.stop()
+			animated_sprite_2d.material.set_shader_parameter("flash_opacity", 0)
+	)
 	
-	
-func _process(_delta):
-	#_update_sprite_flip()
-	
-	velocity_label.text = str(velocity)
-
-
-#func _update_sprite_flip():
-	#is_left_direction = motion_component.last_faced_direction.x < 0
-	#
-	#if animated_sprite_2d.flip_h != is_left_direction:
-		#animated_sprite_2d.flip_h = is_left_direction
-
 
 func lock_player(lock : bool) -> void:
 	if finite_state_machine:
@@ -45,10 +37,11 @@ func lock_player(lock : bool) -> void:
 
 func reduce_speed(new_speed: float):
 	motion_component.change_speed_temporary(new_speed)
-
-
-func on_state_changed(from_state: State, state: State):
-	state_label.text = "%s --> %s" % [from_state.name, state.name]
+	
+	if get_node_or_null("ReducedSpeedParticles") == null:
+		var reduced_speed_vfx = REDUCED_SPEED_PARTICLES.instantiate()
+		reduced_speed_vfx.time_alive = motion_component.default_speed_temporary_time
+		add_child(reduced_speed_vfx)
 
 
 func _on_hurtbox_2d_hitbox_detected(hitbox):
@@ -56,10 +49,12 @@ func _on_hurtbox_2d_hitbox_detected(hitbox):
 		reduce_speed(motion_component.max_speed / 2)
 	else:
 		health_component.damage(1)
-
+		
 		if not health_component.check_is_dead() and not health_component.IS_INVULNERABLE:
 			health_component.enable_invulnerability(true, 2.0)
+			animation_player.play("hit")
 
 
 func on_died():
 	print("player died")
+	get_tree().paused = true

@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciskwokmtbfy3"]
+
+[ext_resource type="Script" path="res://scenes/computer/attacks/elements/reduced_speed_particles.gd" id="1_28mah"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i63vr"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = 40.0
+angle_max = 120.0
+spread = 93.539
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 10.0
+radial_accel_max = 10.0
+scale_min = 1.5
+scale_max = 2.0
+color = Color(0.372549, 1, 0.2, 0.596078)
+
+[node name="ReducedSpeedParticles" type="Node2D"]
+script = ExtResource("1_28mah")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_i63vr")
+lifetime = 0.5
+
+[node name="Timer" type="Timer" parent="."]

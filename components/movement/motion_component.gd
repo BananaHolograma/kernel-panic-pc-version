@@ -2,6 +2,7 @@ class_name MotionComponent extends Node
 
 signal reached_max_speed
 signal stopped
+signal speed_temporary_changed
 signal speed_temporary_finished
 
 @export var actor: CharacterBody2D
