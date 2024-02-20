@@ -6,3 +6,8 @@
 script = ExtResource("1_rhxc4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 5.0
+
+[node name="VisualFeedbackTimer" type="Timer" parent="."]

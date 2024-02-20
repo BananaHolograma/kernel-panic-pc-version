@@ -9,15 +9,35 @@ const WORLD = preload("res://ui/themes/classic-95/icons/world.png")
 
 const BIN_ELEMENT = preload("res://scenes/computer/attacks/elements/bin_element.tscn")
 
+
 @export var elements_to_grab := 3
 
 
 var available_elements := {
 	"movies": {
 		"texture": MOVIES,
-		"id": "movies",
 		"params": {}
-	}
+	},
+	"search": {
+		"texture": SEARCH,
+		"params": {}
+	},
+	"music": {
+		"texture": MUSIC,
+		"params": {}
+	},
+	"text_file": {
+		"texture": TEXT_FILE,
+		"params": {}
+	},
+	"text_file_2": {
+		"texture": TEXT_FILE_2,
+		"params": {}
+	},
+	"world": {
+		"texture": WORLD,
+		"params": {}
+	},
 }
 
 
@@ -30,10 +50,10 @@ func start():
 	
 	await focused_target
 	
-	for element in pick_random_elements():
+	for element in ["search", "search", "search"]: ## Temporary, change it to pick_random_elements() fn
 		duplicated_cursor.show()
 		var bin_element = BIN_ELEMENT.instantiate() as BinElement
-		bin_element.set_id(available_elements[element].id).set_texture(available_elements[element].texture)
+		bin_element.set_id(element).set_texture(available_elements[element].texture)
 		bin_element.spawn_position = terminal.generate_random_position_for_interior()
 		bin_element.origin_position = target.global_position
 		bin_element.cursor_to_show = duplicated_cursor.duplicate()
