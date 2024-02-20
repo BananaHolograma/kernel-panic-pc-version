@@ -62,9 +62,3 @@ func _add_overlay():
 	fade_overlay.fade_in_duration = 1.5
 	add_child(fade_overlay)
 	fade_overlay.on_complete_fade_in.connect(on_fade_in_completed.bind(fade_overlay))
-	
-
-
-#
-#func on_attack_routine_finished():
-	#start_attack_routine()

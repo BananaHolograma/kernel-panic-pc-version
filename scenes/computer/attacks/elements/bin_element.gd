@@ -45,6 +45,11 @@ var laser := {
 	}
 }
 
+
+func _exit_tree():
+	finished.emit()
+
+
 func _ready():
 	sprite_2d.texture = texture
 	add_child(cursor_to_show)
@@ -143,7 +148,6 @@ func scale_dissapear_animation():
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ZERO, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
 	tween.finished.connect(func(): queue_free())
-	
 	
 
 func world_attack():

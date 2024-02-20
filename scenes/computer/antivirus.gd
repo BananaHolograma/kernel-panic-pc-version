@@ -23,56 +23,56 @@ enum PHASES {
 }
 
 @onready var available_attacks := {
-	#"button_wave": {
-		#"script": ButtonWaveAttack,
-		#"cursor": cursors.target(),
-		#"target": get_tree().get_first_node_in_group("player"),
-		#"phase": {
-			#PHASES.CALM: {
-				#"amount": 15,
-				#"delay_between_spawn": 1.1
-			#},
-			#PHASES.ALERT: {
-				#"amount": 25,
-				#"delay_between_spawn": 1.0
-			#},
-			#PHASES.DANGER: {
-				#"amount": 40,
-				#"delay_between_spawn": 0.9
-			#},
-			#PHASES.EXTREME: {
-				#"amount": 50,
-				#"delay_between_spawn": 0.7
-			#},
-		#}
-	#},
-	#"rail_shooting": {
-		#"script": RailShooting,
-		#"cursor": cursors.arrow(),
-		#"target": get_tree().get_first_node_in_group("battleground_rail"),
-		#"phase": {
-			#PHASES.CALM: {
-				#"bullets_per_shoot": 2,
-				#"shoot_delay": 1.2,
-				#"time_shooting": 10.0,
-			#},
-			#PHASES.ALERT: {
-				#"bullets_per_shoot": 4,
-				#"shoot_delay": 1,
-				#"time_shooting": 15.0,
-			#},
-			#PHASES.DANGER: {
-				#"bullets_per_shoot": 6,
-				#"shoot_delay": 0.8,
-				#"time_shooting": 20.0,
-			#},
-			#PHASES.EXTREME: {
-				#"bullets_per_shoot": 10,
-				#"shoot_delay": 0.5,
-				#"time_shooting": 30.0,
-			#},
-		#}
-	#},
+	"button_wave": {
+		"script": ButtonWaveAttack,
+		"cursor": cursors.target(),
+		"target": get_tree().get_first_node_in_group("player"),
+		"phase": {
+			PHASES.CALM: {
+				"amount": 15,
+				"delay_between_spawn": 1.1
+			},
+			PHASES.ALERT: {
+				"amount": 25,
+				"delay_between_spawn": 1.0
+			},
+			PHASES.DANGER: {
+				"amount": 40,
+				"delay_between_spawn": 0.9
+			},
+			PHASES.EXTREME: {
+				"amount": 50,
+				"delay_between_spawn": 0.7
+			},
+		}
+	},
+	"rail_shooting": {
+		"script": RailShooting,
+		"cursor": cursors.arrow(),
+		"target": get_tree().get_first_node_in_group("battleground_rail"),
+		"phase": {
+			PHASES.CALM: {
+				"bullets_per_shoot": 2,
+				"shoot_delay": 1.2,
+				"time_shooting": 10.0,
+			},
+			PHASES.ALERT: {
+				"bullets_per_shoot": 4,
+				"shoot_delay": 1,
+				"time_shooting": 15.0,
+			},
+			PHASES.DANGER: {
+				"bullets_per_shoot": 6,
+				"shoot_delay": 0.8,
+				"time_shooting": 20.0,
+			},
+			PHASES.EXTREME: {
+				"bullets_per_shoot": 10,
+				"shoot_delay": 0.5,
+				"time_shooting": 30.0,
+			},
+		}
+	},
 	"hand_recycle_bin": {
 		"script": HandRecycleBin,
 		"cursor": cursors.hand(),
@@ -111,6 +111,7 @@ func _ready():
 	
 	prepared.connect(on_antivirus_prepared)
 	phase_changed.connect(on_phase_changed)
+	attack_routine_finished.connect(on_attack_routine_finished)
 	
 
 func start_attack_routine():
@@ -219,3 +220,6 @@ func on_antivirus_prepared():
 	GameEvents.unlock_player.emit()
 	start_attack_routine()
 
+
+func on_attack_routine_finished():
+	start_attack_routine()
