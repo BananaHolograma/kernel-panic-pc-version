@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://4114vbvb0ver"]
+[gd_scene load_steps=5 format=3 uid="uid://4114vbvb0ver"]
 
 [ext_resource type="Texture2D" uid="uid://dxyk5rvqdgcdh" path="res://assets/emojies/emoji2.png" id="1_j04n8"]
 [ext_resource type="Script" path="res://scenes/computer/attacks/elements/bullet.gd" id="1_jx3mg"]
+[ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="3_yjivc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wm01"]
+radius = 8.06226
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_jx3mg")
@@ -12,5 +16,12 @@ region_enabled = true
 region_rect = Rect2(96, 48, 16, 16)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Hitbox2D" type="Area2D" parent="."]
+script = ExtResource("3_yjivc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox2D"]
+shape = SubResource("CircleShape2D_0wm01")
+debug_color = Color(0.929412, 0.231373, 0.333333, 0.419608)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

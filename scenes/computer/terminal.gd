@@ -1,8 +1,5 @@
 class_name MSDosTerminal extends Node
 
-signal rail_activated
-signal rail_ended
-
 enum LIMITS {
 	TOP,
 	BOTTOM,
@@ -11,31 +8,8 @@ enum LIMITS {
 }
 
 
-@export var rail_speed := 150.0
-
 @onready var frame_limits: ColorRect = %TerminalLimits
-@onready var rail_follow: PathFollow2D = %RailFollow
 
-var rail_object: Node
-
-
-func _ready():
-	rail_follow.rotates = true
-	rail_follow.child_entered_tree.connect(
-		func(node): 
-			rail_object = node
-			rail_activated.emit()
-	)
-	rail_follow.child_exiting_tree.connect(
-		func(node): 
-			rail_object = null
-			rail_ended.emit()
-	)
-
-
-func _physics_process(delta):
-	rail_follow.progress += rail_speed * delta
-		
 
 func generate_random_position_for_limit(limit: LIMITS) -> Dictionary:
 	match limit:

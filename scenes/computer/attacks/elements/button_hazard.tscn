@@ -10,8 +10,13 @@ script = ExtResource("1_bs2ku")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
-offset_right = 8.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -4.0
+offset_right = 4.0
 offset_bottom = 8.0
+grow_horizontal = 2
 
 [node name="Hitbox2D" type="Area2D" parent="."]
 unique_name_in_owner = true

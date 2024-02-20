@@ -46,29 +46,33 @@ enum PHASES {
 			},
 		}
 	},
-	#"rail_shooting": {
-		#"script": RailShooting,
-		#"cursor": cursors.arrow(),
-		#"target": get_tree().get_first_node_in_group("battleground_rail"),
-		#"phase": {
-			#PHASES.CALM: {
-				#"bullets_per_shoot": 2,
-				#"shoot_delay": 1.2
-			#},
-			#PHASES.ALERT: {
-				#"bullets_per_shoot": 4,
-				#"shoot_delay": 1
-			#},
-			#PHASES.DANGER: {
-				#"bullets_per_shoot": 6,
-				#"shoot_delay": 0.8
-			#},
-			#PHASES.EXTREME: {
-				#"bullets_per_shoot": 10,
-				#"shoot_delay": 0.5
-			#},
-		#}
-	#}
+	"rail_shooting": {
+		"script": RailShooting,
+		"cursor": cursors.arrow(),
+		"target": get_tree().get_first_node_in_group("battleground_rail"),
+		"phase": {
+			PHASES.CALM: {
+				"bullets_per_shoot": 2,
+				"shoot_delay": 1.2,
+				"time_shooting": 10.0,
+			},
+			PHASES.ALERT: {
+				"bullets_per_shoot": 4,
+				"shoot_delay": 1,
+				"time_shooting": 15.0,
+			},
+			PHASES.DANGER: {
+				"bullets_per_shoot": 6,
+				"shoot_delay": 0.8,
+				"time_shooting": 20.0,
+			},
+			PHASES.EXTREME: {
+				"bullets_per_shoot": 10,
+				"shoot_delay": 0.5,
+				"time_shooting": 30.0,
+			},
+		}
+	}
 		
 }
 
@@ -150,7 +154,7 @@ func phase_transition(progress_percentage: float):
 func _number_of_attacks_by_phase(phase: PHASES) -> int:
 	match phase:
 		PHASES.CALM:
-			return 1
+			return 2
 		PHASES.ALERT:
 			return 2
 		PHASES.DANGER:

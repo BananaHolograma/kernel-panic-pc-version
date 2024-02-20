@@ -13,7 +13,7 @@
 size = Vector2(960, 16.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bgky4"]
-size = Vector2(20, 505)
+size = Vector2(13, 505)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lsw24")
@@ -80,7 +80,7 @@ position = Vector2(478, 33)
 position = Vector2(739, 317)
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(480, 483)
+position = Vector2(480, 507)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
@@ -88,7 +88,7 @@ position = Vector2(0, -9.25)
 shape = SubResource("RectangleShape2D_3t14w")
 
 [node name="Ceil" type="StaticBody2D" parent="."]
-position = Vector2(480, 483)
+position = Vector2(478, 477)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ceil"]
@@ -96,7 +96,7 @@ position = Vector2(0, -299.25)
 shape = SubResource("RectangleShape2D_3t14w")
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
-position = Vector2(122, 0)
+position = Vector2(58, 3)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
@@ -104,10 +104,10 @@ position = Vector2(-7, 253.5)
 shape = SubResource("RectangleShape2D_bgky4")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
-position = Vector2(854, 0)
+position = Vector2(921, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-position = Vector2(-7, 253.5)
+position = Vector2(-10.5, 253.5)
 shape = SubResource("RectangleShape2D_bgky4")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]

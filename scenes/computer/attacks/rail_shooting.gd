@@ -14,6 +14,8 @@ func _ready():
 	name = "RailShooting"
 	
 	_create_timers()
+	
+	finished.connect(on_finished)
 
 
 func start():
@@ -43,13 +45,13 @@ func _create_timers():
 	add_child(timer)
 	timer.timeout.connect(on_shoot_timeout)
 	
-	timer = Timer.new()
-	timer.name = "TimeShootingTimer"
-	timer.wait_time = time_shooting
-	timer.autostart = true
-	timer.one_shot = true
-	add_child(timer)
-	timer.timeout.connect(on_time_shooting_timeout)
+	var shooting_timer = Timer.new()
+	shooting_timer.name = "TimeShootingTimer"
+	shooting_timer.wait_time = time_shooting
+	shooting_timer.autostart = true
+	shooting_timer.one_shot = true
+	add_child(shooting_timer)
+	shooting_timer.timeout.connect(on_time_shooting_timeout)
 
 
 func on_shoot_timeout():
@@ -61,5 +63,8 @@ func on_time_shooting_timeout():
 
 
 func on_finished():
-	remove_cursor_from_target()
+	if shooting_cursor:
+		shooting_cursor.queue_free()
+		shooting_cursor = null
+			
 	queue_free()

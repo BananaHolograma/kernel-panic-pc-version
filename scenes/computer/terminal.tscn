@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjloaafjieww0"]
+[gd_scene load_steps=5 format=3 uid="uid://bjloaafjieww0"]
 
 [ext_resource type="Texture2D" uid="uid://dkso6ah3gedlq" path="res://assets/images/win95_terminal.png" id="1_7aftj"]
 [ext_resource type="Script" path="res://scenes/computer/terminal.gd" id="1_gsdmm"]
+[ext_resource type="Script" path="res://scenes/computer/cursor_rail.gd" id="3_sacbq"]
 
 [sub_resource type="Curve2D" id="Curve2D_rodwg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 36, 95, 0, 0, 0, 0, 39, 515, 0, 0, 0, 0, 928, 517, 0, 0, 0, 0, 926, 97, 0, 0, 0, 0, 36, 95)
+}
+point_count = 5
 
 [node name="Terminal" type="Control"]
 layout_mode = 3
@@ -54,8 +59,9 @@ color = Color(0, 0, 0, 1)
 
 [node name="CursorAttackRail" type="Path2D" parent="Rail"]
 curve = SubResource("Curve2D_rodwg")
+script = ExtResource("3_sacbq")
 
-[node name="RailFollow" type="PathFollow2D" parent="Rail/CursorAttackRail"]
+[node name="RailFollow" type="PathFollow2D" parent="Rail/CursorAttackRail" groups=["battleground_rail"]]
 unique_name_in_owner = true
-position = Vector2(104, 79)
-rotation = 1.5708
+position = Vector2(36, 95)
+rotation = 1.56365

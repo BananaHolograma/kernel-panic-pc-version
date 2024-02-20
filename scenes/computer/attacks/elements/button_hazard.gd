@@ -16,16 +16,16 @@ enum SPEED_MODE {
 
 @export var current_rotation_mode := ROTATION_MODE.LINEAR
 @export var current_speed_mode := SPEED_MODE.CONSTANT
-@export var change_speed_after_seconds := 1
-@export var change_angle_after_seconds := 2
+@export var change_speed_after_seconds := 1.5
+@export var change_angle_after_seconds := 0
 @export var change_direction_after_seconds := 2.5
-@export var change_direction_probability := 0.4
-@export var min_speed := 80
-@export var max_speed := 200
+@export var change_direction_probability := 0.5
+@export var min_speed := 100
+@export var max_speed := 400
 
 @export var direction := Vector2.RIGHT
-@export var min_angle_step := PI / 6
-@export var max_angle_step := PI / 2
+@export var min_angle_step := 5
+@export var max_angle_step := 10
 
 @onready var button = $Button
 @onready var speed_variant_timer: Timer = $SpeedVariantTimer
@@ -34,7 +34,7 @@ enum SPEED_MODE {
 @onready var hitbox: CollisionShape2D = %Hitbox2D/CollisionShape2D
 
 @onready var speed := randi_range(min_speed, max_speed)
-@onready var angle_step := deg_to_rad(randf_range(min_angle_step, max_angle_step))
+@onready var angle_step := deg_to_rad(randi_range(min_angle_step, max_angle_step))
 
 
 func _ready():
@@ -79,7 +79,7 @@ func prepare_hitbox():
 	# We need this timeout to not hitbox the player on the spawn and set the hitbox properly
 	await get_tree().create_timer(5 / 60.0).timeout
 	
-	hitbox.position = Vector2(button.size.x / 2, button.size.y / 2)
+	hitbox.position = Vector2(0, button.size.y / 2)
 	hitbox.shape = RectangleShape2D.new()
 	hitbox.shape.extents = Vector2(button.size.x / 2, button.size.y / 2)
 	
@@ -109,7 +109,7 @@ func _on_speed_variant_timer_timeout():
 
 
 func _on_angle_step_variant_timer_timeout():
-	angle_step = deg_to_rad(randf_range(min_angle_step, max_angle_step))
+	angle_step = deg_to_rad(randi_range(min_angle_step, max_angle_step))
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -117,7 +117,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func _on_change_direction_timer_timeout():
-	if randi() <= change_direction_probability:
+	if randf() <= change_direction_probability:
 		var new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
 	  
 		while new_direction.is_zero_approx() or new_direction.is_equal_approx(direction):

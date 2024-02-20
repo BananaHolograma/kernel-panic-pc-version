@@ -14,7 +14,7 @@ func _ready():
 
 
 func start():
-	active_cursor.follow_target(target)
+	#active_cursor.follow_target(target)
 	
 	for i in range(amount):
 		var spawn = terminal.generate_random_limit_position()
@@ -50,5 +50,8 @@ func _visual_feedback(arrow: Sprite2D, spawn_position: Vector2):
 	
 
 func on_finished():
-	#remove_cursor_from_target()	
+	if duplicated_cursor:
+		duplicated_cursor.queue_free()
+		duplicated_cursor = null
+			
 	queue_free()
