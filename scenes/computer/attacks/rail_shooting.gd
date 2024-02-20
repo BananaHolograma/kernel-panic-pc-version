@@ -4,7 +4,7 @@ const SHOOTING_CURSOR = preload("res://scenes/computer/attacks/elements/shooting
 const BULLET = preload("res://scenes/computer/attacks/elements/bullet.tscn")
 
 @export var bullets_per_shoot := 2
-@export var between_bullets_delay := 10.0 / 60.0
+@export var between_bullets_delay := 10.0 / Engine.physics_ticks_per_second
 @export var shoot_delay := 1.5
 @export var time_shooting := 10.0
 

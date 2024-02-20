@@ -83,6 +83,7 @@ animation = &"idle"
 shape = SubResource("CircleShape2D_ehnfc")
 
 [node name="Hurtbox2D" type="Area2D" parent="."]
+priority = 1
 script = ExtResource("6_20d5t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2D"]

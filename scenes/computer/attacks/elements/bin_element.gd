@@ -11,7 +11,7 @@ const LASER = preload("res://assets/sounds/Laser.ogg")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var visual_feedback_timer: Timer = $VisualFeedbackTimer
-@onready var laser_hurtbox: CollisionPolygon2D = $LaserHurtbox/CollisionPolygon2D
+@onready var laser_hitbox: CollisionPolygon2D = $LaserHitbox/CollisionPolygon2D
 
 
 var id: String
@@ -20,6 +20,7 @@ var origin_position := Vector2.ZERO
 var spawn_position := Vector2.ZERO
 var cursor_to_show: Sprite2D
 var aiming := false
+var hitbox_delay := 0.3
 
 var laser := {
 	"aim": {
@@ -41,8 +42,9 @@ func _ready():
 
 	
 func _process(delta):
-	if id == "search" and aiming:
-		visual_feedback_aim_player()
+	if id == "search":
+		if aiming:
+			visual_feedback_aim_player()
 		
 		
 func spawn():
@@ -127,18 +129,21 @@ func on_spawned():
 
 func on_visual_feedback_ended():
 	aiming = false
-	line_2d.width = laser.shoot.width
-	line_2d.add_point(line_2d.get_point_position(1) * 5)
-	
-	laser_hurtbox.set_polygon(line_2d.points)
 	
 	var sfx = AudioStreamPlayer.new()
 	sfx.bus = "SFX"
 	sfx.stream = [BEAM, LASER].pick_random()
 	sfx.pitch_scale = randf_range(0.75, 1.5)
 	add_child(sfx)
-	
 	sfx.play()
+	
+	line_2d.width = laser.shoot.width
+	line_2d.add_point(line_2d.get_point_position(1) * 5)
+	laser_hitbox.disabled = true
+	laser_hitbox.set_polygon(line_2d.points)
 
+	await get_tree().create_timer(60 / Engine.physics_ticks_per_second).timeout
+	laser_hitbox.disabled = false
+	
 	await get_tree().create_timer(0.8).timeout
 	queue_free()

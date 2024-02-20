@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/computer/attacks/elements/bin_element.gd" id="1_rhxc4"]
 [ext_resource type="Texture2D" uid="uid://bjukxbml385o2" path="res://assets/vfx/laser.png" id="2_s4qqb"]
-[ext_resource type="Script" path="res://components/collision/2d/hurtbox.gd" id="3_8nwt1"]
+[ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="3_a4m3w"]
 
 [node name="BinElement" type="Node2D"]
 script = ExtResource("1_rhxc4")
@@ -10,13 +10,12 @@ script = ExtResource("1_rhxc4")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Line2D" type="Line2D" parent="."]
-width = 20.0
 texture = ExtResource("2_s4qqb")
-texture_mode = 1
+texture_mode = 2
 
 [node name="VisualFeedbackTimer" type="Timer" parent="."]
 
-[node name="LaserHurtbox" type="Area2D" parent="."]
-script = ExtResource("3_8nwt1")
+[node name="LaserHitbox" type="Area2D" parent="."]
+script = ExtResource("3_a4m3w")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LaserHurtbox"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LaserHitbox"]
