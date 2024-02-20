@@ -18,11 +18,11 @@ offset_right = 4.0
 offset_bottom = 8.0
 grow_horizontal = 2
 
-[node name="Hitbox2D" type="Area2D" parent="."]
+[node name="ButtonHitbox" type="Area2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_1t8st")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ButtonHitbox"]
 debug_color = Color(0.768627, 0.141176, 0.211765, 0.419608)
 
 [node name="SpeedVariantTimer" type="Timer" parent="."]

@@ -10,10 +10,10 @@ const WORLD = preload("res://ui/themes/classic-95/icons/world.png")
 const BIN_ELEMENT = preload("res://scenes/computer/attacks/elements/bin_element.tscn")
 
 @export var elements_to_grab := {
-	antivirus.PHASES.CALM: 3,
-	antivirus.PHASES.ALERT: 4,
-	antivirus.PHASES.DANGER: 5,
-	antivirus.PHASES.EXTREME: 6
+	antivirus.PHASES.CALM: 2,
+	antivirus.PHASES.ALERT: 3,
+	antivirus.PHASES.DANGER: 4,
+	antivirus.PHASES.EXTREME: 5
 }
 
 
@@ -47,24 +47,24 @@ var available_elements := {
 		"texture": [TEXT_FILE, TEXT_FILE_2],
 		"params": {
 			antivirus.PHASES.CALM: {
-				"pulses": 2,
-				"angle_step": 30,
+				"pulses": 1,
+				"angle_step": 60,
 				"time_between_pulses": 0.6
 			},
 			antivirus.PHASES.ALERT: {
-				"pulses": 3,
-				"angle_step": 25,
+				"pulses": 1,
+				"angle_step": 45,
 				"time_between_pulses": 0.6
 			},
 			antivirus.PHASES.DANGER: {
-				"pulses": 4,
-				"angle_step": 20,
-				"time_between_pulses": 0.6
+				"pulses": 2,
+				"angle_step": 35,
+				"time_between_pulses": 1.0
 			},
 			antivirus.PHASES.EXTREME: {
-				"pulses": 5,
-				"angle_step": 15,
-				"time_between_pulses": 0.6
+				"pulses": 2,
+				"angle_step": 25,
+				"time_between_pulses": 1.0
 			},
 		}
 	},
@@ -101,6 +101,8 @@ func start():
 		duplicated_cursor.hide()
 		
 		await bin_element.spawned
+	
+	finished.emit()
 
 
 func pick_random_elements() -> Array[String]:

@@ -17,10 +17,10 @@ region_rect = Rect2(96, 48, 16, 16)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="Hitbox2D" type="Area2D" parent="."]
+[node name="BulletHitbox" type="Area2D" parent="."]
 script = ExtResource("3_yjivc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHitbox"]
 shape = SubResource("CircleShape2D_0wm01")
 debug_color = Color(0.929412, 0.231373, 0.333333, 0.419608)
 

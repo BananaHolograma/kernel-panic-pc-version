@@ -1,7 +1,7 @@
 class_name ButtonHazard extends Control
 
-const BEEP = preload("res://assets/sounds/beep.ogg")
-const BEEP_2 = preload("res://assets/sounds/beep_2.ogg")
+#const BEEP = preload("res://assets/sounds/beep.ogg")
+#const BEEP_2 = preload("res://assets/sounds/beep_2.ogg")
 
 enum ROTATION_MODE {
 	FULL_ROTATION,
@@ -20,8 +20,8 @@ enum SPEED_MODE {
 @export var change_angle_after_seconds := 0
 @export var change_direction_after_seconds := 2.5
 @export var change_direction_probability := 0.5
-@export var min_speed := 100
-@export var max_speed := 400
+@export var min_speed := 75
+@export var max_speed := 150
 
 @export var direction := Vector2.RIGHT
 @export var min_angle_step := 5
@@ -31,7 +31,7 @@ enum SPEED_MODE {
 @onready var speed_variant_timer: Timer = $SpeedVariantTimer
 @onready var angle_step_variant_timer: Timer = $AngleStepVariantTimer
 @onready var change_direction_timer: Timer = $ChangeDirectionTimer
-@onready var hitbox: CollisionShape2D = %Hitbox2D/CollisionShape2D
+@onready var hitbox: CollisionShape2D = %ButtonHitbox/CollisionShape2D
 
 @onready var speed := randi_range(min_speed, max_speed)
 @onready var angle_step := deg_to_rad(randi_range(min_angle_step, max_angle_step))
@@ -45,13 +45,6 @@ func _ready():
 	prepare_timers()
 	prepare_hitbox()
 	
-	var sfx = AudioStreamPlayer.new()
-	sfx.autoplay = true
-	sfx.bus = "SFX"
-	sfx.stream = [BEEP, BEEP_2].pick_random()
-	sfx.pitch_scale = randf_range(0.95, 1.5)
-	add_child(sfx)
-
 
 func prepare_timers():
 	if current_speed_mode == SPEED_MODE.VARIANT and change_speed_after_seconds > 0:
@@ -100,7 +93,7 @@ func _physics_process(delta):
 
 
 func random_text() -> String:
-	var texts = ["Emoticon extermination",  "Pizza fueled", "Stack Overflow", "Code crush", "Alt + f4", "Blue Screen", "Cat video distraction", "System update", "Download", "Upload", "Read", "Accept", "Cancel", "Nerds assemble!", "Error 404", "Allergic to sunshine", "Ctrl + alt + delete", "Level up your Doom"]
+	var texts = ["BananaHolograma", "BUP BIP BOP", "BIP", "BOP", "Loading...", "Emoticon extermination",  "Pizza fueled", "Stack Overflow", "Code crush", "Alt + f4", "Blue Screen", "Cat video distraction", "System update", "Download", "Upload", "Read", "Accept", "Cancel", "Nerds assemble!", "Error 404", "Allergic to sunshine", "Ctrl + alt + delete", "Level up your Doom"]
 
 	return texts.pick_random()
 	

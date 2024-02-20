@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://7qonb4nkejb3"]
+[gd_scene load_steps=15 format=3 uid="uid://7qonb4nkejb3"]
 
 [ext_resource type="Script" path="res://scenes/computer/main.gd" id="1_lsw24"]
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://xk4d1l55lpkl" path="res://ui/themes/classic-95/icons/recycle_bin_full.png" id="4_tr2gv"]
 [ext_resource type="PackedScene" uid="uid://65qc1wlrer7u" path="res://scenes/computer/antivirus.tscn" id="5_mbfhl"]
 [ext_resource type="PackedScene" uid="uid://bjloaafjieww0" path="res://scenes/computer/terminal.tscn" id="5_n3pup"]
+[ext_resource type="AudioStream" uid="uid://bwdfqpilkas7y" path="res://assets/music/Three Red Hearts - Save the City.ogg" id="9_rak3v"]
+[ext_resource type="AudioStream" uid="uid://lht2v0rn3klp" path="res://assets/music/Three Red Hearts - Go (No Vocal).ogg" id="10_qc674"]
+[ext_resource type="AudioStream" uid="uid://dn57pgfxqsjso" path="res://assets/music/Three Red Hearts - Box Jump.ogg" id="11_bxdob"]
+[ext_resource type="AudioStream" uid="uid://dgrvumnuel7yt" path="res://assets/music/Three Red Hearts - Out of Time.ogg" id="12_01mxs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3t14w"]
 size = Vector2(960, 16.5)
@@ -111,8 +115,19 @@ position = Vector2(921, 0)
 position = Vector2(-10.5, 253.5)
 shape = SubResource("RectangleShape2D_bgky4")
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="PhaseCalmMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_rak3v")
 bus = &"Music"
 
-[node name="Ambient" type="AudioStreamPlayer" parent="."]
-bus = &"Ambient"
+[node name="PhaseAlertMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_qc674")
+volume_db = -80.0
+bus = &"Music"
+
+[node name="PhaseDangerMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_bxdob")
+bus = &"Music"
+
+[node name="PhaseExtremeMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_01mxs")
+bus = &"Music"

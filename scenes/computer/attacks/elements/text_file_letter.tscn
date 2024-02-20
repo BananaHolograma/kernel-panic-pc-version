@@ -24,10 +24,10 @@ vertical_alignment = 1
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="Hitbox2D" type="Area2D" parent="."]
+[node name="LetterHitbox" type="Area2D" parent="."]
 script = ExtResource("2_hy2i8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LetterHitbox"]
 shape = SubResource("CircleShape2D_ojily")
 debug_color = Color(0.921569, 0.254902, 0.298039, 0.419608)
 

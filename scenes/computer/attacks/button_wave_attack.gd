@@ -45,6 +45,7 @@ func start():
 func _visual_feedback(arrow: Sprite2D, spawn_position: Vector2):
 	arrow.texture = ARROW
 	arrow.position = spawn_position
+	arrow.modulate = Color.RED
 	terminal.frame_limits.add_child(arrow)
 	arrow.look_at(spawn_position.normalized())
 	

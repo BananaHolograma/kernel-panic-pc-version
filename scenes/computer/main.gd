@@ -6,12 +6,18 @@ signal attack_routine_finished
 
 const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 
+@onready var phase_calm_music: AudioStreamPlayer = $PhaseCalmMusic
+@onready var phase_alert_music: AudioStreamPlayer = $PhaseAlertMusic
+@onready var phase_danger_music: AudioStreamPlayer = $PhaseDangerMusic
+@onready var phase_extreme_music: AudioStreamPlayer = $PhaseExtremeMusic
+
 @export var minutes_to_resist := 10
 
 @onready var game_camera: GameCamera = $GameCamera
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var game_timer: Timer = $GameTimer
 @onready var antivirus: Antivirus = $Antivirus
+#@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 var seconds_passed := 0
@@ -25,8 +31,11 @@ func _ready():
 	_add_overlay()
 	
 	game_timer.timeout.connect(on_game_timer_second_passed)
+	antivirus.phase_changed.connect(on_antivirus_phase_changed)
+	antivirus.prepared.connect(func(): phase_calm_music.play())
 	start_gameplay_timer() ## TODO - move after all animations are loaded
-	
+
+
 
 func start_gameplay_timer():
 	progress_bar.value = 0
@@ -62,3 +71,20 @@ func _add_overlay():
 	fade_overlay.fade_in_duration = 1.5
 	add_child(fade_overlay)
 	fade_overlay.on_complete_fade_in.connect(on_fade_in_completed.bind(fade_overlay))
+
+
+func on_antivirus_phase_changed(_previous: Antivirus.PHASES, current: Antivirus.PHASES):
+	match(current):
+		Antivirus.PHASES.ALERT:
+			phase_alert_music.play()
+			#animation_player.play("calm_to_alert")
+		Antivirus.PHASES.DANGER:
+			pass
+		Antivirus.PHASES.EXTREME:
+			pass		
+	
+func on_animation_finished(animation_name: String):
+	match animation_name:
+		"calm_to_alert":
+			phase_calm_music.stop()
+	

@@ -3,6 +3,7 @@ class_name CursorRail extends Path2D
 signal rail_activated
 signal rail_ended
 
+
 @onready var rail_follow: PathFollow2D = %RailFollow
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 

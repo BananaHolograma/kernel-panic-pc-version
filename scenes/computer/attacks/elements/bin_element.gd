@@ -128,7 +128,7 @@ func text_file_attack():
 	sfx.play()
 	
 	var current_angle = 0
-	var angle_step = 15
+	var angle_step = params.angle_step
 	
 	for i in range(params.pulses):
 		while current_angle <= rad_to_deg(PI * 2):
@@ -139,7 +139,8 @@ func text_file_attack():
 			get_tree().root.add_child(letter)
 		
 		current_angle = 0
-		await get_tree().create_timer(params.time_between_pulses).timeout
+		if params.pulses > 1:
+			await get_tree().create_timer(params.time_between_pulses).timeout
 	
 	scale_dissapear_animation()
 	
@@ -154,6 +155,9 @@ func world_attack():
 	world_vfx.show()
 	animation_player.play("world_explosion")
 	world_radius_explosion.disabled = false
+	
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 1.0).set_ease(Tween.EASE_OUT)
 	
 	var sfx = AudioStreamPlayer.new()
 	sfx.bus  = "SFX"
@@ -195,7 +199,7 @@ func on_animation_finished(animation_name: String):
 		world_vfx.hide()
 		world_radius_explosion.disabled = true
 		finished.emit()
-		scale_dissapear_animation()
+		queue_free()
 
 
 func on_visual_feedback_ended():

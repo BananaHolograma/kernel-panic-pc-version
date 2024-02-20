@@ -24,29 +24,31 @@ enum PHASES {
 
 @onready var available_attacks := {
 	"button_wave": {
+		"repeatable": false,
 		"script": ButtonWaveAttack,
 		"cursor": cursors.target(),
 		"target": get_tree().get_first_node_in_group("player"),
 		"phase": {
 			PHASES.CALM: {
-				"amount": 15,
+				"amount": 5,
 				"delay_between_spawn": 1.1
 			},
 			PHASES.ALERT: {
-				"amount": 25,
+				"amount": 7,
 				"delay_between_spawn": 1.0
 			},
 			PHASES.DANGER: {
-				"amount": 40,
+				"amount": 10,
 				"delay_between_spawn": 0.9
 			},
 			PHASES.EXTREME: {
-				"amount": 50,
+				"amount": 15,
 				"delay_between_spawn": 0.7
 			},
 		}
 	},
 	"rail_shooting": {
+		"repeatable": true,
 		"script": RailShooting,
 		"cursor": cursors.arrow(),
 		"target": get_tree().get_first_node_in_group("battleground_rail"),
@@ -54,26 +56,27 @@ enum PHASES {
 			PHASES.CALM: {
 				"bullets_per_shoot": 2,
 				"shoot_delay": 1.2,
-				"time_shooting": 10.0,
+				"time_shooting": 5.0,
 			},
 			PHASES.ALERT: {
-				"bullets_per_shoot": 4,
+				"bullets_per_shoot": 2,
 				"shoot_delay": 1,
-				"time_shooting": 15.0,
+				"time_shooting": 7.5,
 			},
 			PHASES.DANGER: {
-				"bullets_per_shoot": 6,
+				"bullets_per_shoot": 1,
 				"shoot_delay": 0.8,
-				"time_shooting": 20.0,
+				"time_shooting": 9.0,
 			},
 			PHASES.EXTREME: {
-				"bullets_per_shoot": 10,
-				"shoot_delay": 0.5,
-				"time_shooting": 30.0,
+				"bullets_per_shoot": 1,
+				"shoot_delay": 0.7,
+				"time_shooting": 10.0,
 			},
 		}
 	},
 	"hand_recycle_bin": {
+		"repeatable": true,
 		"script": HandRecycleBin,
 		"cursor": cursors.hand(),
 		"target": get_tree().get_first_node_in_group("recycle_bin"),
@@ -118,7 +121,6 @@ func start_attack_routine():
 	var attacks = select_attacks()
 	
 	remaining_attacks = attacks.size()
-	
 	attack_routine_started.emit()
 	
 	for attack in attacks:
@@ -150,32 +152,36 @@ func select_attacks() -> Array:
 		var selected = attack_list.keys().pick_random()
 
 		attacks.append(attack_list[selected])
-		attack_list.erase(selected)
+		
+		if not attack_list[selected].repeatable:
+			attack_list.erase(selected)
 		
 	return attacks
 
 
 func phase_transition(progress_percentage: float):
-	if progress_percentage >= 15 and progress_percentage < 50:
+	var percentage = progress_percentage * 100
+	
+	if percentage >= 2 and percentage < 50:
 		current_phase = PHASES.ALERT
 		
-	if progress_percentage >= 50  and progress_percentage < 85:
+	if percentage >= 50 and percentage < 85:
 		current_phase = PHASES.DANGER
 		
-	if progress_percentage >= 85:
+	if percentage >= 85:
 		current_phase = PHASES.EXTREME
 		
 	
 func _number_of_attacks_by_phase(phase: PHASES) -> int:
 	match phase:
 		PHASES.CALM:
-			return 1
-		PHASES.ALERT:
 			return 2
-		PHASES.DANGER:
+		PHASES.ALERT:
 			return 3
-		PHASES.EXTREME:
+		PHASES.DANGER:
 			return 4
+		PHASES.EXTREME:
+			return 5
 		_:
 			return 1
 

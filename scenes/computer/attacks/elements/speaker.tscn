@@ -1,7 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://bg8ydssm56hyc"]
+[gd_scene load_steps=8 format=3 uid="uid://bg8ydssm56hyc"]
 
 [ext_resource type="Texture2D" uid="uid://c73xo18serm8v" path="res://ui/themes/classic-95/icons/sounds.png" id="1_026mk"]
 [ext_resource type="Script" path="res://scenes/computer/attacks/elements/speaker.gd" id="1_np6ko"]
+[ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="3_abgxy"]
+
+[sub_resource type="Animation" id="Animation_ksw5a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_u17rt"]
 resource_name = "beat"
@@ -20,26 +36,14 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(0.7, 0.7), Vector2(1, 1), Vector2(0.7, 0.7)]
 }
 
-[sub_resource type="Animation" id="Animation_ksw5a"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j767m"]
 _data = {
 "RESET": SubResource("Animation_ksw5a"),
 "beat": SubResource("Animation_u17rt")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6va1q"]
+size = Vector2(30, 25.7143)
 
 [node name="Speaker" type="Node2D"]
 script = ExtResource("1_np6ko")
@@ -51,3 +55,11 @@ texture = ExtResource("1_026mk")
 libraries = {
 "": SubResource("AnimationLibrary_j767m")
 }
+
+[node name="SpeakerHitbox" type="Area2D" parent="."]
+script = ExtResource("3_abgxy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpeakerHitbox"]
+position = Vector2(-0.714286, -5.10897e-07)
+shape = SubResource("RectangleShape2D_6va1q")
+debug_color = Color(0.862745, 0.341176, 0.313726, 0.419608)
