@@ -17,6 +17,8 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 var seconds_passed := 0
 
 func _ready():
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 	GameEvents.lock_player.emit()
 	game_camera.limit_smoothed = false
 	game_camera.global_position = get_viewport().get_visible_rect().size / 2

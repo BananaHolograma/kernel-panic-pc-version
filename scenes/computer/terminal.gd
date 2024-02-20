@@ -11,6 +11,11 @@ enum LIMITS {
 @onready var frame_limits: ColorRect = %TerminalLimits
 
 
+
+func generate_random_position_for_interior() -> Vector2:
+	return Vector2(randf_range(frame_limits.position.x, frame_limits.size.x), randf_range(frame_limits.position.y, frame_limits.size.y))
+
+
 func generate_random_position_for_limit(limit: LIMITS) -> Dictionary:
 	match limit:
 		LIMITS.LEFT:
