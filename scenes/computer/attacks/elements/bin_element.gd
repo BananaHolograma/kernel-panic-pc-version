@@ -41,7 +41,7 @@ func _ready():
 	spawn()
 
 	
-func _process(delta):
+func _process(_delta):
 	if id == "search":
 		if aiming:
 			visual_feedback_aim_player()
@@ -141,9 +141,9 @@ func on_visual_feedback_ended():
 	line_2d.add_point(line_2d.get_point_position(1) * 5)
 	laser_hitbox.disabled = true
 	laser_hitbox.set_polygon(line_2d.points)
-
-	await get_tree().create_timer(60 / Engine.physics_ticks_per_second).timeout
+	
+	await get_tree().create_timer(0.65).timeout
 	laser_hitbox.disabled = false
 	
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(0.5).timeout
 	queue_free()

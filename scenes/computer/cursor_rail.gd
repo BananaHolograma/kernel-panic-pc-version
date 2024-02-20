@@ -18,7 +18,7 @@ func _ready():
 			rail_activated.emit()
 	)
 	rail_follow.child_exiting_tree.connect(
-		func(node): 
+		func(_node): 
 			rail_object = null
 			rail_ended.emit()
 	)

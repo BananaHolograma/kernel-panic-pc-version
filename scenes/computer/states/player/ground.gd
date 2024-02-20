@@ -7,7 +7,7 @@ var horizontal_direction: Vector2 = Vector2.ZERO
 var input_direction: Vector2 = Vector2.ZERO
 
 
-func physics_update(delta):
+func physics_update(_delta):
 	get_input_direction()
 		
 				

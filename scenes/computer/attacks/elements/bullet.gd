@@ -2,13 +2,13 @@ extends Node2D
 
 
 @export var direction: Vector2
-@export var min_speed := 3.5
-@export var max_speed := 5.5
+@export var min_speed := 2.5
+@export var max_speed := 4.5
 
 @onready var speed := randf_range(min_speed, max_speed)
 
 
-func _process(delta):
+func _process(_delta):
 	global_position += direction * speed
 
 
