@@ -36,7 +36,7 @@ signal died
 		
 		IS_INVULNERABLE = value
 ## How long the invulnerability will last, set this value as zero to be an indefinite period
-@export var INVULNERABILITY_TIME: float = 1.0
+@export var INVULNERABILITY_TIME: float = 1.5
 
 enum TYPES {
 	DAMAGE,

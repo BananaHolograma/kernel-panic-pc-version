@@ -47,22 +47,22 @@ var available_elements := {
 		"texture": [TEXT_FILE, TEXT_FILE_2],
 		"params": {
 			antivirus.PHASES.CALM: {
-				"pulses": 2,
+				"pulses": 1,
 				"angle_step": 60,
 				"time_between_pulses": 0.6
 			},
 			antivirus.PHASES.ALERT: {
-				"pulses": 2,
+				"pulses": 1,
 				"angle_step": 45,
 				"time_between_pulses": 0.6
 			},
 			antivirus.PHASES.DANGER: {
-				"pulses": 3,
+				"pulses": 2,
 				"angle_step": 35,
 				"time_between_pulses": 1.0
 			},
 			antivirus.PHASES.EXTREME: {
-				"pulses": 3,
+				"pulses": 2,
 				"angle_step": 25,
 				"time_between_pulses": 1.0
 			},

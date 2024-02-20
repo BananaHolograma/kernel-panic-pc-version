@@ -17,6 +17,7 @@ func _ready():
 	GameEvents.unlock_player.connect(lock_player.bind(false))
 	
 	finite_state_machine.state_changed.connect(on_state_changed)
+	health_component.died.connect(on_died)
 	
 	
 func _process(_delta):
@@ -40,11 +41,25 @@ func lock_player(lock : bool) -> void:
 		else:
 			locked = false
 			finite_state_machine.unlock_state_machine()
-	
-	
+
+
+func reduce_speed(new_speed: float):
+	motion_component.change_speed_temporary(new_speed)
+
+
 func on_state_changed(from_state: State, state: State):
 	state_label.text = "%s --> %s" % [from_state.name, state.name]
 
 
 func _on_hurtbox_2d_hitbox_detected(hitbox):
-	print("DEAD BRO ", hitbox)
+	if hitbox.name == "LaserHitbox":
+		reduce_speed(motion_component.max_speed / 2)
+	else:
+		health_component.damage(1)
+
+		if not health_component.check_is_dead() and not health_component.IS_INVULNERABLE:
+			health_component.enable_invulnerability(true, 2.0)
+
+
+func on_died():
+	print("player died")

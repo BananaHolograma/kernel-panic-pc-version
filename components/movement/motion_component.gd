@@ -2,6 +2,7 @@ class_name MotionComponent extends Node
 
 signal reached_max_speed
 signal stopped
+signal speed_temporary_finished
 
 @export var actor: CharacterBody2D
 
@@ -9,8 +10,10 @@ signal stopped
 @export var max_speed := 85.0
 @export var acceleration := 10.0
 @export var friction := 15.0
+@export var default_speed_temporary_time := 2.0
 
 var current_speed: float
+var speed_temporary_timer: Timer
 
 var facing_direction := Vector2.ZERO:
 	set(value):
@@ -24,6 +27,7 @@ var last_faced_direction: Vector2:
 			
 			
 func _ready():
+	_create_speed_temporary_timer()
 	current_speed = max_speed
 
 
@@ -81,5 +85,34 @@ func decelerate_horizontally(force_stop: bool = false, delta: float = get_physic
 	return self
 
 
+func change_speed_temporary(new_speed: float, time: float = default_speed_temporary_time):
+	current_speed = new_speed
+	
+	_create_speed_temporary_timer(time)
+	speed_temporary_timer.start()
+	
+
+func _create_speed_temporary_timer(time: float = default_speed_temporary_time):
+	if is_instance_valid(speed_temporary_timer) and speed_temporary_timer.is_inside_tree():
+		if speed_temporary_timer.wait_time !=  time:
+			speed_temporary_timer.stop()
+			speed_temporary_timer.wait_time = time
+		return
+		
+	speed_temporary_timer = Timer.new()
+	speed_temporary_timer.name = "SpeedTemporaryTimer"
+	speed_temporary_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	speed_temporary_timer.autostart = false
+	speed_temporary_timer.one_shot = true
+	speed_temporary_timer.wait_time = time
+
+	add_child(speed_temporary_timer)
+	speed_temporary_timer.timeout.connect(on_speed_temporary_timeout)
+	
+	
 func _normalize_vector(value: Vector2) -> Vector2:
 	return value if value.is_normalized() else value.normalized()
+
+
+func on_speed_temporary_timeout():
+	current_speed = max_speed

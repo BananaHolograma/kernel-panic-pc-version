@@ -30,20 +30,20 @@ enum PHASES {
 		"target": get_tree().get_first_node_in_group("player"),
 		"phase": {
 			PHASES.CALM: {
-				"amount": 5,
-				"delay_between_spawn": 1.1
+				"amount": 3,
+				"delay_between_spawn": 2.0
 			},
 			PHASES.ALERT: {
-				"amount": 7,
-				"delay_between_spawn": 1.0
+				"amount": 4,
+				"delay_between_spawn": 1.5
 			},
 			PHASES.DANGER: {
-				"amount": 10,
-				"delay_between_spawn": 0.9
+				"amount": 6,
+				"delay_between_spawn": 1.2
 			},
 			PHASES.EXTREME: {
-				"amount": 15,
-				"delay_between_spawn": 0.7
+				"amount": 10,
+				"delay_between_spawn": 1.0
 			},
 		}
 	},
