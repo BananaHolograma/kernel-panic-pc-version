@@ -1,13 +1,172 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8ksnsyst86d6"]
+[gd_scene load_steps=23 format=3 uid="uid://b8ksnsyst86d6"]
 
 [ext_resource type="Script" path="res://scenes/computer/attacks/elements/bin_element.gd" id="1_rhxc4"]
+[ext_resource type="Texture2D" uid="uid://b7e5tto2nkyv7" path="res://ui/themes/classic-95/icons/world.png" id="2_c1626"]
 [ext_resource type="Texture2D" uid="uid://bjukxbml385o2" path="res://assets/vfx/laser.png" id="2_s4qqb"]
 [ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="3_a4m3w"]
+[ext_resource type="Texture2D" uid="uid://d11mkl8a4m1yj" path="res://assets/vfx/world_explosion.png" id="4_07484"]
+
+[sub_resource type="Animation" id="Animation_qk5d5"]
+resource_name = "world_explosion"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WorldHitbox/WorldVFX:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"world_explosion"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldHitbox/WorldVFX:frame")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_w1ops"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WorldHitbox/WorldVFX:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"world_explosion"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldHitbox/WorldVFX:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lt26s"]
+_data = {
+"RESET": SubResource("Animation_w1ops"),
+"world_explosion": SubResource("Animation_qk5d5")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60hur"]
+atlas = ExtResource("4_07484")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6apdx"]
+atlas = ExtResource("4_07484")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho8pe"]
+atlas = ExtResource("4_07484")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jy8ni"]
+atlas = ExtResource("4_07484")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhgtw"]
+atlas = ExtResource("4_07484")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8oyn"]
+atlas = ExtResource("4_07484")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0m2j"]
+atlas = ExtResource("4_07484")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce7ce"]
+atlas = ExtResource("4_07484")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2rgw"]
+atlas = ExtResource("4_07484")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1cnm"]
+atlas = ExtResource("4_07484")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xktgb"]
+atlas = ExtResource("4_07484")
+region = Rect2(512, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3ds4"]
+atlas = ExtResource("4_07484")
+region = Rect2(640, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v2n8x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60hur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6apdx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho8pe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jy8ni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhgtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8oyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0m2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ce7ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2rgw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1cnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xktgb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3ds4")
+}],
+"loop": true,
+"name": &"world_explosion",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x2sec"]
+radius = 31.1448
 
 [node name="BinElement" type="Node2D"]
 script = ExtResource("1_rhxc4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_c1626")
 
 [node name="Line2D" type="Line2D" parent="."]
 texture = ExtResource("2_s4qqb")
@@ -19,3 +178,23 @@ texture_mode = 2
 script = ExtResource("3_a4m3w")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LaserHitbox"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lt26s")
+}
+
+[node name="WorldHitbox" type="Area2D" parent="."]
+script = ExtResource("3_a4m3w")
+
+[node name="WorldVFX" type="AnimatedSprite2D" parent="WorldHitbox"]
+unique_name_in_owner = true
+visible = false
+sprite_frames = SubResource("SpriteFrames_v2n8x")
+animation = &"world_explosion"
+
+[node name="WorldRadiusExplosion" type="CollisionShape2D" parent="WorldHitbox"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_x2sec")
+disabled = true
+debug_color = Color(0.643137, 0.792157, 0.423529, 0.419608)

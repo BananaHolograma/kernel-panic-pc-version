@@ -6,12 +6,16 @@ signal finished
 
 const BEAM = preload("res://assets/sounds/Beam.ogg")
 const LASER = preload("res://assets/sounds/Laser.ogg")
+const WORLD_EXPLOSION = preload("res://assets/vfx/world_explosion.png")
 
 @onready var line_2d: Line2D = $Line2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var visual_feedback_timer: Timer = $VisualFeedbackTimer
 @onready var laser_hitbox: CollisionPolygon2D = $LaserHitbox/CollisionPolygon2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var world_vfx: AnimatedSprite2D = %WorldVFX
+@onready var world_radius_explosion: CollisionShape2D = %WorldRadiusExplosion
 
 
 var id: String
@@ -38,6 +42,7 @@ func _ready():
 	
 	spawned.connect(on_spawned)
 	visual_feedback_timer.timeout.connect(on_visual_feedback_ended)
+	animation_player.animation_finished.connect(on_animation_finished)
 	spawn()
 
 	
@@ -102,8 +107,10 @@ func text_file_2_attack():
 
 
 func world_attack():
-	pass
-
+	world_vfx.show()
+	animation_player.play("world_explosion")
+	world_radius_explosion.disabled = false
+	
 
 func visual_feedback_aim_player():
 	line_2d.clear_points()
@@ -125,6 +132,14 @@ func set_texture(_texture: Texture2D) -> BinElement:
 func on_spawned():
 	cursor_to_show.queue_free()
 	start()
+
+
+func on_animation_finished(animation_name: String):
+	if animation_name == "world_explosion":
+		world_vfx.hide()
+		world_radius_explosion.disabled = true
+		finished.emit()
+		queue_free()
 
 
 func on_visual_feedback_ended():
