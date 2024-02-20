@@ -195,6 +195,7 @@ func _holy_appear():
 	## TEMPORARY
 	var sfx2 = AudioStreamPlayer.new()
 	sfx2.stream = HOLY_APPEAR
+	sfx.bus = "SFX"
 	add_child(sfx2)
 
 	sfx2.finished.connect(

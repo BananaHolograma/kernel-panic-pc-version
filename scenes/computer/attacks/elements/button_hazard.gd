@@ -47,6 +47,7 @@ func _ready():
 	
 	var sfx = AudioStreamPlayer.new()
 	sfx.autoplay = true
+	sfx.bus = "SFX"
 	sfx.stream = [BEEP, BEEP_2].pick_random()
 	sfx.pitch_scale = randf_range(0.95, 1.5)
 	add_child(sfx)

@@ -1,11 +1,17 @@
 class_name BinElement extends Node2D
 
+signal visual_feedback_ended
 signal spawned
+signal finished
+
+const BEAM = preload("res://assets/sounds/Beam.ogg")
+const LASER = preload("res://assets/sounds/Laser.ogg")
 
 @onready var line_2d: Line2D = $Line2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var visual_feedback_timer: Timer = $VisualFeedbackTimer
+@onready var laser_hurtbox: CollisionPolygon2D = $LaserHurtbox/CollisionPolygon2D
 
 
 var id: String
@@ -13,26 +19,29 @@ var texture: Texture2D
 var origin_position := Vector2.ZERO
 var spawn_position := Vector2.ZERO
 var cursor_to_show: Sprite2D
+var aiming := false
 
-var visual_feedback_time := 1.5
-
+var laser := {
+	"aim": {
+		"visual_feedback_time": 1.5,
+		"width": 30
+	},
+	"shoot": {
+		"width": 50
+	}
+}
 
 func _ready():
-	set_process(false)
-	
 	sprite_2d.texture = texture
 	add_child(cursor_to_show)
 	
 	spawned.connect(on_spawned)
 	visual_feedback_timer.timeout.connect(on_visual_feedback_ended)
-	visual_feedback_timer.autostart = false
-	visual_feedback_timer.wait_time = visual_feedback_time
-	
 	spawn()
 
 	
 func _process(delta):
-	if id == "search":
+	if id == "search" and aiming:
 		visual_feedback_aim_player()
 		
 		
@@ -69,8 +78,12 @@ func movies_attack():
 
 
 func search_attack():
-	set_process(true)
+	aiming = true
+	line_2d.width = laser.aim.width
+
+	visual_feedback_timer.autostart = false
 	visual_feedback_timer.one_shot = true
+	visual_feedback_timer.wait_time = laser.aim.visual_feedback_time
 	visual_feedback_timer.start()
 	
 	
@@ -91,9 +104,9 @@ func world_attack():
 
 
 func visual_feedback_aim_player():
-	line_2d.points.clear()
+	line_2d.clear_points()
 	line_2d.points = PackedVector2Array([Vector2.ZERO, to_local(player.global_position)])
-	
+
 	
 func set_id(_id: String) -> BinElement:
 	id = _id
@@ -113,5 +126,19 @@ func on_spawned():
 
 
 func on_visual_feedback_ended():
-	line_2d.default_color = Color.BROWN
-	set_process(false)
+	aiming = false
+	line_2d.width = laser.shoot.width
+	line_2d.add_point(line_2d.get_point_position(1) * 5)
+	
+	laser_hurtbox.set_polygon(line_2d.points)
+	
+	var sfx = AudioStreamPlayer.new()
+	sfx.bus = "SFX"
+	sfx.stream = [BEAM, LASER].pick_random()
+	sfx.pitch_scale = randf_range(0.75, 1.5)
+	add_child(sfx)
+	
+	sfx.play()
+
+	await get_tree().create_timer(0.8).timeout
+	queue_free()
