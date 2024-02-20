@@ -48,7 +48,7 @@ enum PHASES {
 		}
 	},
 	"rail_shooting": {
-		"repeatable": true,
+		"repeatable": false,
 		"script": RailShooting,
 		"cursor": cursors.arrow(),
 		"target": get_tree().get_first_node_in_group("battleground_rail"),
@@ -162,7 +162,7 @@ func select_attacks() -> Array:
 func phase_transition(progress_percentage: float):
 	var percentage = progress_percentage * 100
 	
-	if percentage >= 2 and percentage < 50:
+	if percentage >= 15 and percentage < 50:
 		current_phase = PHASES.ALERT
 		
 	if percentage >= 50 and percentage < 85:

@@ -69,7 +69,7 @@ func _process(_delta):
 		
 func spawn():
 	var tween = create_tween()
-	tween.tween_property(self, "position", spawn_position, 1.0)\
+	tween.tween_property(self, "position", spawn_position, 2.0)\
 		.from(to_local(origin_position))\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 		
@@ -142,6 +142,7 @@ func text_file_attack():
 		if params.pulses > 1:
 			await get_tree().create_timer(params.time_between_pulses).timeout
 	
+	await get_tree().create_timer(1.0).timeout
 	scale_dissapear_animation()
 	
 	

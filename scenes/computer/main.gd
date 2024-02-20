@@ -17,7 +17,7 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var game_timer: Timer = $GameTimer
 @onready var antivirus: Antivirus = $Antivirus
-#@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 var seconds_passed := 0
@@ -25,6 +25,7 @@ var seconds_passed := 0
 func _ready():
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
+	animation_player.animation_finished.connect(on_animation_finished)
 	GameEvents.lock_player.emit()
 	game_camera.limit_smoothed = false
 	game_camera.global_position = get_viewport().get_visible_rect().size / 2
@@ -77,7 +78,7 @@ func on_antivirus_phase_changed(_previous: Antivirus.PHASES, current: Antivirus.
 	match(current):
 		Antivirus.PHASES.ALERT:
 			phase_alert_music.play()
-			#animation_player.play("calm_to_alert")
+			animation_player.play("calm_to_alert")
 		Antivirus.PHASES.DANGER:
 			pass
 		Antivirus.PHASES.EXTREME:
