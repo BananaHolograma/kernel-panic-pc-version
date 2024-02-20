@@ -53,16 +53,17 @@ grow_horizontal = 2
 step = 1.0
 metadata/_edit_lock_ = true
 
-[node name="AppIcon" parent="Control" instance=ExtResource("3_rhoc0")]
-offset_left = 36.0
-offset_top = 20.0
-offset_right = 36.0
-offset_bottom = 20.0
+[node name="AppIcon" parent="Control" groups=["recycle_bin"] instance=ExtResource("3_rhoc0")]
+offset_left = 57.0
+offset_top = 36.0
+offset_right = 57.0
+offset_bottom = 36.0
 icon_texture = ExtResource("4_tr2gv")
 icon_name = "Recycle bin"
 
 [node name="Terminal" parent="Control" instance=ExtResource("5_n3pup")]
 layout_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="GameTimer" type="Timer" parent="."]
 

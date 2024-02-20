@@ -54,7 +54,7 @@ func on_animation_finished(animation_name: String):
 		tween.set_parallel(true)
 		tween.tween_property(danger_color, "color", Color(1.0, 0.21, 0.07, 0.58) , sfx.stream.get_length() - 1).from_current().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 		tween.tween_property(game_camera, "zoom", Vector2(10, 10), sfx.stream.get_length())
-		tween.tween_property(game_camera, "position", game_camera.position - Vector2(75, 75), sfx.stream.get_length()).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+		tween.tween_property(game_camera, "position", game_camera.position - Vector2(95, 85), sfx.stream.get_length()).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 		tween.tween_property(crt.material, "shader_parameter/noiseIntensity", 0.05, sfx.stream.get_length()).from(0.015)
 		tween.tween_property(crt.material, "shader_parameter/shake", 0.015, sfx.stream.get_length()).from_current()
 		
