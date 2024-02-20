@@ -9,8 +9,12 @@ const WORLD = preload("res://ui/themes/classic-95/icons/world.png")
 
 const BIN_ELEMENT = preload("res://scenes/computer/attacks/elements/bin_element.tscn")
 
-
-@export var elements_to_grab := 3
+@export var elements_to_grab := {
+	antivirus.PHASES.CALM: 3,
+	antivirus.PHASES.ALERT: 4,
+	antivirus.PHASES.DANGER: 5,
+	antivirus.PHASES.EXTREME: 6
+}
 
 
 var available_elements := {
@@ -40,12 +44,29 @@ var available_elements := {
 		}
 	},
 	"text_file": {
-		"texture": TEXT_FILE,
-		"params": {}
-	},
-	"text_file_2": {
-		"texture": TEXT_FILE_2,
-		"params": {}
+		"texture": [TEXT_FILE, TEXT_FILE_2],
+		"params": {
+			antivirus.PHASES.CALM: {
+				"pulses": 2,
+				"angle_step": 30,
+				"time_between_pulses": 0.6
+			},
+			antivirus.PHASES.ALERT: {
+				"pulses": 3,
+				"angle_step": 25,
+				"time_between_pulses": 0.6
+			},
+			antivirus.PHASES.DANGER: {
+				"pulses": 4,
+				"angle_step": 20,
+				"time_between_pulses": 0.6
+			},
+			antivirus.PHASES.EXTREME: {
+				"pulses": 5,
+				"angle_step": 15,
+				"time_between_pulses": 0.6
+			},
+		}
 	},
 	"world": {
 		"texture": WORLD,
@@ -63,7 +84,7 @@ func start():
 	
 	await focused_target
 	
-	for element in ["music", "music"]: ## Temporary, change it to pick_random_elements() fn
+	for element in pick_random_elements():
 		duplicated_cursor.show()
 		var bin_element = BIN_ELEMENT.instantiate() as BinElement
 		bin_element.set_id(element).set_texture(available_elements[element].texture)
@@ -86,7 +107,7 @@ func pick_random_elements() -> Array[String]:
 	var elements = available_elements.duplicate()
 	var result: Array[String] = []
 	
-	for element in range(elements_to_grab):
+	for element in range(elements_to_grab[antivirus.current_phase]):
 		var selected = elements.keys().pick_random()
 		result.append(selected)
 	

@@ -79,16 +79,12 @@ enum PHASES {
 		"target": get_tree().get_first_node_in_group("recycle_bin"),
 		"phase": {
 			PHASES.CALM: {
-				"elements_to_grab": 3
 			},
 			PHASES.ALERT: {
-				"elements_to_grab": 4
 			},
 			PHASES.DANGER: {
-				"elements_to_grab": 5
 			},
 			PHASES.EXTREME: {
-				"elements_to_grab": 6
 			},
 		}
 	}

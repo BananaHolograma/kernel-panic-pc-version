@@ -8,8 +8,12 @@ const BEAM = preload("res://assets/sounds/Beam.ogg")
 const LASER = preload("res://assets/sounds/Laser.ogg")
 const WORLD_EXPLOSION = preload("res://assets/vfx/world_explosion.png")
 const WORLD_EXPLOSION_SOUND = preload("res://assets/sounds/WorldExplosion.wav")
-const SPEAKER = preload("res://scenes/computer/attacks/elements/speaker.tscn")
+const TEXT_FILE_SHOOT = preload("res://assets/sounds/text_file_shoot.wav")
+const TEXT_FILE_SHOOT_2 = preload("res://assets/sounds/text_file_shoot_2.wav")
+const TEXT_FILE_SHOOT_3 = preload("res://assets/sounds/text_file_shoot_3.wav")
 
+const SPEAKER = preload("res://scenes/computer/attacks/elements/speaker.tscn")
+const TEXT_FILE_LETTER = preload("res://scenes/computer/attacks/elements/text_file_letter.tscn")
 
 @onready var line_2d: Line2D = $LaserLine2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -81,10 +85,6 @@ func start():
 			world_attack()
 		"text_file":
 			text_file_attack()
-		"text_file_2":
-			text_file_2_attack()
-
-
 func movies_attack():
 	pass
 
@@ -115,12 +115,36 @@ func music_attack():
 
 
 func text_file_attack():
-	pass
+	var sfx = AudioStreamPlayer.new()
+	sfx.bus = "SFX"
+	sfx.pitch_scale = randf_range(0.95, 1.3)
+	sfx.stream = [TEXT_FILE_SHOOT, TEXT_FILE_SHOOT_2, TEXT_FILE_SHOOT_3].pick_random()
+	add_child(sfx)
+	sfx.play()
+	
+	var current_angle = 0
+	var angle_step = 15
+	
+	for i in range(params.pulses):
+		while current_angle <= rad_to_deg(PI * 2):
+			current_angle += angle_step
+			var letter = TEXT_FILE_LETTER.instantiate() as TextFileLetter
+			letter.angle = current_angle
+			letter.global_position = global_position
+			get_tree().root.add_child(letter)
+		
+		current_angle = 0
+		await get_tree().create_timer(params.time_between_pulses).timeout
+	
+	scale_dissapear_animation()
 	
 	
-func text_file_2_attack():
-	pass
-
+func scale_dissapear_animation():
+	var tween = create_tween()
+	tween.tween_property(self, "scale", Vector2.ZERO, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
+	tween.finished.connect(func(): queue_free())
+	
+	
 
 func world_attack():
 	world_vfx.show()
@@ -146,8 +170,13 @@ func set_id(_id: String) -> BinElement:
 	return self
 	
 	
-func set_texture(_texture: Texture2D) -> BinElement:
-	texture = _texture
+func set_texture(_texture) -> BinElement:
+	var new_texture = _texture
+	
+	if new_texture is Array:
+		new_texture = _texture.pick_random()
+		
+	texture = new_texture
 	
 	return self
 
@@ -162,7 +191,7 @@ func on_animation_finished(animation_name: String):
 		world_vfx.hide()
 		world_radius_explosion.disabled = true
 		finished.emit()
-		queue_free()
+		scale_dissapear_animation()
 
 
 func on_visual_feedback_ended():
@@ -187,8 +216,8 @@ func on_visual_feedback_ended():
 	tween.tween_property(line_2d, "modulate:a", 0, 0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
 
 	await get_tree().create_timer(0.5).timeout
-	queue_free()
+	scale_dissapear_animation()
 
 
 func on_time_active_ended():
-	queue_free()
+	scale_dissapear_animation()
