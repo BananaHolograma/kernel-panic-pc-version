@@ -14,17 +14,30 @@ const BIN_ELEMENT = preload("res://scenes/computer/attacks/elements/bin_element.
 
 
 var available_elements := {
-	"movies": {
-		"texture": MOVIES,
-		"params": {}
-	},
 	"search": {
 		"texture": SEARCH,
 		"params": {}
 	},
 	"music": {
 		"texture": MUSIC,
-		"params": {}
+		"params": {
+			antivirus.PHASES.CALM: {
+				"max_speakers_amount": 3,
+				"time_active": 3.5
+			},
+			antivirus.PHASES.ALERT: {
+				"max_speakers_amount": 4,
+				"time_active": 4.5
+			},
+			antivirus.PHASES.DANGER: {
+				"max_speakers_amount": 5,
+				"time_active": 5.0
+			},
+			antivirus.PHASES.EXTREME: {
+				"max_speakers_amount": 6,
+				"time_active": 6.0
+			},
+		}
 	},
 	"text_file": {
 		"texture": TEXT_FILE,
@@ -55,6 +68,10 @@ func start():
 		var bin_element = BIN_ELEMENT.instantiate() as BinElement
 		bin_element.set_id(element).set_texture(available_elements[element].texture)
 		bin_element.antivirus = antivirus
+		
+		if available_elements[element].params.keys().size() > 0:
+			bin_element.params = available_elements[element]["params"][antivirus.current_phase]
+			
 		bin_element.spawn_position = terminal.generate_random_position_for_interior()
 		bin_element.origin_position = target.global_position
 		bin_element.cursor_to_show = duplicated_cursor.duplicate()

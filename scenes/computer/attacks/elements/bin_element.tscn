@@ -177,6 +177,9 @@ texture_mode = 2
 
 [node name="VisualFeedbackTimer" type="Timer" parent="."]
 
+[node name="TimeActiveTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="LaserHitbox" type="Area2D" parent="."]
 script = ExtResource("3_a4m3w")
 

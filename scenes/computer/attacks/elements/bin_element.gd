@@ -15,12 +15,14 @@ const SPEAKER = preload("res://scenes/computer/attacks/elements/speaker.tscn")
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var visual_feedback_timer: Timer = $VisualFeedbackTimer
+@onready var time_active_timer: Timer = $TimeActiveTimer
 @onready var laser_hitbox: CollisionPolygon2D = $LaserHitbox/CollisionPolygon2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var world_vfx: AnimatedSprite2D = %WorldVFX
 @onready var world_radius_explosion: CollisionShape2D = %WorldRadiusExplosion
 
 var antivirus: Antivirus
+var params := {}
 var id: String
 var texture: Texture2D
 var origin_position := Vector2.ZERO
@@ -45,6 +47,7 @@ func _ready():
 	
 	spawned.connect(on_spawned)
 	visual_feedback_timer.timeout.connect(on_visual_feedback_ended)
+	time_active_timer.timeout.connect(on_time_active_ended)
 	animation_player.animation_finished.connect(on_animation_finished)
 	spawn()
 
@@ -90,19 +93,27 @@ func movies_attack():
 func search_attack():
 	aiming = true
 	line_2d.width = laser.aim.width
-
+	line_2d.modulate.a = 0
+	
 	visual_feedback_timer.autostart = false
 	visual_feedback_timer.one_shot = true
 	visual_feedback_timer.wait_time = laser.aim.visual_feedback_time
 	visual_feedback_timer.start()
 	
+	var tween = create_tween()
+	tween.tween_property(line_2d, "modulate:a", 1.0, 1.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
+
 	
 func music_attack():
-	for i in range(randi_range(1, 3)):
+	time_active_timer.wait_time = params.time_active
+	
+	for i in range(randi_range(1, params.max_speakers_amount)):
 		var speaker = SPEAKER.instantiate() as Speaker
 		add_child(speaker)
 	
-	
+	time_active_timer.start()
+
+
 func text_file_attack():
 	pass
 	
@@ -172,5 +183,12 @@ func on_visual_feedback_ended():
 	await get_tree().create_timer(0.65).timeout
 	laser_hitbox.disabled = false
 	
+	var tween = create_tween()
+	tween.tween_property(line_2d, "modulate:a", 0, 0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
+
 	await get_tree().create_timer(0.5).timeout
+	queue_free()
+
+
+func on_time_active_ended():
 	queue_free()

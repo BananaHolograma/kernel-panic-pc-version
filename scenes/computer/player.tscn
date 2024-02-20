@@ -37,10 +37,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ehnfc"]
-radius = 18.0
+radius = 13.0384
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8xxhx"]
-radius = 16.0
+radius = 13.0384
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 4
@@ -75,7 +75,7 @@ text = "State"
 horizontal_alignment = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_wgqdo")
 animation = &"idle"
 
