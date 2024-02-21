@@ -19,6 +19,7 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var game_timer: Timer = $GameTimer
 @onready var antivirus: Antivirus = $Antivirus
+@onready var terminal: MSDosTerminal = $Control/Terminal
 @onready var player: Player = $Player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -59,6 +60,7 @@ func _ready():
 	_add_overlay()
 	
 	game_timer.timeout.connect(on_game_timer_second_passed)
+	antivirus.terminal = terminal
 	antivirus.phase_changed.connect(on_antivirus_phase_changed)
 	antivirus.prepared.connect(func(): 
 		animation_player.play("calm_music_start")

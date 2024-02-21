@@ -101,7 +101,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="Label3" type="Label" parent="MarginContainer/StartScreen/PS1430BIOSContainer"]
 layout_mode = 2
-text = "PS1430TX Titatnium 1B+ BIOS V1.0S 9/13/97"
+text = "PS1430TX Titanium 1B+ BIOS V1.0S 9/13/97"
 label_settings = ExtResource("1_pdn0d")
 
 [node name="Label" type="Label" parent="MarginContainer/StartScreen"]

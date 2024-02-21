@@ -37,6 +37,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("1_7aftj")
 expand_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="TerminalLimits" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -54,6 +55,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="Rail" type="Node2D" parent="."]
 
