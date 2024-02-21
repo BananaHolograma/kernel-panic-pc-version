@@ -4,6 +4,7 @@ signal reached_max_speed
 signal stopped
 signal speed_temporary_changed
 signal speed_temporary_finished
+signal teleported
 
 @export var actor: CharacterBody2D
 
@@ -13,8 +14,13 @@ signal speed_temporary_finished
 @export var friction := 15.0
 @export var default_speed_temporary_time := 2.0
 
+@export_group("Teleport")
+@export var teleport_cooldown := 5.0
+
+
 var current_speed: float
 var speed_temporary_timer: Timer
+var teleport_cooldown_timer: Timer
 
 var facing_direction := Vector2.ZERO:
 	set(value):
@@ -28,9 +34,19 @@ var last_faced_direction: Vector2:
 			
 			
 func _ready():
+	_create_teleport_cooldown_timer()
 	_create_speed_temporary_timer()
 	current_speed = max_speed
 
+
+func teleport_to(distance: Vector2):
+	if teleport_cooldown_timer.time_left > 0:
+		return
+		
+	actor.position += distance
+	teleported.emit()
+	teleport_cooldown_timer.start()
+	
 
 func accelerate(direction: Vector2, delta: float = get_physics_process_delta_time()) -> MotionComponent:
 	facing_direction = _normalize_vector(direction)
@@ -109,6 +125,24 @@ func _create_speed_temporary_timer(time: float = default_speed_temporary_time):
 
 	add_child(speed_temporary_timer)
 	speed_temporary_timer.timeout.connect(on_speed_temporary_timeout)
+	
+	
+func _create_teleport_cooldown_timer(time: float = teleport_cooldown):
+	if is_instance_valid(teleport_cooldown_timer) and teleport_cooldown_timer.is_inside_tree():
+		if teleport_cooldown_timer.wait_time !=  time:
+			teleport_cooldown_timer.stop()
+			teleport_cooldown_timer.wait_time = time
+		return
+		
+	teleport_cooldown_timer = Timer.new()
+	teleport_cooldown_timer.name = "SpeedTemporaryTimer"
+	teleport_cooldown_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	teleport_cooldown_timer.autostart = false
+	teleport_cooldown_timer.one_shot = true
+	teleport_cooldown_timer.wait_time = time
+
+	add_child(teleport_cooldown_timer)
+	teleport_cooldown_timer.timeout.connect(on_speed_temporary_timeout)
 	
 	
 func _normalize_vector(value: Vector2) -> Vector2:

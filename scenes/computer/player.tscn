@@ -104,6 +104,9 @@ animation = &"idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ehnfc")
 
+[node name="WallTeleportDetector" type="RayCast2D" parent="."]
+target_position = Vector2(0, 30)
+
 [node name="Hurtbox2D" type="Area2D" parent="."]
 priority = 1
 script = ExtResource("6_20d5t")
@@ -137,8 +140,9 @@ script = ExtResource("10_wwsee")
 animated_sprite = NodePath("../../../AnimatedSprite2D")
 motion_component = NodePath("../../../MotionComponent")
 
-[node name="Run" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("animated_sprite", "motion_component")]
+[node name="Run" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("wall_teleport_detector", "animated_sprite", "motion_component")]
 script = ExtResource("13_cif2g")
+wall_teleport_detector = NodePath("../../../WallTeleportDetector")
 animated_sprite = NodePath("../../../AnimatedSprite2D")
 motion_component = NodePath("../../../MotionComponent")
 

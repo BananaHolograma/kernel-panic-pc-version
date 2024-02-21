@@ -1,22 +1,29 @@
 class_name Player extends CharacterBody2D
 
+@export var teleport_distance := 30
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var motion_component: MotionComponent = $MotionComponent
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @onready var finite_state_machine: FiniteStateMachine = $FiniteStateMachine
+@onready var wall_teleport_detector: RayCast2D = $WallTeleportDetector
 
 const REDUCED_SPEED_PARTICLES = preload("res://scenes/computer/attacks/elements/reduced_speed_particles.tscn")
 
 var locked := false
 var is_left_direction: bool = false
 
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("dash"):
+		teleport()
 
 func _ready():
 	GameEvents.lock_player.connect(lock_player.bind(true))
 	GameEvents.unlock_player.connect(lock_player.bind(false))
 
+	motion_component.teleported.connect(on_teleported)
 	health_component.died.connect(on_died)
 	health_component.invulnerability_changed.connect(func(active: bool):
 		if not active and animation_player.is_playing() and animation_player.current_animation == "hit":
@@ -55,6 +62,18 @@ func _on_hurtbox_2d_hitbox_detected(hitbox):
 			animation_player.play("hit")
 
 
+func teleport():
+	var direction = finite_state_machine.current_state.input_direction
+	
+	if not direction.is_zero_approx() or not wall_teleport_detector.is_colliding():
+		motion_component.teleport_to(direction * teleport_distance)
+	
+	
+func on_teleported():
+	if not health_component.IS_INVULNERABLE:
+		health_component.enable_invulnerability(true, 2.0)
+	
+		
 func on_died():
 	print("player died")
 	get_tree().paused = true

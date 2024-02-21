@@ -118,10 +118,10 @@ enum PHASES {
 }
 
 @onready var delay_between_routines := {
-	PHASES.CALM: 2.0,
-	PHASES.ALERT: 1.7,
-	PHASES.DANGER: 1.5,
-	PHASES.EXTREME: 1.0
+	PHASES.CALM: 2.5,
+	PHASES.ALERT: 2.0,
+	PHASES.DANGER: 2.0,
+	PHASES.EXTREME: 1.5
 }
 
 var current_phase := PHASES.CALM:
