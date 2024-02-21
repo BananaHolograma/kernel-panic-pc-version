@@ -11,7 +11,6 @@ class_name Player extends CharacterBody2D
 @onready var wall_teleport_detector: RayCast2D = $WallTeleportDetector
 
 const REDUCED_SPEED_PARTICLES = preload("res://scenes/computer/attacks/elements/reduced_speed_particles.tscn")
-const TELEPORT_TRAIL = preload("res://scenes/world/teleport_trail.tscn")
 
 var locked := false
 var is_left_direction: bool = false
@@ -83,7 +82,7 @@ func teleport_effect(_spawn_position: Vector2):
 		sprite.scale = animated_sprite_2d.scale
 		sprite.flip_h = animated_sprite_2d.flip_h
 		sprite.flip_v = animated_sprite_2d.flip_v
-		sprite.modulate = Color(249.0, 58.0, 59.0, 0.75)
+		#sprite.modulate = Color(249.0, 58.0, 59.0, 0.75)
 		var tween: Tween = create_tween()
 		
 		tween.tween_property(sprite, "modulate:a", 0.0, 0.7).set_trans(tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
@@ -92,11 +91,11 @@ func teleport_effect(_spawn_position: Vector2):
 	
 func on_teleported(previous_position: Vector2, new_position: Vector2):
 	teleport_effect(previous_position)
-	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * 5))
-	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * 10))
+	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * teleport_distance))
+	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 10)))
 	teleport_effect(new_position)
-	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * 5))
-	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * 10))
+	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * teleport_distance))
+	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 10)))
 	
 	if not health_component.IS_INVULNERABLE:
 		health_component.enable_invulnerability(true, 2.0)
