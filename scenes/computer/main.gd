@@ -89,8 +89,8 @@ func on_game_timer_second_passed():
 	progress_bar.value = seconds_passed
 	
 	antivirus.phase_transition(progress_bar.value / progress_bar.max_value)
-	
-	print("SECONDS PASSED %s %s" % [seconds_passed, minutes_to_resist * 60])
+
+
 	if 	seconds_passed >= minutes_to_resist * 60:
 		game_timer.stop()
 		timer_ended.emit()
@@ -145,7 +145,7 @@ func on_winned_game():
 	#get_tree().pause = true
 
 func on_losed_game():
-	print("GAME LOSED")
 	GameEvents.losed_game.emit()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	animation_player.play("system_recovered")
 	#get_tree().pause = true
