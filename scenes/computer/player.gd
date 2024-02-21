@@ -119,9 +119,10 @@ func teleport_effect(_spawn_position: Vector2):
 		tween.tween_property(sprite, "modulate:a", 0.0, 0.7).set_trans(tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
 		tween.tween_callback(sprite.queue_free)
 	
+	teleport_audio_stream_player.play()
+	
 	
 func on_teleported(previous_position: Vector2, new_position: Vector2):
-	teleport_audio_stream_player.play()
 	teleport_cooldown_bar.show()
 	
 	teleport_effect(previous_position)
@@ -144,6 +145,8 @@ func on_invulnerability_changed(active: bool):
 func on_died():
 	health_bar.hide()
 	teleport_cooldown_bar.hide()
+	
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	get_tree().paused = true
 

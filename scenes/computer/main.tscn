@@ -146,7 +146,7 @@ size = Vector2(13, 505)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lsw24")
-minutes_to_resist = 5
+minutes_to_resist = 2
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

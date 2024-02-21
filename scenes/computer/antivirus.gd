@@ -38,15 +38,15 @@ enum PHASES {
 				"delay_between_spawn": 2.0
 			},
 			PHASES.ALERT: {
-				"amount": 7,
+				"amount": 6,
 				"delay_between_spawn": 1.5
 			},
 			PHASES.DANGER: {
-				"amount": 9,
+				"amount": 7,
 				"delay_between_spawn": 1.2
 			},
 			PHASES.EXTREME: {
-				"amount": 10,
+				"amount": 8,
 				"delay_between_spawn": 1.0
 			},
 		}
@@ -58,7 +58,7 @@ enum PHASES {
 		"target": get_tree().get_first_node_in_group("battleground_rail"),
 		"phase": {
 			PHASES.CALM: {
-				"bullets_per_shoot": 1,
+				"bullets_per_shoot": 2,
 				"shoot_delay": 1.5,
 				"time_shooting": 3.0,
 			},
@@ -199,13 +199,13 @@ func select_attacks() -> Array:
 func phase_transition(progress_percentage: float):
 	var percentage = progress_percentage * 100
 	
-	if percentage >= 25 and percentage < 50:
+	if percentage >= 15 and percentage < 45:
 		current_phase = PHASES.ALERT
 		
-	if percentage >= 50 and percentage < 85:
+	if percentage >= 45 and percentage < 80:
 		current_phase = PHASES.DANGER
 		
-	if percentage >= 85:
+	if percentage >= 80:
 		current_phase = PHASES.EXTREME
 		
 	

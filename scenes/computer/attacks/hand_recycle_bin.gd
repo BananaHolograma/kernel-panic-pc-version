@@ -52,7 +52,7 @@ var available_elements := {
 			},
 			antivirus.PHASES.DANGER: {
 				"pulses": 2,
-				"angle_step": 45,
+				"angle_step": 60,
 				"time_between_pulses": 1.2
 			},
 			antivirus.PHASES.EXTREME: {

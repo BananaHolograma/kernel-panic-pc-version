@@ -24,7 +24,7 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 var seconds_passed := 0
 
 func _ready():
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	phase_calm_music.volume_db = linear_to_db(0.0001) # -80 db
 	phase_alert_music.volume_db = linear_to_db(0.0001) # -80 db
