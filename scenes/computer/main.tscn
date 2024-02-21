@@ -221,6 +221,10 @@ position = Vector2(739, 317)
 position = Vector2(130, 83)
 aim_direction = Vector2(0, 1)
 
+[node name="LaserWheelMarker14" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(211, 81)
+aim_direction = Vector2(0, 1)
+
 [node name="LaserWheelMarker2" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
 position = Vector2(304, 83)
 aim_direction = Vector2(0, 1)
@@ -229,24 +233,34 @@ aim_direction = Vector2(0, 1)
 position = Vector2(629, 83)
 aim_direction = Vector2(0, 1)
 
+[node name="LaserWheelMarker15" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(725, 84)
+aim_direction = Vector2(0, 1)
+
 [node name="LaserWheelMarker4" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
-position = Vector2(775, 83)
+position = Vector2(815, 79)
 aim_direction = Vector2(0, 1)
 
 [node name="LaserWheelMarker5" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
 position = Vector2(33, 224)
 
 [node name="LaserWheelMarker6" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
-position = Vector2(33, 449)
+position = Vector2(33, 439)
 
 [node name="LaserWheelMarker7" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
 position = Vector2(33, 224)
+
+[node name="LaserWheelMarker12" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(34, 275)
+
+[node name="LaserWheelMarker13" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(33, 380)
 
 [node name="LaserWheelMarker8" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
 position = Vector2(33, 325)
 
 [node name="LaserWheelMarker9" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
-position = Vector2(930, 449)
+position = Vector2(928, 443)
 aim_direction = Vector2(-1, 0)
 
 [node name="LaserWheelMarker10" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
@@ -255,6 +269,14 @@ aim_direction = Vector2(-1, 0)
 
 [node name="LaserWheelMarker11" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
 position = Vector2(930, 325)
+aim_direction = Vector2(-1, 0)
+
+[node name="LaserWheelMarker16" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(931, 382)
+aim_direction = Vector2(-1, 0)
+
+[node name="LaserWheelMarker17" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(929, 275)
 aim_direction = Vector2(-1, 0)
 
 [node name="Ground" type="StaticBody2D" parent="."]

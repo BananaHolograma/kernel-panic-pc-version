@@ -9,7 +9,7 @@ signal attack_routine_finished
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var vfx: AnimatedSprite2D = $VFX
-@onready var emotions: AnimatedSprite2D = $Emotions
+@onready var emotions: AnimatedSprite2D = $AnimatedSprite2D/Emotions
 
 @onready var cursors: CursorsOrbit = %Cursors
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -34,20 +34,20 @@ enum PHASES {
 		"target": get_tree().get_first_node_in_group("player"),
 		"phase": {
 			PHASES.CALM: {
-				"amount": 5,
+				"amount": 4,
 				"delay_between_spawn": 2.0
 			},
 			PHASES.ALERT: {
-				"amount": 6,
-				"delay_between_spawn": 1.5
+				"amount": 4,
+				"delay_between_spawn": 1.8
 			},
 			PHASES.DANGER: {
-				"amount": 7,
-				"delay_between_spawn": 1.2
+				"amount": 5,
+				"delay_between_spawn": 1.5
 			},
 			PHASES.EXTREME: {
-				"amount": 8,
-				"delay_between_spawn": 1.0
+				"amount": 6,
+				"delay_between_spawn": 1.2
 			},
 		}
 	},
@@ -59,22 +59,22 @@ enum PHASES {
 		"phase": {
 			PHASES.CALM: {
 				"bullets_per_shoot": 2,
-				"shoot_delay": 1.5,
-				"time_shooting": 3.0,
+				"shoot_delay": 1.6,
+				"time_shooting": 4.5,
 			},
 			PHASES.ALERT: {
 				"bullets_per_shoot": 2,
-				"shoot_delay": 1.3,
-				"time_shooting": 5.5,
+				"shoot_delay": 1.4,
+				"time_shooting": 6.5,
 			},
 			PHASES.DANGER: {
 				"bullets_per_shoot": 2,
-				"shoot_delay": 1.2,
-				"time_shooting": 7.0,
+				"shoot_delay": 1.3,
+				"time_shooting": 8.0,
 			},
 			PHASES.EXTREME: {
-				"bullets_per_shoot": 2,
-				"shoot_delay": 1.0,
+				"bullets_per_shoot": 1,
+				"shoot_delay": 1.1,
 				"time_shooting": 9.0,
 			},
 		}
@@ -106,16 +106,20 @@ enum PHASES {
 		"target": null,
 		"phase": {
 			PHASES.CALM: {
-				"lasers": 1
+				"lasers": 1,
+				"probability_to_spawn_all": 0.1
 			},
 			PHASES.ALERT: {
-				"lasers": 2
+				"lasers": 2,
+				"probability_to_spawn_all": 0.2
 			},
 			PHASES.DANGER: {
-				"lasers": 2
+				"lasers": 2,
+				"probability_to_spawn_all": 0.25
 			},
 			PHASES.EXTREME: {
-				"lasers": 3
+				"lasers": 3,
+				"probability_to_spawn_all": 0.3
 			},
 		}
 	}
@@ -199,7 +203,7 @@ func select_attacks() -> Array:
 func phase_transition(progress_percentage: float):
 	var percentage = progress_percentage * 100
 	
-	if percentage >= 15 and percentage < 45:
+	if percentage >= 10 and percentage < 45:
 		current_phase = PHASES.ALERT
 		
 	if percentage >= 45 and percentage < 80:

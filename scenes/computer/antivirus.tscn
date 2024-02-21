@@ -940,10 +940,10 @@ rotation_reference = NodePath("..")
 texture = ExtResource("7_k2j3u")
 angle = 3.403
 
-[node name="Emotions" type="AnimatedSprite2D" parent="."]
+[node name="Emotions" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 visible = false
-position = Vector2(-1.69407e-21, -30)
-scale = Vector2(2.5, 2.5)
+position = Vector2(-8.47035e-22, -14.8785)
+scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_bvmdu")
 animation = &"exclamation"
 frame = 3

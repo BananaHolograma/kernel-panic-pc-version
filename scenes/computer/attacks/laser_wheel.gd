@@ -1,6 +1,7 @@
 class_name LaserWheel extends Attack
 
 @export var lasers := 1
+@export var probability_to_spawn_all := 0.3
 
 @onready var available_lasers: Array[LaserWheelMarker] = []
 @onready var remaining_lasers := lasers:
@@ -18,7 +19,12 @@ func _ready():
 	
 
 func collect_lasers_and_shoot():
-	for i in range(lasers):
+	var spawn_amount = lasers
+	
+	if randf() <= probability_to_spawn_all:
+		spawn_amount = available_lasers.size()
+	
+	for i in range(spawn_amount):
 		var laser = available_lasers.pick_random()
 		laser.finished.connect(func(): remaining_lasers -= 1)
 		laser.shoot()

@@ -43,22 +43,22 @@ var available_elements := {
 			antivirus.PHASES.CALM: {
 				"pulses": 1,
 				"angle_step": 60,
-				"time_between_pulses": 0.6
+				"time_between_pulses": 1.0
 			},
 			antivirus.PHASES.ALERT: {
 				"pulses": 1,
 				"angle_step": 60,
-				"time_between_pulses": 0.6
+				"time_between_pulses": 1.0
 			},
 			antivirus.PHASES.DANGER: {
 				"pulses": 2,
 				"angle_step": 60,
-				"time_between_pulses": 1.2
+				"time_between_pulses": 1.5
 			},
 			antivirus.PHASES.EXTREME: {
-				"pulses": 2,
-				"angle_step": 45,
-				"time_between_pulses": 1.0
+				"pulses": 3,
+				"angle_step": 60,
+				"time_between_pulses": 1.2
 			},
 		}
 	},
