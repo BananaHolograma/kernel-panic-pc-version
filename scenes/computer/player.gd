@@ -124,15 +124,16 @@ func on_teleported(previous_position: Vector2, new_position: Vector2):
 
 
 func on_invulnerability_changed(active: bool):
-	if active:
-		health_bar.hide()
-		
 	if not active and animation_player.is_playing() and animation_player.current_animation == "hit":
 		animation_player.stop()
 		animated_sprite_2d.material.set_shader_parameter("flash_opacity", 0)
+		health_bar.hide()
 			
 
 func on_died():
+	health_bar.hide()
+	teleport_cooldown_bar.hide()
+	
 	get_tree().paused = true
 
 
