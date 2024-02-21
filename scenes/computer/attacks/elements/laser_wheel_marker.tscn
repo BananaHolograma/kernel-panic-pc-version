@@ -89,7 +89,6 @@ animations = [{
 size = Vector2(363, 13)
 
 [node name="LaserWheel" type="Node2D" groups=["laser_wheel"]]
-position = Vector2(119, 61)
 script = ExtResource("1_cipga")
 
 [node name="RightMarker" type="Marker2D" parent="."]

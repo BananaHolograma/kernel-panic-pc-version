@@ -90,8 +90,29 @@ enum PHASES {
 			PHASES.EXTREME: {
 			},
 		}
+	},
+	"laser_wheel": {
+		"repeatable": false,
+		"script": LaserWheel,
+		"cursor": null,
+		"target": null,
+		"phase": {
+			PHASES.CALM: {
+				"lasers": 1
+			},
+			PHASES.ALERT: {
+				"lasers": 2
+			},
+			PHASES.DANGER: {
+				"lasers": 3
+			},
+			PHASES.EXTREME: {
+				"lasers": 3
+			},
+		}
 	}
 }
+
 
 var current_phase := PHASES.CALM:
 	set(value):

@@ -1,5 +1,7 @@
 class_name LaserWheelMarker extends Node2D
 
+signal finished
+
 @export var aim_direction := Vector2.RIGHT
 @export var rotation_speed := 1.0
 @export var max_rotation_speed := 20
@@ -18,6 +20,12 @@ class_name LaserWheelMarker extends Node2D
 var current_laser_sprite: AnimatedSprite2D
 var current_hitbox: CollisionShape2D
 var frame_count := 0 ## This is needed to detect the selected frame to enable the hitbox
+var shooting := false:
+	set(value):
+		set_process(value)
+		
+		shooting = value
+		
 
 func _ready():
 	sprite_2d.modulate = Color(1.0, 1.0, 1.0, 0.0)
@@ -45,14 +53,18 @@ func _ready():
 		current_laser_sprite.frame_changed.connect(on_animation_frame_changed)
 		current_laser_sprite.animation_finished.connect(on_animation_finished)
 		current_laser_sprite.show()
-
-
+		
+	finished.connect(on_finished)
+	
+	
 func _process(delta):
 	rotation_speed = clamp(rotation_speed + (rotation_acceleration * delta), 0, max_rotation_speed)
 	sprite_2d.rotation += rotation_speed * delta
 
 
 func shoot():
+	shooting = true
+	
 	var tween = create_tween()
 	tween.tween_property(sprite_2d, "modulate", Color.BLUE, preparation_time).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 		
@@ -67,13 +79,7 @@ func _on_preparation_timer_timeout():
 
 
 func on_animation_finished():
-	right_hitbox.disabled = true
-	left_hitbox.disabled = true
-	bottom_hitbox.disabled = true
-	
-	sprite_2d.rotation = 0
-	rotation_speed = 1.0
-	frame_count = 0
+	finished.emit()
 
 
 func on_animation_frame_changed():
@@ -81,3 +87,18 @@ func on_animation_frame_changed():
 	
 	if frame_count == 4:
 		current_hitbox.disabled = false
+		
+	if frame_count == 8:
+		current_hitbox.disabled = true
+
+
+func on_finished():
+	right_hitbox.disabled = true
+	left_hitbox.disabled = true
+	bottom_hitbox.disabled = true
+	
+	sprite_2d.rotation = 0
+	rotation_speed = 1.0
+	frame_count = 0
+	shooting = false
+	
