@@ -4,7 +4,7 @@ signal reached_max_speed
 signal stopped
 signal speed_temporary_changed
 signal speed_temporary_finished
-signal teleported
+signal teleported(previous_position: Vector2, new_position: Vector2)
 
 @export var actor: CharacterBody2D
 
@@ -42,9 +42,11 @@ func _ready():
 func teleport_to(distance: Vector2):
 	if teleport_cooldown_timer.time_left > 0:
 		return
-		
+	
+	var previous_position = actor.position
+	
 	actor.position += distance
-	teleported.emit()
+	teleported.emit(previous_position, actor.position)
 	teleport_cooldown_timer.start()
 	
 

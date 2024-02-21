@@ -1,6 +1,6 @@
 class_name Player extends CharacterBody2D
 
-@export var teleport_distance := 30
+@export var teleport_distance := 35
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_component: HealthComponent = $HealthComponent
@@ -11,13 +11,16 @@ class_name Player extends CharacterBody2D
 @onready var wall_teleport_detector: RayCast2D = $WallTeleportDetector
 
 const REDUCED_SPEED_PARTICLES = preload("res://scenes/computer/attacks/elements/reduced_speed_particles.tscn")
+const TELEPORT_TRAIL = preload("res://scenes/world/teleport_trail.tscn")
 
 var locked := false
 var is_left_direction: bool = false
+var teleporting := false
 
-func _unhandled_input(event):
+func _unhandled_input(_event: InputEvent):
 	if Input.is_action_just_pressed("dash"):
 		teleport()
+
 
 func _ready():
 	GameEvents.lock_player.connect(lock_player.bind(true))
@@ -67,11 +70,37 @@ func teleport():
 	
 	if not direction.is_zero_approx() or not wall_teleport_detector.is_colliding():
 		motion_component.teleport_to(direction * teleport_distance)
+
+
+func teleport_effect(_spawn_position: Vector2):
+	if animated_sprite_2d:
+		var sprite: Sprite2D = Sprite2D.new()
+		sprite.texture = animated_sprite_2d.sprite_frames.get_frame_texture(animated_sprite_2d.animation, animated_sprite_2d.frame)
+
+		get_tree().root.add_child(sprite)
+		
+		sprite.global_position = _spawn_position
+		sprite.scale = animated_sprite_2d.scale
+		sprite.flip_h = animated_sprite_2d.flip_h
+		sprite.flip_v = animated_sprite_2d.flip_v
+		sprite.modulate = Color(249.0, 58.0, 59.0, 0.75)
+		var tween: Tween = create_tween()
+		
+		tween.tween_property(sprite, "modulate:a", 0.0, 0.7).set_trans(tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+		tween.tween_callback(sprite.queue_free)
 	
 	
-func on_teleported():
+func on_teleported(previous_position: Vector2, new_position: Vector2):
+	teleport_effect(previous_position)
+	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * 5))
+	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * 10))
+	teleport_effect(new_position)
+	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * 5))
+	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * 10))
+	
 	if not health_component.IS_INVULNERABLE:
 		health_component.enable_invulnerability(true, 2.0)
+	
 	
 		
 func on_died():
