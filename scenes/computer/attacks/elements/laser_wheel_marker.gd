@@ -124,7 +124,7 @@ func on_finished():
 	bottom_hitbox.disabled = true
 	
 	sprite_2d.rotation = 0
-	rotation_speed = 1.0
+	rotation_speed = 1.5
 	frame_count = 0
 	shooting = false
 	

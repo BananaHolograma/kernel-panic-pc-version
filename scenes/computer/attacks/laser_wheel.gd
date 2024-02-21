@@ -13,6 +13,7 @@ class_name LaserWheel extends Attack
 
 
 func _ready():
+	super._ready()
 	finished.connect(func(): queue_free())
 	prepare_lasers()
 	collect_lasers_and_shoot()
@@ -28,13 +29,13 @@ func collect_lasers_and_shoot():
 		var laser = available_lasers.pick_random()
 		laser.finished.connect(func(): remaining_lasers -= 1)
 		laser.shoot()
+		available_lasers.erase(laser)
 
 
 func prepare_lasers():
-	var battleground_lasers = get_tree().get_nodes_in_group("laser_wheel")
+	var battleground_lasers = get_tree().get_nodes_in_group("laser_wheel").filter(func(node): return node is LaserWheelMarker)
 	
 	## This needs to be done manually to have the type Laser inside the arrayas the group returns Array[Node]
 	for laser: LaserWheelMarker in battleground_lasers:
 		available_lasers.append(laser)
-		
-	available_lasers = available_lasers.filter(func(laser: LaserWheelMarker): return not laser.shooting)
+	

@@ -3,6 +3,8 @@ extends Node
 ### PLAYER ###
 signal lock_player
 signal unlock_player
+signal winned_game
+signal losed_game
 
 ### INTERACTIONS ###
 signal interacted(interactable: Interactable)

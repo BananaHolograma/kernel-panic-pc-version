@@ -11,6 +11,7 @@ const BULLET = preload("res://scenes/computer/attacks/elements/bullet.tscn")
 var shooting_cursor
 
 func _ready():
+	super._ready()
 	name = "RailShooting"
 	
 	_create_timers()

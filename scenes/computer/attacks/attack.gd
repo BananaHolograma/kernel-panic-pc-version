@@ -13,6 +13,11 @@ var original_scale: Vector2
 var new_scale_multiplier := 1.5
 
 
+func _ready():
+	GameEvents.winned_game.connect(func(): queue_free())
+	GameEvents.losed_game.connect(func(): queue_free())
+	
+	
 func with_terminal(_terminal: MSDosTerminal) -> Attack:
 	terminal = _terminal
 

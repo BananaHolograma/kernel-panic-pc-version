@@ -3,6 +3,9 @@ extends Node
 signal timer_ended
 signal attack_routine_started
 signal attack_routine_finished
+signal winned_game
+signal losed_game
+
 
 const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 
@@ -20,8 +23,22 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var player: Player = $Player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+enum GAME_STATE {
+	RUNNING,
+	WIN,
+	LOSE
+}
 
 var seconds_passed := 0
+var current_game_state := GAME_STATE.RUNNING:
+	set(value):
+		current_game_state = value
+		
+		match current_game_state:
+			GAME_STATE.WIN:
+				winned_game.emit()
+			GAME_STATE.LOSE:
+				losed_game.emit()
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -31,6 +48,11 @@ func _ready():
 	phase_danger_music.volume_db = linear_to_db(0.0001) # -80 db
 	phase_extreme_music.volume_db = linear_to_db(0.0001) # -80 db
 	
+	winned_game.connect(on_winned_game)
+	losed_game.connect(on_losed_game)
+	player.died.connect(on_player_dead)
+	
+	timer_ended.connect(on_timer_ended)
 	animation_player.animation_finished.connect(on_animation_finished)
 	GameEvents.lock_player.emit()
 	game_camera.limit_smoothed = false
@@ -103,4 +125,24 @@ func on_animation_finished(animation_name: String):
 			phase_alert_music.stop()
 		"danger_to_extreme":
 			phase_danger_music.stop()
+
+
+func on_player_dead():
+	## TEMPORARY
+	current_game_state = GAME_STATE.WIN
 	
+
+func on_timer_ended():
+	current_game_state = GAME_STATE.WIN
+	
+	
+func on_winned_game():
+	GameEvents.winned_game.emit()
+	# TEMPORARY
+	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_tree().pause = true
+
+func on_losed_game():
+	GameEvents.losed_game.emit()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_tree().pause = true

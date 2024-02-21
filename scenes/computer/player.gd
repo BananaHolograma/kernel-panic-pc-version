@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody2D
 
+signal died
+
 @export var teleport_distance := 35
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -146,9 +148,7 @@ func on_died():
 	health_bar.hide()
 	teleport_cooldown_bar.hide()
 	
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
-	get_tree().paused = true
+	died.emit()
 
 
 func _on_hurtbox_2d_hitbox_detected(hitbox):

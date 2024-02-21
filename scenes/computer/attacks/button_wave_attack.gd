@@ -8,6 +8,7 @@ const ARROW = preload("res://assets/arrows/Arrow.png")
 
 
 func _ready():
+	super._ready()
 	name = "ButtonWaveAttack"
 	
 	finished.connect(on_finished)

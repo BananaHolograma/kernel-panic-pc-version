@@ -16,14 +16,19 @@ signal attack_routine_finished
 @onready var sfx: AudioStreamPlayer = $SFX
 
 const SERAPHIM_VOICE_6 = preload("res://assets/sounds/Seraphim_Voice6.wav")
+const SERAPHIM_VOICE_4 = preload("res://assets/sounds/Seraphim_Voice4.wav")
 const HOLY_APPEAR = preload("res://assets/sounds/holy_appear.ogg")
-
 
 enum PHASES {
 	CALM,
 	ALERT,
 	DANGER,
 	EXTREME
+}
+
+enum STATE {
+	ATTACKING,
+	WAITING
 }
 
 @onready var available_attacks := {
@@ -132,6 +137,8 @@ enum PHASES {
 	PHASES.EXTREME: 1.5
 }
 
+var current_state := STATE.WAITING
+
 var current_phase := PHASES.CALM:
 	set(value):
 		if value != current_phase:
@@ -148,6 +155,9 @@ var remaining_attacks := 0:
 
 
 func _ready():
+	GameEvents.winned_game.connect(func(): current_state = STATE.WAITING)
+	GameEvents.losed_game.connect(func(): current_state = STATE.WAITING)
+	
 	animation_player.animation_finished.connect(on_animation_finished)
 	animation_player.play("appear")
 	
@@ -157,32 +167,33 @@ func _ready():
 	
 
 func start_attack_routine():
-	await get_tree().create_timer(delay_between_routines[current_phase]).timeout
-	
-	var attacks = select_attacks()
-	
-	remaining_attacks = attacks.size()
-	attack_routine_started.emit()
-	
-	for attack in attacks:
-		var script = attack.script.new() as Attack
-		var phase = attack["phase"][current_phase]
+	if current_state == STATE.ATTACKING:
+		await get_tree().create_timer(delay_between_routines[current_phase]).timeout
+		
+		var attacks = select_attacks()
+		
+		remaining_attacks = attacks.size()
+		attack_routine_started.emit()
+		
+		for attack in attacks:
+			var script = attack.script.new() as Attack
+			var phase = attack["phase"][current_phase]
 
-		script.with_terminal(terminal).with_antivirus(self)
-		
-		if attack.target:
-			script.with_target(attack.target)
+			script.with_terminal(terminal).with_antivirus(self)
 			
-		if attack.cursor is Cursor:
-			script.with_cursor(attack.cursor)
-		
-		for property in phase.keys():	
-			script[property] = phase[property]
+			if attack.target:
+				script.with_target(attack.target)
+				
+			if attack.cursor is Cursor:
+				script.with_cursor(attack.cursor)
 			
-		add_child(script)
-		script.finished.connect(func(): remaining_attacks -= 1)
-		script.start()
-	
+			for property in phase.keys():	
+				script[property] = phase[property]
+				
+			add_child(script)
+			script.finished.connect(func(): remaining_attacks -= 1)
+			script.start()
+		
 
 func select_attacks() -> Array:
 	var number_of_attacks := _number_of_attacks_by_phase(current_phase)
@@ -236,7 +247,6 @@ func _display_cursors(delay_between: float = 1.0):
 
 
 func _holy_appear():
-	## TEMPORARY
 	var sfx2 = AudioStreamPlayer.new()
 	sfx2.stream = HOLY_APPEAR
 	sfx.bus = "SFX"
@@ -266,9 +276,19 @@ func on_phase_changed(_from: PHASES, to: PHASES):
 			tween.tween_property(vfx, "modulate:a", 1.0, 5.0).from(0.0).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BOUNCE)
 			tween.finished.connect(func():animation_player.play("danger"))
 			
+			var sfx2 = AudioStreamPlayer.new()
+			sfx2.stream = SERAPHIM_VOICE_4
+			sfx.bus = "SFX"
+			add_child(sfx2)
+
+			sfx2.finished.connect(func(): sfx2.queue_free())
+			sfx2.play()
+			
 		
 func on_antivirus_prepared():
 	GameEvents.unlock_player.emit()
+	current_state = STATE.ATTACKING
+	
 	start_attack_routine()
 
 

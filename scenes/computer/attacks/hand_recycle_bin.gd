@@ -70,6 +70,7 @@ var available_elements := {
 
 
 func _ready():
+	super._ready()
 	finished.connect(on_finished)
 	
 
