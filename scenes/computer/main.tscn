@@ -273,6 +273,7 @@ size = Vector2(13, 505)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lsw24")
+minutes_to_resist = 5
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -332,6 +333,7 @@ anchor_bottom = 0.5
 offset_bottom = 49.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="Control/GameStateMessage"]
 layout_mode = 1
@@ -384,7 +386,6 @@ position = Vector2(478, 33)
 position = Vector2(739, 317)
 
 [node name="LaserWheelMarkers" type="Node2D" parent="."]
-visible = false
 
 [node name="LaserWheelMarker" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
 position = Vector2(130, 83)

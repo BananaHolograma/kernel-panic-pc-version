@@ -41,24 +41,32 @@ var available_elements := {
 		"texture": [TEXT_FILE, TEXT_FILE_2],
 		"params": {
 			antivirus.PHASES.CALM: {
-				"pulses": 1,
-				"angle_step": 60,
-				"time_between_pulses": 1.0
-			},
-			antivirus.PHASES.ALERT: {
-				"pulses": 1,
-				"angle_step": 60,
-				"time_between_pulses": 1.0
-			},
-			antivirus.PHASES.DANGER: {
-				"pulses": 2,
-				"angle_step": 60,
+				"min_pulses": 1,
+				"max_pulses": 4,
+				"min_angle_step": 45,
+				"max_angle_step": 60,
 				"time_between_pulses": 1.5
 			},
+			antivirus.PHASES.ALERT: {
+				"min_pulses": 1,
+				"max_pulses": 4,
+				"min_angle_step": 45,
+				"max_angle_step": 50,
+				"time_between_pulses": 1.45
+			},
+			antivirus.PHASES.DANGER: {
+				"min_pulses": 2,
+				"max_pulses": 4,
+				"min_angle_step": 35,
+				"max_angle_step": 45,
+				"time_between_pulses": 1.4
+			},
 			antivirus.PHASES.EXTREME: {
-				"pulses": 3,
-				"angle_step": 60,
-				"time_between_pulses": 1.2
+				"min_pulses": 3,
+				"max_pulses": 5,
+				"min_angle_step": 30,
+				"max_angle_step": 40,
+				"time_between_pulses": 1.35
 			},
 		}
 	},

@@ -63,22 +63,22 @@ enum STATE {
 		"target": get_tree().get_first_node_in_group("battleground_rail"),
 		"phase": {
 			PHASES.CALM: {
-				"bullets_per_shoot": 2,
+				"bullets_per_shoot": 10,
 				"shoot_delay": 1.6,
 				"time_shooting": 4.5,
 			},
 			PHASES.ALERT: {
-				"bullets_per_shoot": 2,
+				"bullets_per_shoot": 5,
 				"shoot_delay": 1.4,
 				"time_shooting": 6.5,
 			},
 			PHASES.DANGER: {
-				"bullets_per_shoot": 2,
+				"bullets_per_shoot": 4,
 				"shoot_delay": 1.3,
 				"time_shooting": 8.0,
 			},
 			PHASES.EXTREME: {
-				"bullets_per_shoot": 1,
+				"bullets_per_shoot": 3,
 				"shoot_delay": 1.1,
 				"time_shooting": 9.0,
 			},
@@ -111,20 +111,20 @@ enum STATE {
 		"target": null,
 		"phase": {
 			PHASES.CALM: {
-				"lasers": 1,
+				"lasers": 2,
 				"probability_to_spawn_all": 0.1
 			},
 			PHASES.ALERT: {
-				"lasers": 2,
-				"probability_to_spawn_all": 0.2
+				"lasers": 3,
+				"probability_to_spawn_all": 0.15
 			},
 			PHASES.DANGER: {
-				"lasers": 2,
-				"probability_to_spawn_all": 0.25
+				"lasers": 4,
+				"probability_to_spawn_all": 0.2
 			},
 			PHASES.EXTREME: {
-				"lasers": 3,
-				"probability_to_spawn_all": 0.3
+				"lasers": 5,
+				"probability_to_spawn_all": 0.25
 			},
 		}
 	}
