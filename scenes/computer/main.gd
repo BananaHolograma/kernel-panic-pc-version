@@ -24,6 +24,10 @@ var seconds_passed := 0
 func _ready():
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
+	phase_alert_music.volume_db = linear_to_db(0.0001) # -80 db
+	phase_danger_music.volume_db = linear_to_db(0.0001) # -80 db
+	phase_extreme_music.volume_db = linear_to_db(0.0001) # -80 db
+	
 	animation_player.animation_finished.connect(on_animation_finished)
 	GameEvents.lock_player.emit()
 	game_camera.limit_smoothed = false

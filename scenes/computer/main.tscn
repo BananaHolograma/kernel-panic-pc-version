@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://7qonb4nkejb3"]
+[gd_scene load_steps=21 format=3 uid="uid://7qonb4nkejb3"]
 
 [ext_resource type="Script" path="res://scenes/computer/main.gd" id="1_lsw24"]
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://xk4d1l55lpkl" path="res://ui/themes/classic-95/icons/recycle_bin_full.png" id="4_tr2gv"]
 [ext_resource type="PackedScene" uid="uid://65qc1wlrer7u" path="res://scenes/computer/antivirus.tscn" id="5_mbfhl"]
 [ext_resource type="PackedScene" uid="uid://bjloaafjieww0" path="res://scenes/computer/terminal.tscn" id="5_n3pup"]
+[ext_resource type="PackedScene" uid="uid://hkx7ck1fv7t7" path="res://scenes/computer/attacks/elements/laser_wheel_marker.tscn" id="9_aai1f"]
 [ext_resource type="AudioStream" uid="uid://bwdfqpilkas7y" path="res://assets/music/Three Red Hearts - Save the City.ogg" id="9_rak3v"]
 [ext_resource type="AudioStream" uid="uid://lht2v0rn3klp" path="res://assets/music/Three Red Hearts - Go (No Vocal).ogg" id="10_qc674"]
 [ext_resource type="AudioStream" uid="uid://dn57pgfxqsjso" path="res://assets/music/Three Red Hearts - Box Jump.ogg" id="11_bxdob"]
@@ -183,6 +184,51 @@ position = Vector2(478, 33)
 
 [node name="Player" parent="." instance=ExtResource("4_8m6kg")]
 position = Vector2(739, 317)
+
+[node name="LaserWheelMarkers" type="Node2D" parent="."]
+
+[node name="LaserWheelMarker" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker2" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(304, 83)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker3" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(629, 83)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker4" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(775, 83)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker5" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(33, 224)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker6" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(33, 449)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker7" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(33, 224)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker8" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(33, 325)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker9" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(930, 449)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker10" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(930, 224)
+aim_direction = Vector2(0, 1)
+
+[node name="LaserWheelMarker11" parent="LaserWheelMarkers" instance=ExtResource("9_aai1f")]
+position = Vector2(930, 325)
+aim_direction = Vector2(0, 1)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(480, 507)

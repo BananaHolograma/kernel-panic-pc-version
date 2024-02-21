@@ -1,0 +1,164 @@
+[gd_scene load_steps=16 format=3 uid="uid://hkx7ck1fv7t7"]
+
+[ext_resource type="Script" path="res://scenes/computer/attacks/elements/laser_wheel_marker.gd" id="1_cipga"]
+[ext_resource type="Texture2D" uid="uid://do0psfax2uk3s" path="res://assets/cursors/Win95/Win95Move.png" id="2_0rl58"]
+[ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="3_2x3xr"]
+[ext_resource type="Texture2D" uid="uid://bfmhsfr3g7vw8" path="res://assets/vfx/wheel_laser.png" id="3_83tse"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vr8p"]
+atlas = ExtResource("3_83tse")
+region = Rect2(0, 0, 375, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt7gj"]
+atlas = ExtResource("3_83tse")
+region = Rect2(375, 0, 375, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu8hb"]
+atlas = ExtResource("3_83tse")
+region = Rect2(750, 0, 375, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwop2"]
+atlas = ExtResource("3_83tse")
+region = Rect2(375, 64, 375, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esbpt"]
+atlas = ExtResource("3_83tse")
+region = Rect2(0, 64, 375, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxo1d"]
+atlas = ExtResource("3_83tse")
+region = Rect2(750, 64, 375, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4anm"]
+atlas = ExtResource("3_83tse")
+region = Rect2(0, 128, 375, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhou3"]
+atlas = ExtResource("3_83tse")
+region = Rect2(375, 128, 375, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aclha"]
+atlas = ExtResource("3_83tse")
+region = Rect2(750, 128, 375, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_14q7x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vr8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt7gj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu8hb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwop2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esbpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxo1d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4anm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhou3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aclha")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mkql"]
+size = Vector2(363, 13)
+
+[node name="LaserWheel" type="Node2D" groups=["laser_wheel"]]
+position = Vector2(119, 61)
+script = ExtResource("1_cipga")
+
+[node name="RightMarker" type="Marker2D" parent="."]
+position = Vector2(20, -1)
+metadata/_edit_lock_ = true
+
+[node name="LaserShoot" type="AnimatedSprite2D" parent="RightMarker"]
+visible = false
+position = Vector2(182, 1)
+sprite_frames = SubResource("SpriteFrames_14q7x")
+animation = &"shoot"
+
+[node name="Hitbox2D" type="Area2D" parent="RightMarker"]
+script = ExtResource("3_2x3xr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightMarker/Hitbox2D"]
+position = Vector2(187.5, 1.5)
+shape = SubResource("RectangleShape2D_2mkql")
+disabled = true
+debug_color = Color(0.905882, 0.192157, 0.298039, 0.419608)
+
+[node name="BottomMarker" type="Marker2D" parent="."]
+position = Vector2(-1, 21)
+metadata/_edit_lock_ = true
+
+[node name="LaserShoot" type="AnimatedSprite2D" parent="BottomMarker"]
+visible = false
+position = Vector2(-1, 183)
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_14q7x")
+animation = &"shoot"
+frame = 11
+frame_progress = 1.0
+
+[node name="Hitbox2D" type="Area2D" parent="BottomMarker"]
+position = Vector2(1, 0)
+rotation = 1.5708
+script = ExtResource("3_2x3xr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomMarker/Hitbox2D"]
+position = Vector2(187.5, 1.5)
+shape = SubResource("RectangleShape2D_2mkql")
+disabled = true
+debug_color = Color(0.905882, 0.192157, 0.298039, 0.419608)
+
+[node name="LeftMarker" type="Marker2D" parent="."]
+position = Vector2(-24, -1)
+metadata/_edit_lock_ = true
+
+[node name="LaserShoot" type="AnimatedSprite2D" parent="LeftMarker"]
+visible = false
+position = Vector2(-188, 0)
+rotation = -3.14159
+sprite_frames = SubResource("SpriteFrames_14q7x")
+animation = &"shoot"
+
+[node name="Hitbox2D" type="Area2D" parent="LeftMarker"]
+position = Vector2(-381, -2)
+script = ExtResource("3_2x3xr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftMarker/Hitbox2D"]
+position = Vector2(187.5, 1.5)
+shape = SubResource("RectangleShape2D_2mkql")
+disabled = true
+debug_color = Color(0.905882, 0.192157, 0.298039, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0rl58")
+
+[node name="PreparationTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="PreparationTimer" to="." method="_on_preparation_timer_timeout"]
