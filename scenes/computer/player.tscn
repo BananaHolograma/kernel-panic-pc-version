@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://dlbbnag8ikm5e"]
+[gd_scene load_steps=27 format=3 uid="uid://dlbbnag8ikm5e"]
 
 [ext_resource type="Script" path="res://scenes/computer/player.gd" id="1_c3fr3"]
 [ext_resource type="Texture2D" uid="uid://dxyk5rvqdgcdh" path="res://assets/emojies/emoji2.png" id="2_g3we0"]
 [ext_resource type="Shader" path="res://shaders/effects/blink.gdshader" id="2_nsoew"]
+[ext_resource type="AudioStream" uid="uid://i5abh3hsk6s7" path="res://assets/sounds/player_hit.ogg" id="3_gfntk"]
 [ext_resource type="Texture2D" uid="uid://baovpvhbe2y06" path="res://assets/progress_bar/CircularProgressBar.png" id="4_rbxkf"]
 [ext_resource type="Texture2D" uid="uid://8e8qqprr1gqj" path="res://assets/progress_bar/HeartProgressBar.png" id="4_uafb5"]
 [ext_resource type="Script" path="res://components/collision/2d/hurtbox.gd" id="6_20d5t"]
@@ -179,6 +180,14 @@ radius = 13.0384
 collision_layer = 4
 script = ExtResource("1_c3fr3")
 
+[node name="TeleportAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_st1kr")
+bus = &"SFX"
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gfntk")
+bus = &"SFX"
+
 [node name="HealthFeedback" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -295,9 +304,5 @@ script = ExtResource("13_cif2g")
 wall_teleport_detector = NodePath("../../../WallTeleportDetector")
 animated_sprite = NodePath("../../../AnimatedSprite2D")
 motion_component = NodePath("../../../MotionComponent")
-
-[node name="TeleportAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("13_st1kr")
-bus = &"SFX"
 
 [connection signal="hitbox_detected" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hitbox_detected"]

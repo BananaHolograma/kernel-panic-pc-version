@@ -198,8 +198,8 @@ func on_spawned():
 
 func on_animation_finished(animation_name: String):
 	if animation_name == "world_explosion":
-		world_vfx.hide()
 		world_radius_explosion.disabled = true
+		world_vfx.hide()
 		finished.emit()
 		queue_free()
 

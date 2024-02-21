@@ -6,7 +6,6 @@ signal attack_routine_finished
 signal winned_game
 signal losed_game
 
-
 const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 
 @onready var phase_calm_music: AudioStreamPlayer = $PhaseCalmMusic
@@ -63,6 +62,7 @@ func _ready():
 	antivirus.phase_changed.connect(on_antivirus_phase_changed)
 	antivirus.prepared.connect(func(): 
 		animation_player.play("calm_music_start")
+		game_timer.start()
 	)
 	start_gameplay_timer() ## TODO - move after all animations are loaded
 	player.appear()
@@ -76,7 +76,6 @@ func start_gameplay_timer():
 	game_timer.wait_time = 1.0
 	game_timer.one_shot = false
 	game_timer.autostart = false
-	game_timer.start()
 
 
 func on_fade_in_completed(overlay):
@@ -91,6 +90,7 @@ func on_game_timer_second_passed():
 	
 	antivirus.phase_transition(progress_bar.value / progress_bar.max_value)
 	
+	print("SECONDS PASSED %s %s" % [seconds_passed, minutes_to_resist * 60])
 	if 	seconds_passed >= minutes_to_resist * 60:
 		game_timer.stop()
 		timer_ended.emit()
@@ -129,7 +129,7 @@ func on_animation_finished(animation_name: String):
 
 func on_player_dead():
 	## TEMPORARY
-	current_game_state = GAME_STATE.WIN
+	current_game_state = GAME_STATE.LOSE
 	
 
 func on_timer_ended():
@@ -137,12 +137,15 @@ func on_timer_ended():
 	
 	
 func on_winned_game():
+	print("GAME WINNED")
 	GameEvents.winned_game.emit()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	# TEMPORARY
 	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	get_tree().pause = true
+	#get_tree().pause = true
 
 func on_losed_game():
+	print("GAME LOSED")
 	GameEvents.losed_game.emit()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	get_tree().pause = true
+	#get_tree().pause = true

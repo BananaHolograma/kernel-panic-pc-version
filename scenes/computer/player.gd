@@ -17,6 +17,7 @@ signal died
 @onready var appear_vfx: Control = $AppearVFX
 
 @onready var teleport_audio_stream_player: AudioStreamPlayer = $TeleportAudioStreamPlayer
+@onready var hit_audio_stream_player: AudioStreamPlayer = $Hit
 
 
 const REDUCED_SPEED_PARTICLES = preload("res://scenes/computer/attacks/elements/reduced_speed_particles.tscn")
@@ -160,6 +161,7 @@ func _on_hurtbox_2d_hitbox_detected(hitbox):
 		if not health_component.check_is_dead() and not health_component.IS_INVULNERABLE:
 			health_component.enable_invulnerability(true, 2.0)
 			animation_player.play("hit")
+			hit_audio_stream_player.play()
 
 
 func on_animation_finished(animation_name: String):
