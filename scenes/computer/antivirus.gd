@@ -7,6 +7,10 @@ signal attack_routine_finished
 
 @export var terminal: MSDosTerminal
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var vfx: AnimatedSprite2D = $VFX
+@onready var emotions: AnimatedSprite2D = $Emotions
+
 @onready var cursors: CursorsOrbit = %Cursors
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sfx: AudioStreamPlayer = $SFX
@@ -183,13 +187,13 @@ func select_attacks() -> Array:
 func phase_transition(progress_percentage: float):
 	var percentage = progress_percentage * 100
 	
-	if percentage >= 15 and percentage < 50:
+	if percentage >= 5 and percentage < 10:
 		current_phase = PHASES.ALERT
 		
-	if percentage >= 50 and percentage < 85:
+	if percentage >= 10 and percentage < 15:
 		current_phase = PHASES.DANGER
 		
-	if percentage >= 85:
+	if percentage >= 15:
 		current_phase = PHASES.EXTREME
 		
 	
@@ -239,8 +243,21 @@ func on_animation_finished(animation_name: String):
 
 
 ## TODO - ANIMATIONS TO REFLECT THE PHASE CHANGE IN THE BATTLEGROUND
-func on_phase_changed(from: PHASES, to: PHASES):
-	pass
+func on_phase_changed(_from: PHASES, to: PHASES):
+	match to:
+		PHASES.ALERT:
+			emotions.show()
+			emotions.play("exclamation")
+			animation_player.play("alert")
+		PHASES.DANGER, PHASES.EXTREME:
+			vfx.show()
+			vfx.play("aura")
+			
+			var tween = create_tween()
+			tween.tween_property(vfx, "modulate:a", 1.0, 5.0).from(0.0).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BOUNCE)
+			tween.finished.connect(func():animation_player.play("danger"))
+			
+			
 	
 	
 func on_antivirus_prepared():
@@ -250,3 +267,7 @@ func on_antivirus_prepared():
 
 func on_attack_routine_finished():
 	start_attack_routine()
+	
+	if emotions.is_playing():
+		emotions.stop()
+		emotions.hide()

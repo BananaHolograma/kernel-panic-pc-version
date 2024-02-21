@@ -13,7 +13,7 @@ func _ready():
 	direction = Vector2.RIGHT.rotated(deg_to_rad(angle))
 
 
-func _process(delta):
+func _process(_delta):
 	if not direction.is_zero_approx():
 		global_position += direction * speed
 
