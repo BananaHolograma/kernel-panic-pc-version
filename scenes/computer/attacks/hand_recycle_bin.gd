@@ -10,10 +10,10 @@ const WORLD = preload("res://ui/themes/classic-95/icons/world.png")
 const BIN_ELEMENT = preload("res://scenes/computer/attacks/elements/bin_element.tscn")
 
 @export var elements_to_grab := {
-	antivirus.PHASES.CALM: 2,
-	antivirus.PHASES.ALERT: 3,
-	antivirus.PHASES.DANGER: 4,
-	antivirus.PHASES.EXTREME: 5
+	antivirus.PHASES.CALM: 1,
+	antivirus.PHASES.ALERT: 2,
+	antivirus.PHASES.DANGER: 3,
+	antivirus.PHASES.EXTREME: 4
 }
 
 
@@ -27,19 +27,19 @@ var available_elements := {
 		"params": {
 			antivirus.PHASES.CALM: {
 				"max_speakers_amount": 3,
-				"time_active": 3.5
+				"time_active": 2.5
 			},
 			antivirus.PHASES.ALERT: {
 				"max_speakers_amount": 4,
-				"time_active": 4.5
+				"time_active": 3.0
 			},
 			antivirus.PHASES.DANGER: {
 				"max_speakers_amount": 5,
-				"time_active": 5.0
+				"time_active": 3.5
 			},
 			antivirus.PHASES.EXTREME: {
 				"max_speakers_amount": 6,
-				"time_active": 6.0
+				"time_active": 4.0
 			},
 		}
 	},
@@ -53,17 +53,17 @@ var available_elements := {
 			},
 			antivirus.PHASES.ALERT: {
 				"pulses": 1,
-				"angle_step": 45,
+				"angle_step": 60,
 				"time_between_pulses": 0.6
 			},
 			antivirus.PHASES.DANGER: {
 				"pulses": 2,
-				"angle_step": 35,
-				"time_between_pulses": 1.0
+				"angle_step": 45,
+				"time_between_pulses": 1.2
 			},
 			antivirus.PHASES.EXTREME: {
 				"pulses": 2,
-				"angle_step": 25,
+				"angle_step": 45,
 				"time_between_pulses": 1.0
 			},
 		}

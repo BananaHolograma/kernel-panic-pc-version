@@ -34,19 +34,19 @@ enum PHASES {
 		"target": get_tree().get_first_node_in_group("player"),
 		"phase": {
 			PHASES.CALM: {
-				"amount": 3,
+				"amount": 2,
 				"delay_between_spawn": 2.0
 			},
 			PHASES.ALERT: {
-				"amount": 4,
+				"amount": 3,
 				"delay_between_spawn": 1.5
 			},
 			PHASES.DANGER: {
-				"amount": 6,
+				"amount": 5,
 				"delay_between_spawn": 1.2
 			},
 			PHASES.EXTREME: {
-				"amount": 10,
+				"amount": 7,
 				"delay_between_spawn": 1.0
 			},
 		}
@@ -58,24 +58,24 @@ enum PHASES {
 		"target": get_tree().get_first_node_in_group("battleground_rail"),
 		"phase": {
 			PHASES.CALM: {
-				"bullets_per_shoot": 2,
-				"shoot_delay": 1.2,
-				"time_shooting": 5.0,
+				"bullets_per_shoot": 1,
+				"shoot_delay": 1.5,
+				"time_shooting": 3.0,
 			},
 			PHASES.ALERT: {
-				"bullets_per_shoot": 2,
-				"shoot_delay": 1,
-				"time_shooting": 7.5,
+				"bullets_per_shoot": 1,
+				"shoot_delay": 1.3,
+				"time_shooting": 5.5,
 			},
 			PHASES.DANGER: {
 				"bullets_per_shoot": 1,
-				"shoot_delay": 0.8,
-				"time_shooting": 9.0,
+				"shoot_delay": 1.2,
+				"time_shooting": 7.0,
 			},
 			PHASES.EXTREME: {
-				"bullets_per_shoot": 1,
-				"shoot_delay": 0.7,
-				"time_shooting": 10.0,
+				"bullets_per_shoot": 2,
+				"shoot_delay": 1.0,
+				"time_shooting": 9.0,
 			},
 		}
 	},
@@ -108,7 +108,7 @@ enum PHASES {
 				"lasers": 2
 			},
 			PHASES.DANGER: {
-				"lasers": 3
+				"lasers": 2
 			},
 			PHASES.EXTREME: {
 				"lasers": 3
@@ -117,6 +117,12 @@ enum PHASES {
 	}
 }
 
+@onready var delay_between_routines := {
+	PHASES.CALM: 2.0,
+	PHASES.ALERT: 1.7,
+	PHASES.DANGER: 1.5,
+	PHASES.EXTREME: 1.0
+}
 
 var current_phase := PHASES.CALM:
 	set(value):
@@ -143,6 +149,8 @@ func _ready():
 	
 
 func start_attack_routine():
+	await get_tree().create_timer(delay_between_routines[current_phase]).timeout
+	
 	var attacks = select_attacks()
 	
 	remaining_attacks = attacks.size()
@@ -193,7 +201,7 @@ func phase_transition(progress_percentage: float):
 	if percentage >= 10 and percentage < 15:
 		current_phase = PHASES.DANGER
 		
-	if percentage >= 15:
+	if percentage >= 20:
 		current_phase = PHASES.EXTREME
 		
 	
@@ -236,20 +244,14 @@ func _holy_appear():
 	sfx2.play()
 
 
-func on_animation_finished(animation_name: String):
-	if animation_name == 'appear':
-		animation_player.play("idle")
-		_display_cursors()
-
-
-## TODO - ANIMATIONS TO REFLECT THE PHASE CHANGE IN THE BATTLEGROUND
 func on_phase_changed(_from: PHASES, to: PHASES):
+	print("ACTUAL PHASE ", to)
 	match to:
 		PHASES.ALERT:
 			emotions.show()
 			emotions.play("exclamation")
 			animation_player.play("alert")
-		PHASES.DANGER, PHASES.EXTREME:
+		PHASES.DANGER:
 			vfx.show()
 			vfx.play("aura")
 			
@@ -257,9 +259,7 @@ func on_phase_changed(_from: PHASES, to: PHASES):
 			tween.tween_property(vfx, "modulate:a", 1.0, 5.0).from(0.0).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BOUNCE)
 			tween.finished.connect(func():animation_player.play("danger"))
 			
-			
-	
-	
+		
 func on_antivirus_prepared():
 	GameEvents.unlock_player.emit()
 	start_attack_routine()
@@ -271,3 +271,9 @@ func on_attack_routine_finished():
 	if emotions.is_playing():
 		emotions.stop()
 		emotions.hide()
+
+
+func on_animation_finished(animation_name: String):
+	if animation_name == 'appear':
+		animation_player.play("idle")
+		_display_cursors()
