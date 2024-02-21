@@ -1,0 +1,251 @@
+[gd_scene load_steps=20 format=3 uid="uid://b4wsixanrnmwy"]
+
+[ext_resource type="Script" path="res://scenes/world/menu_screen.gd" id="1_3briv"]
+[ext_resource type="FontFile" uid="uid://vvqo346kg6xj" path="res://ui/themes/fonts/Windows Regular.ttf" id="1_woiu2"]
+[ext_resource type="Texture2D" uid="uid://ck5ahmthatcd" path="res://assets/images/kernel_panic_win.png" id="2_d1kqd"]
+[ext_resource type="Shader" path="res://shaders/vhs/vhs_soft.gdshader" id="2_lqjqs"]
+[ext_resource type="Texture2D" uid="uid://kh4t4jmm3bo2" path="res://ui/themes/classic-95/icons/Flag.png" id="5_dxvt1"]
+[ext_resource type="FontFile" uid="uid://d0p5o4rhchkfv" path="res://ui/themes/fonts/Franklin Gothic Medium Regular.ttf" id="6_dh2j5"]
+[ext_resource type="Texture2D" uid="uid://1iamritjom30" path="res://ui/themes/classic-95/icons/drive.png" id="7_1cyra"]
+[ext_resource type="Texture2D" uid="uid://dfbc5sbl5vbgs" path="res://ui/themes/classic-95/icons/tools.png" id="8_as70u"]
+[ext_resource type="Texture2D" uid="uid://7l3vnbo3tab3" path="res://ui/themes/classic-95/icons/text_file.png" id="9_p5vn8"]
+[ext_resource type="Texture2D" uid="uid://bt358ixutrtlo" path="res://assets/social/itch.png" id="10_slkgd"]
+[ext_resource type="Texture2D" uid="uid://bm4thq4qto45w" path="res://assets/social/instagram_1.svg" id="11_ynnon"]
+[ext_resource type="Texture2D" uid="uid://culs5n75t4e2e" path="res://assets/social/github-square_3.svg" id="12_8hvs5"]
+[ext_resource type="LabelSettings" uid="uid://001lx81li1qk" path="res://ui/themes/classic-95/general/boot_label.tres" id="13_8r00x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o32rf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bm56p"]
+shader = ExtResource("2_lqjqs")
+shader_parameter/tape_wave_amount = 0.0
+shader_parameter/tape_crease_amount = 0.45
+shader_parameter/color_displacement = 1.612
+shader_parameter/lines_velocity = 0.1
+
+[sub_resource type="LabelSettings" id="LabelSettings_oruwp"]
+font = ExtResource("1_woiu2")
+font_size = 60
+font_color = Color(0.694118, 0.694118, 0.694118, 1)
+outline_size = 1
+outline_color = Color(1, 1, 0.494118, 1)
+shadow_size = 5
+
+[sub_resource type="Animation" id="Animation_jsy23"]
+resource_name = "title_blink"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ContentMarginContainer/Title:label_settings:outline_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.7, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 3, 1, 3, 1]
+}
+
+[sub_resource type="Animation" id="Animation_75gjn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ContentMarginContainer/Title:label_settings:outline_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o3jtv"]
+_data = {
+"RESET": SubResource("Animation_75gjn"),
+"title_blink": SubResource("Animation_jsy23")
+}
+
+[node name="MenuScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3briv")
+
+[node name="BackgroundMisc" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.278431)
+material = SubResource("ShaderMaterial_o32rf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_d1kqd")
+
+[node name="VHSshader" type="ColorRect" parent="BackgroundMisc"]
+material = SubResource("ShaderMaterial_bm56p")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0.8, 0.431373)
+
+[node name="ContentMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 40
+
+[node name="Title" type="Label" parent="ContentMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "KERNEL PANIC (KP)"
+label_settings = SubResource("LabelSettings_oruwp")
+
+[node name="OSVersion" type="HBoxContainer" parent="ContentMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="ContentMarginContainer/OSVersion"]
+layout_mode = 2
+texture = ExtResource("5_dxvt1")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="ContentMarginContainer/OSVersion"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.858824, 0.890196, 0.258824, 1)
+theme_override_fonts/font = ExtResource("6_dh2j5")
+theme_override_font_sizes/font_size = 24
+text = "WIN 95 VERSION"
+
+[node name="MenuButtons" type="VBoxContainer" parent="ContentMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="StartButton" type="Button" parent="ContentMarginContainer/MenuButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../Exit")
+theme_override_font_sizes/font_size = 28
+text = "Boot PC"
+icon = ExtResource("7_1cyra")
+expand_icon = true
+
+[node name="OptionsButton" type="Button" parent="ContentMarginContainer/MenuButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Options"
+icon = ExtResource("8_as70u")
+expand_icon = true
+
+[node name="Credits" type="Button" parent="ContentMarginContainer/MenuButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../Exit")
+theme_override_font_sizes/font_size = 28
+text = "Credits"
+icon = ExtResource("9_p5vn8")
+expand_icon = true
+
+[node name="Exit" type="Button" parent="ContentMarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+focus_neighbor_top = NodePath("../MenuButtons/Credits")
+focus_neighbor_bottom = NodePath("../MenuButtons/StartButton")
+theme_override_font_sizes/font_size = 28
+text = "Exit"
+expand_icon = true
+
+[node name="ExitConfirmation" type="ConfirmationDialog" parent="ContentMarginContainer"]
+disable_3d = true
+initial_position = 1
+size = Vector2i(226, 100)
+dialog_text = "Do you really want to exit the game?"
+
+[node name="Social" type="HBoxContainer" parent="ContentMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+
+[node name="Itch" type="TextureRect" parent="ContentMarginContainer/Social"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("10_slkgd")
+expand_mode = 1
+
+[node name="Instagram" type="TextureRect" parent="ContentMarginContainer/Social"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("11_ynnon")
+expand_mode = 1
+
+[node name="Instagram2" type="TextureRect" parent="ContentMarginContainer/Social"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("12_8hvs5")
+expand_mode = 1
+
+[node name="Version" type="Label" parent="ContentMarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "v1.0.0"
+label_settings = ExtResource("13_8r00x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o3jtv")
+}
+
+[connection signal="pressed" from="ContentMarginContainer/MenuButtons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ContentMarginContainer/Exit" to="." method="_on_exit_pressed"]
