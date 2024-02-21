@@ -27,3 +27,18 @@ func _on_exit_pressed():
 
 func _on_start_button_pressed():
 	get_tree().call_deferred("change_scene_to_packed", BOOTLOADER)
+
+
+func _on_itch_gui_input(event: InputEvent):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		Utilities.open_external_link("https://bananaholograma.itch.io/")
+		
+		
+func _on_instagram_gui_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		Utilities.open_external_link("https://instagram.com/bananaholograma")
+
+
+func _on_github_gui_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		Utilities.open_external_link("https://github.com/bananaholograma")
