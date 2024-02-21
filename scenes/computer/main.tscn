@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://7qonb4nkejb3"]
+[gd_scene load_steps=22 format=3 uid="uid://7qonb4nkejb3"]
 
 [ext_resource type="Script" path="res://scenes/computer/main.gd" id="1_lsw24"]
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
@@ -16,6 +16,18 @@
 
 [sub_resource type="Animation" id="Animation_futpa"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PhaseCalmMusic:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_lr2nv"]
 resource_name = "alert_to_danger"
@@ -101,10 +113,39 @@ tracks/1/keys = {
 "values": [-80.0, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_imyfs"]
+resource_name = "calm_music_start"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PhaseCalmMusic:volume_db")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PhaseCalmMusic:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_na4xf"]
 _data = {
 "RESET": SubResource("Animation_futpa"),
 "alert_to_danger": SubResource("Animation_lr2nv"),
+"calm_music_start": SubResource("Animation_imyfs"),
 "calm_to_alert": SubResource("Animation_6pscp"),
 "danger_to_extreme": SubResource("Animation_5u27y")
 }
@@ -260,6 +301,7 @@ shape = SubResource("RectangleShape2D_bgky4")
 
 [node name="PhaseCalmMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_rak3v")
+volume_db = -80.0
 bus = &"Music"
 
 [node name="PhaseAlertMusic" type="AudioStreamPlayer" parent="."]
@@ -269,7 +311,6 @@ bus = &"Music"
 
 [node name="PhaseDangerMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_bxdob")
-volume_db = -80.0
 bus = &"Music"
 
 [node name="PhaseExtremeMusic" type="AudioStreamPlayer" parent="."]

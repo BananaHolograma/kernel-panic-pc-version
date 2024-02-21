@@ -24,6 +24,7 @@ var seconds_passed := 0
 func _ready():
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
+	phase_calm_music.volume_db = linear_to_db(0.0001) # -80 db
 	phase_alert_music.volume_db = linear_to_db(0.0001) # -80 db
 	phase_danger_music.volume_db = linear_to_db(0.0001) # -80 db
 	phase_extreme_music.volume_db = linear_to_db(0.0001) # -80 db
@@ -36,7 +37,9 @@ func _ready():
 	
 	game_timer.timeout.connect(on_game_timer_second_passed)
 	antivirus.phase_changed.connect(on_antivirus_phase_changed)
-	antivirus.prepared.connect(func(): phase_calm_music.play())
+	antivirus.prepared.connect(func(): 
+		animation_player.play("calm_music_start")
+	)
 	start_gameplay_timer() ## TODO - move after all animations are loaded
 	
 
