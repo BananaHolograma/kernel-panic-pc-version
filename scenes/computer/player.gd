@@ -10,6 +10,10 @@ class_name Player extends CharacterBody2D
 @onready var finite_state_machine: FiniteStateMachine = $FiniteStateMachine
 @onready var wall_teleport_detector: RayCast2D = $WallTeleportDetector
 
+@onready var teleport_cooldown_bar: TextureProgressBar = %TeleportCooldownBar
+@onready var health_bar: TextureProgressBar = $HealthFeedback/HealthBar
+
+
 const REDUCED_SPEED_PARTICLES = preload("res://scenes/computer/attacks/elements/reduced_speed_particles.tscn")
 
 var locked := false
@@ -21,19 +25,34 @@ func _unhandled_input(_event: InputEvent):
 		teleport()
 
 
+func _process(_delta):
+	display_cooldown_feedback()
+
+
 func _ready():
 	GameEvents.lock_player.connect(lock_player.bind(true))
 	GameEvents.unlock_player.connect(lock_player.bind(false))
-
-	motion_component.teleported.connect(on_teleported)
-	health_component.died.connect(on_died)
-	health_component.invulnerability_changed.connect(func(active: bool):
-		if not active and animation_player.is_playing() and animation_player.current_animation == "hit":
-			animation_player.stop()
-			animated_sprite_2d.material.set_shader_parameter("flash_opacity", 0)
+	
+	teleport_cooldown_bar.hide()
+	health_bar.hide()
+	health_bar.value = health_component.CURRENT_HEALTH
+	
+	motion_component.teleport_cooldown_ended.connect(func():
+		teleport_cooldown_bar.value = 0	
+		teleport_cooldown_bar.hide()
 	)
 	
+	motion_component.teleported.connect(on_teleported)
+	health_component.health_changed.connect(on_health_changed)
+	health_component.died.connect(on_died)
+	health_component.invulnerability_changed.connect(on_invulnerability_changed)
+	
 
+func on_health_changed(amount: int, type: HealthComponent.TYPES):
+	if amount > 0:
+		show_health_feedback()
+	
+	
 func lock_player(lock : bool) -> void:
 	if finite_state_machine:
 		if lock:
@@ -53,17 +72,19 @@ func reduce_speed(new_speed: float):
 		add_child(reduced_speed_vfx)
 
 
-func _on_hurtbox_2d_hitbox_detected(hitbox):
-	if hitbox.name == "LaserHitbox":
-		reduce_speed(motion_component.max_speed / 2)
-	else:
-		health_component.damage(1)
+#Normalization: Using 1 - time_left/cooldown ensures accurate progress calculation.
+#Bar Range: Ensure your teleport_cooldown_bar has a max_value of 1 or a suitable value based on your scaling preferences.
+func display_cooldown_feedback():
+	if motion_component.teleport_cooldown_timer.time_left > 0:
+		var progress = snapped((1 - motion_component.teleport_cooldown_timer.time_left / motion_component.teleport_cooldown), teleport_cooldown_bar.step)
+		teleport_cooldown_bar.value = progress
 		
-		if not health_component.check_is_dead() and not health_component.IS_INVULNERABLE:
-			health_component.enable_invulnerability(true, 2.0)
-			animation_player.play("hit")
-
-
+	
+func show_health_feedback():	
+	health_bar.value = max(0, health_component.CURRENT_HEALTH)
+	health_bar.show()
+	
+	
 func teleport():
 	var direction = finite_state_machine.current_state.input_direction
 	
@@ -90,18 +111,37 @@ func teleport_effect(_spawn_position: Vector2):
 	
 	
 func on_teleported(previous_position: Vector2, new_position: Vector2):
+	teleport_cooldown_bar.show()
+	
 	teleport_effect(previous_position)
 	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * teleport_distance))
-	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 10)))
+	teleport_effect(previous_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 15)))
 	teleport_effect(new_position)
 	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * teleport_distance))
-	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 10)))
+	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 15)))
 	
-	if not health_component.IS_INVULNERABLE:
-		health_component.enable_invulnerability(true, 2.0)
-	
-	
+	health_component.enable_invulnerability(true, 1.5)
+
+
+func on_invulnerability_changed(active: bool):
+	if active:
+		health_bar.hide()
 		
+	if not active and animation_player.is_playing() and animation_player.current_animation == "hit":
+		animation_player.stop()
+		animated_sprite_2d.material.set_shader_parameter("flash_opacity", 0)
+			
+
 func on_died():
-	print("player died")
 	get_tree().paused = true
+
+
+func _on_hurtbox_2d_hitbox_detected(hitbox):
+	if hitbox.name == "LaserHitbox":
+		reduce_speed(motion_component.max_speed / 2)
+	else:
+		health_component.damage(1)
+		
+		if not health_component.check_is_dead() and not health_component.IS_INVULNERABLE:
+			health_component.enable_invulnerability(true, 2.0)
+			animation_player.play("hit")

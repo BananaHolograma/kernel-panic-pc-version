@@ -5,6 +5,7 @@ signal stopped
 signal speed_temporary_changed
 signal speed_temporary_finished
 signal teleported(previous_position: Vector2, new_position: Vector2)
+signal teleport_cooldown_ended
 
 @export var actor: CharacterBody2D
 
@@ -144,7 +145,7 @@ func _create_teleport_cooldown_timer(time: float = teleport_cooldown):
 	teleport_cooldown_timer.wait_time = time
 
 	add_child(teleport_cooldown_timer)
-	teleport_cooldown_timer.timeout.connect(on_speed_temporary_timeout)
+	teleport_cooldown_timer.timeout.connect(on_teleport_cooldown_timeout)
 	
 	
 func _normalize_vector(value: Vector2) -> Vector2:
@@ -153,3 +154,8 @@ func _normalize_vector(value: Vector2) -> Vector2:
 
 func on_speed_temporary_timeout():
 	current_speed = max_speed
+
+
+func on_teleport_cooldown_timeout():
+	teleport_cooldown_ended.emit()
+	

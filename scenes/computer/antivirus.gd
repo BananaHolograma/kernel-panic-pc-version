@@ -245,7 +245,6 @@ func _holy_appear():
 
 
 func on_phase_changed(_from: PHASES, to: PHASES):
-	print("ACTUAL PHASE ", to)
 	match to:
 		PHASES.ALERT:
 			emotions.show()
