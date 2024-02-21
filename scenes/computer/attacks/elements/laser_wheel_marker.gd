@@ -6,9 +6,9 @@ signal finished
 @export var rotation_speed := 1.5
 @export var max_rotation_speed := 20
 @export var rotation_acceleration := 4.5
-@export var preparation_time := 3.0
-
+@export var preparation_time := 1.85
 @onready var preparation_timer: Timer = $PreparationTimer
+
 @onready var laser_shoot_right = $RightMarker/LaserShoot
 @onready var laser_shoot_bottom = $BottomMarker/LaserShoot
 @onready var laser_shoot_left = $LeftMarker/LaserShoot
@@ -43,8 +43,10 @@ func _ready():
 	bottom_hitbox.disabled = true
 	
 	preparation_timer.wait_time = preparation_time
-	preparation_timer.one_shot = true
 	preparation_timer.autostart = false
+	preparation_timer.one_shot = true
+	
+	#charge_stream_player.finished.connect(on_finish_charge)
 	
 	match(aim_direction):
 		Vector2.RIGHT:
@@ -86,6 +88,7 @@ func charge_laser_sound():
 	charge_stream_player.pitch_scale = randf_range(0.8, 1.3)
 	charge_stream_player.play()
 
+
 func laser_beam_sound():
 	laser_stream_player.stop()
 	laser_stream_player.stream = LASER_BEAM
@@ -93,7 +96,7 @@ func laser_beam_sound():
 	laser_stream_player.play()
 
 	
-func _on_preparation_timer_timeout():
+func on_finish_charge():
 	var tween = create_tween()
 	tween.tween_property(sprite_2d, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	
@@ -125,3 +128,12 @@ func on_finished():
 	frame_count = 0
 	shooting = false
 	
+
+
+func _on_preparation_timer_timeout():
+	var tween = create_tween()
+	tween.tween_property(sprite_2d, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	
+	current_laser_sprite.play("shoot")
+	laser_beam_sound()
+

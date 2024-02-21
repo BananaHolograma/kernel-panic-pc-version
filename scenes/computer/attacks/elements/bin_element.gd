@@ -225,7 +225,7 @@ func on_visual_feedback_ended():
 	var tween = create_tween()
 	tween.tween_property(line_2d, "modulate:a", 0, 0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
 
-	await get_tree().create_timer(20.0 / Engine.physics_ticks_per_second).timeout
+	await get_tree().create_timer(0.5).timeout
 	laser_hitbox.disabled = true
 	scale_dissapear_animation()
 

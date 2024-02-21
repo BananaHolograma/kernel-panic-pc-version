@@ -9,13 +9,7 @@ const WORLD = preload("res://ui/themes/classic-95/icons/world.png")
 
 const BIN_ELEMENT = preload("res://scenes/computer/attacks/elements/bin_element.tscn")
 
-@export var elements_to_grab := {
-	antivirus.PHASES.CALM: 1,
-	antivirus.PHASES.ALERT: 2,
-	antivirus.PHASES.DANGER: 3,
-	antivirus.PHASES.EXTREME: 4
-}
-
+@export var elements_to_grab := 1
 
 var available_elements := {
 	"search": {
@@ -109,7 +103,7 @@ func pick_random_elements() -> Array[String]:
 	var elements = available_elements.duplicate()
 	var result: Array[String] = []
 	
-	for element in range(elements_to_grab[antivirus.current_phase]):
+	for element in range(elements_to_grab):
 		var selected = elements.keys().pick_random()
 		result.append(selected)
 	

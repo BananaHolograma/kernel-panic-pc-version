@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dlbbnag8ikm5e"]
+[gd_scene load_steps=26 format=3 uid="uid://dlbbnag8ikm5e"]
 
 [ext_resource type="Script" path="res://scenes/computer/player.gd" id="1_c3fr3"]
 [ext_resource type="Texture2D" uid="uid://dxyk5rvqdgcdh" path="res://assets/emojies/emoji2.png" id="2_g3we0"]
@@ -6,26 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://baovpvhbe2y06" path="res://assets/progress_bar/CircularProgressBar.png" id="4_rbxkf"]
 [ext_resource type="Texture2D" uid="uid://8e8qqprr1gqj" path="res://assets/progress_bar/HeartProgressBar.png" id="4_uafb5"]
 [ext_resource type="Script" path="res://components/collision/2d/hurtbox.gd" id="6_20d5t"]
+[ext_resource type="Shader" path="res://shaders/vhs/vhs.gdshader" id="6_xkser"]
 [ext_resource type="Script" path="res://addons/health_component/health_component.gd" id="8_2vufd"]
 [ext_resource type="Script" path="res://addons/finite-state-machine/finite-state-machine.gd" id="9_l8f28"]
 [ext_resource type="Script" path="res://components/movement/motion_component.gd" id="10_nkwac"]
 [ext_resource type="Script" path="res://scenes/computer/states/player/idle.gd" id="10_wwsee"]
 [ext_resource type="Script" path="res://scenes/computer/states/player/run.gd" id="13_cif2g"]
+[ext_resource type="AudioStream" uid="uid://ca2f8hyibwm16" path="res://assets/sounds/teleport_effect.ogg" id="13_st1kr"]
 
 [sub_resource type="Animation" id="Animation_28wps"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_opacity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_415kr"]
 resource_name = "hit"
@@ -43,10 +33,87 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 1.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"hurt"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_oc63g"]
+resource_name = "appear"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AppearVFX/ColorRect:material:shader_parameter/shake")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.127, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AppearVFX/ColorRect:material:shader_parameter/noiseQuality")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [101.2, 0.1]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_120n0"]
 _data = {
 "RESET": SubResource("Animation_28wps"),
+"appear": SubResource("Animation_oc63g"),
 "hit": SubResource("Animation_415kr")
 }
 
@@ -54,6 +121,10 @@ _data = {
 shader = ExtResource("2_nsoew")
 shader_parameter/flash_opacity = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wh7i1"]
+atlas = ExtResource("2_g3we0")
+region = Rect2(0, 80, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yls2h"]
 atlas = ExtResource("2_g3we0")
@@ -65,6 +136,14 @@ region = Rect2(48, 80, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wgqdo"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wh7i1")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yls2h")
@@ -81,6 +160,14 @@ animations = [{
 "name": &"run",
 "speed": 5.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fjneo"]
+shader = ExtResource("6_xkser")
+shader_parameter/shake = 0.127
+shader_parameter/noiseQuality = 101.2
+shader_parameter/noiseIntensity = 0.001
+shader_parameter/offsetIntensity = 0.05
+shader_parameter/colorOffsetIntensity = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ehnfc"]
 radius = 13.0384
@@ -147,7 +234,22 @@ libraries = {
 material = SubResource("ShaderMaterial_pfce7")
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_wgqdo")
-animation = &"idle"
+animation = &"hurt"
+
+[node name="AppearVFX" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -13.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+
+[node name="ColorRect" type="ColorRect" parent="AppearVFX"]
+material = SubResource("ShaderMaterial_fjneo")
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 26.0
+offset_bottom = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ehnfc")
@@ -193,5 +295,9 @@ script = ExtResource("13_cif2g")
 wall_teleport_detector = NodePath("../../../WallTeleportDetector")
 animated_sprite = NodePath("../../../AnimatedSprite2D")
 motion_component = NodePath("../../../MotionComponent")
+
+[node name="TeleportAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_st1kr")
+bus = &"SFX"
 
 [connection signal="hitbox_detected" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hitbox_detected"]

@@ -71,7 +71,7 @@ func prepare_timers():
 
 func prepare_hitbox():
 	# We need this timeout to not hitbox the player on the spawn and set the hitbox properly
-	await get_tree().create_timer(5 / Engine.physics_ticks_per_second).timeout
+	await get_tree().create_timer(5.0 / Engine.physics_ticks_per_second).timeout
 	
 	hitbox.position = Vector2(0, button.size.y / 2)
 	hitbox.shape = RectangleShape2D.new()

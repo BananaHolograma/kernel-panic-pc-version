@@ -17,7 +17,9 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var game_timer: Timer = $GameTimer
 @onready var antivirus: Antivirus = $Antivirus
+@onready var player: Player = $Player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 
 var seconds_passed := 0
 
@@ -41,7 +43,8 @@ func _ready():
 		animation_player.play("calm_music_start")
 	)
 	start_gameplay_timer() ## TODO - move after all animations are loaded
-	
+	player.appear()
+		
 
 func start_gameplay_timer():
 	progress_bar.value = 0

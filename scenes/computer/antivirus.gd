@@ -34,19 +34,19 @@ enum PHASES {
 		"target": get_tree().get_first_node_in_group("player"),
 		"phase": {
 			PHASES.CALM: {
-				"amount": 2,
+				"amount": 5,
 				"delay_between_spawn": 2.0
 			},
 			PHASES.ALERT: {
-				"amount": 3,
+				"amount": 7,
 				"delay_between_spawn": 1.5
 			},
 			PHASES.DANGER: {
-				"amount": 5,
+				"amount": 9,
 				"delay_between_spawn": 1.2
 			},
 			PHASES.EXTREME: {
-				"amount": 7,
+				"amount": 10,
 				"delay_between_spawn": 1.0
 			},
 		}
@@ -63,12 +63,12 @@ enum PHASES {
 				"time_shooting": 3.0,
 			},
 			PHASES.ALERT: {
-				"bullets_per_shoot": 1,
+				"bullets_per_shoot": 2,
 				"shoot_delay": 1.3,
 				"time_shooting": 5.5,
 			},
 			PHASES.DANGER: {
-				"bullets_per_shoot": 1,
+				"bullets_per_shoot": 2,
 				"shoot_delay": 1.2,
 				"time_shooting": 7.0,
 			},
@@ -86,12 +86,16 @@ enum PHASES {
 		"target": get_tree().get_first_node_in_group("recycle_bin"),
 		"phase": {
 			PHASES.CALM: {
+				"elements_to_grab": 2,
 			},
 			PHASES.ALERT: {
+				"elements_to_grab": 3,
 			},
 			PHASES.DANGER: {
+				"elements_to_grab": 4,
 			},
 			PHASES.EXTREME: {
+				"elements_to_grab": 5,
 			},
 		}
 	},
@@ -195,13 +199,13 @@ func select_attacks() -> Array:
 func phase_transition(progress_percentage: float):
 	var percentage = progress_percentage * 100
 	
-	if percentage >= 5 and percentage < 10:
+	if percentage >= 25 and percentage < 50:
 		current_phase = PHASES.ALERT
 		
-	if percentage >= 10 and percentage < 15:
+	if percentage >= 50 and percentage < 85:
 		current_phase = PHASES.DANGER
 		
-	if percentage >= 20:
+	if percentage >= 85:
 		current_phase = PHASES.EXTREME
 		
 	
