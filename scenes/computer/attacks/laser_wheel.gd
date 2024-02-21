@@ -28,7 +28,7 @@ func prepare_lasers():
 	var battleground_lasers = get_tree().get_nodes_in_group("laser_wheel")
 	
 	## This needs to be done manually to have the type Laser inside the arrayas the group returns Array[Node]
-	for laser: LaserWheel in battleground_lasers:
+	for laser: LaserWheelMarker in battleground_lasers:
 		available_lasers.append(laser)
 		
 	available_lasers = available_lasers.filter(func(laser: LaserWheelMarker): return not laser.shooting)
