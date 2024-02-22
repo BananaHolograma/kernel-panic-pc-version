@@ -87,7 +87,7 @@ func start():
 	
 	await focused_target
 	
-	for element in pick_random_elements():
+	for element in ["world", "world"]: #pick_random_elements():
 		duplicated_cursor.show()
 		var bin_element = BIN_ELEMENT.instantiate() as BinElement
 		bin_element.set_id(element).set_texture(available_elements[element].texture)

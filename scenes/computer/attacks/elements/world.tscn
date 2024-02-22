@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://dyfx5ljnafyd2"]
+[gd_scene load_steps=23 format=3 uid="uid://dyfx5ljnafyd2"]
 
 [ext_resource type="Script" path="res://scenes/computer/attacks/elements/world.gd" id="1_vfose"]
 [ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="1_w3hrj"]
 [ext_resource type="Texture2D" uid="uid://b7e5tto2nkyv7" path="res://ui/themes/classic-95/icons/world.png" id="2_20o2d"]
 [ext_resource type="Texture2D" uid="uid://d11mkl8a4m1yj" path="res://assets/vfx/world_explosion.png" id="2_dhldt"]
+[ext_resource type="Texture2D" uid="uid://bv306aubcuwhe" path="res://assets/vfx/world_explosion_indicator.png" id="4_ut5i3"]
 
 [sub_resource type="Animation" id="Animation_65jpl"]
 resource_name = "world_explosion"
@@ -208,6 +209,12 @@ unique_name_in_owner = true
 visible = false
 sprite_frames = SubResource("SpriteFrames_v2n8x")
 animation = &"world_explosion"
+
+[node name="IndicatorRotationPoint" type="Node2D" parent="."]
+
+[node name="Indicator" type="Sprite2D" parent="IndicatorRotationPoint"]
+position = Vector2(0, -171)
+texture = ExtResource("4_ut5i3")
 
 [node name="WorldHitbox" type="Area2D" parent="."]
 script = ExtResource("1_w3hrj")
