@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://vy8xcfwtd3vs"]
+
+[ext_resource type="Script" path="res://scenes/world/blue_screen.gd" id="1_hbbfm"]
+[ext_resource type="Texture2D" uid="uid://bahyy3m2emcja" path="res://assets/images/blue_screen.png" id="1_hfwxo"]
+[ext_resource type="AudioStream" uid="uid://c5hxytmjdksww" path="res://assets/sounds/blue_screen_sound.mp3" id="2_vxx3u"]
+[ext_resource type="FontFile" uid="uid://vvqo346kg6xj" path="res://ui/themes/fonts/Windows Regular.ttf" id="4_erb7a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k0sx6"]
+font = ExtResource("4_erb7a")
+font_size = 22
+font_color = Color(0.968627, 1, 0.0392157, 1)
+
+[node name="BlueScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hbbfm")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hfwxo")
+
+[node name="BlueScreenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vxx3u")
+autoplay = true
+
+[node name="BackToMenuTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="ReturningTimeLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -282.0
+offset_top = -35.0
+offset_right = -8.0
+offset_bottom = -11.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Returning to main menu on 5..."
+label_settings = SubResource("LabelSettings_k0sx6")
+
+[connection signal="timeout" from="BackToMenuTimer" to="." method="_on_timer_timeout"]
