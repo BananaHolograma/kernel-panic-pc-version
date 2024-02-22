@@ -2,6 +2,8 @@ extends Control
 
 @onready var music_slider: HSlider = %MusicSlider
 @onready var sound_effects_slider: HSlider = %SoundEffectsSlider
+@onready var master_slider: HSlider = %MasterSlider
+
 @onready var screen_mode_options_button: OptionButton = %ScreenModeOptionsButton
 @onready var resolution_options_button: OptionButton = %ResolutionOptionsButton
 
@@ -24,9 +26,11 @@ func _ready():
 	
 	music_slider.value = GameEvents.music_volume
 	sound_effects_slider.value = GameEvents.sfx_volume
+	master_slider.value = GameEvents.master_volume
+	
 	music_slider.grab_focus()
 	
-	screen_mode_options_button.select(0 if GameEvents.screen_mode == DisplayServer.WINDOW_MODE_FULLSCREEN else 1)
+	screen_mode_options_button.select(1 if GameEvents.screen_mode == DisplayServer.WINDOW_MODE_FULLSCREEN else 0)
 	var resolution_option_index = 0
 	
 	match GameEvents.screen_resolution:
@@ -101,3 +105,8 @@ func _on_sound_effects_slider_value_changed(value):
 
 func _on_close_button_pressed():
 	close()
+
+
+func _on_master_slider_value_changed(value):
+	AudioManager.change_volume("Master", value)
+	GameEvents.master_volume = value

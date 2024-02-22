@@ -24,7 +24,6 @@ func _ready():
 	version.text = ProjectSettings.get_setting("application/config/version")
 
 
-
 func _on_exit_pressed():
 	exit_confirmation.popup_centered()
 

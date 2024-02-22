@@ -161,7 +161,9 @@ texture = ExtResource("2_0rl58")
 [node name="PreparationTimer" type="Timer" parent="."]
 
 [node name="Charge" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 
 [node name="LaserBeam" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 
 [connection signal="timeout" from="PreparationTimer" to="." method="_on_preparation_timer_timeout"]

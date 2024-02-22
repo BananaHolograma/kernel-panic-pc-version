@@ -23,6 +23,7 @@ signal deleted_saved_game(filename: String)
 
 static var screen_mode := DisplayServer.WINDOW_MODE_FULLSCREEN
 static var screen_resolution := Vector2(1280, 720)
-static var music_volume := 0.85
+static var master_volume := 1.0
+static var music_volume := 0.8
 static var sfx_volume := 0.9
 
