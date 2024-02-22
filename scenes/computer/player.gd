@@ -32,7 +32,7 @@ var teleporting := false
 var alive := true
 
 func _unhandled_input(_event: InputEvent):
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") and alive:
 		teleport()
 
 
@@ -51,6 +51,7 @@ func _ready():
 	motion_component.teleport_cooldown_ended.connect(func():
 		teleport_cooldown_bar.value = 0	
 		teleport_cooldown_bar.hide()
+		animated_sprite_2d.modulate.a = 1.0
 	)
 	
 	motion_component.teleported.connect(on_teleported)
@@ -87,14 +88,15 @@ func reduce_speed(new_speed: float):
 #Normalization: Using 1 - time_left/cooldown ensures accurate progress calculation.
 #Bar Range: Ensure your teleport_cooldown_bar has a max_value of 1 or a suitable value based on your scaling preferences.
 func display_cooldown_feedback():
-	if motion_component.teleport_cooldown_timer.time_left > 0:
+	if motion_component.teleport_cooldown_timer.time_left > 0 and alive:
 		var progress = snapped((1 - motion_component.teleport_cooldown_timer.time_left / motion_component.teleport_cooldown), teleport_cooldown_bar.step)
 		teleport_cooldown_bar.value = progress
 		
 	
 func show_health_feedback():	
-	health_bar.value = max(0, health_component.CURRENT_HEALTH)
-	health_bar.show()
+		health_bar.value = max(0, health_component.CURRENT_HEALTH)
+		if alive:
+			health_bar.show()
 	
 
 func appear():
@@ -141,6 +143,7 @@ func on_teleported(previous_position: Vector2, new_position: Vector2):
 	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 15)))
 	
 	health_component.enable_invulnerability(true, 1.5)
+	animated_sprite_2d.modulate.a = 0.5
 
 
 func on_invulnerability_changed(active: bool):

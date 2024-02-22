@@ -17,6 +17,14 @@ const PM_GC_DISTORTED_GLITCH_LFE_IMPACT_26 = preload("res://assets/sounds/PM_GC_
 const PM_GC_DISTORTED_GLITCH_LFE_IMPACT_18 = preload("res://assets/sounds/PM_GC_DISTORTED_GLITCH_LFE_IMPACT_18.ogg")
 
 
+func _input(_event: InputEvent):
+	if Input.is_action_just_pressed("ui_accept"):
+			change_to_next_scene()
+
+func change_to_next_scene():
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/loading/loading_screen.tscn")
+		
+		
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
@@ -62,5 +70,5 @@ func on_animation_finished(animation_name: String):
 		
 		await tween.finished
 		
-		get_tree().call_deferred("change_scene_to_file", "res://scenes/loading/loading_screen.tscn")
+		change_to_next_scene()
 		

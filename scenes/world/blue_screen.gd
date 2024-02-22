@@ -6,7 +6,7 @@ extends Control
 
 var seconds_passed := 0
 
-func _input(event):
+func _input(_event: InputEvent):
 	if Input.is_action_just_pressed("blue_screen_shortcut") or Input.is_action_just_pressed("ui_accept"):
 		_back_to_menu()
 

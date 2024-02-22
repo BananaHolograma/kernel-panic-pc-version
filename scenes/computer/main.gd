@@ -53,7 +53,7 @@ var current_game_state := GAME_STATE.RUNNING:
 				losed_game.emit()
 
 
-func _input(event):
+func _input(_event: InputEvent):
 	if Input.is_action_just_pressed("ui_cancel") and not options_menu.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		back_menu_dialog.popup_centered()
