@@ -70,7 +70,16 @@ func _ready():
 	start_gameplay_timer() ## TODO - move after all animations are loaded
 	player.appear()
 	
-		
+	GameEvents.show_pause_menu.connect(func():
+		get_tree().paused = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	)
+	
+	GameEvents.hidden_pause_menu.connect(func():
+		get_tree().paused = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	)
+	
 
 func start_gameplay_timer():
 	progress_bar.value = 0

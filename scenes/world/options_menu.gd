@@ -6,8 +6,19 @@ extends Control
 @onready var resolution_options_button: OptionButton = %ResolutionOptionsButton
 
 
+func _unhandled_key_input(_event: InputEvent):
+	if Input.is_action_just_pressed("pause"):
+		show()
+		GameEvents.show_pause_menu.emit()
+		
+	if Input.is_action_just_pressed("ui_cancel"):
+		hide()
+		GameEvents.hidden_pause_menu.emit()
+
 
 func _ready():
+	hide()
+	
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	AudioManager.change_volume("Music", GameEvents.music_volume)
@@ -15,10 +26,23 @@ func _ready():
 	
 	music_slider.value = GameEvents.music_volume
 	sound_effects_slider.value = GameEvents.sfx_volume
-
 	music_slider.grab_focus()
 	
-	GameEvents.show_pause_menu.connect(on_show_pause_menu)
+	screen_mode_options_button.select(0 if GameEvents.screen_mode == DisplayServer.WINDOW_MODE_FULLSCREEN else 1)
+	var resolution_option_index = 0
+	
+	match GameEvents.screen_resolution:
+		Vector2(960, 540):
+			resolution_option_index = 0
+		Vector2(1280, 720):
+			resolution_option_index = 1
+		Vector2(1440, 810):
+			resolution_option_index = 2
+		Vector2(1920, 1080):
+			resolution_option_index = 3
+	
+	resolution_options_button.select(resolution_option_index)
+	
 
 
 func _change_screen_resolution(id: int):
@@ -66,10 +90,3 @@ func _on_music_slider_value_changed(value):
 func _on_sound_effects_slider_value_changed(value):
 		AudioManager.change_volume("SFX", value)
 		GameEvents.sfx_volume = value
-
-
-func on_show_pause_menu():
-	if visible:
-		hide()
-	else:
-		show()

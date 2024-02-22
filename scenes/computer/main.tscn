@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://7qonb4nkejb3"]
+[gd_scene load_steps=26 format=3 uid="uid://7qonb4nkejb3"]
 
 [ext_resource type="Script" path="res://scenes/computer/main.gd" id="1_lsw24"]
 [ext_resource type="PackedScene" uid="uid://3npwtq6dd873" path="res://scenes/computer/task_bar.tscn" id="2_edufa"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bjloaafjieww0" path="res://scenes/computer/terminal.tscn" id="5_n3pup"]
 [ext_resource type="FontFile" uid="uid://of77hbvtjf0e" path="res://ui/themes/fonts/Battlenet.ttf" id="6_ox5i0"]
 [ext_resource type="PackedScene" uid="uid://bq3kxrepqmloa" path="res://ui/overlays/fade_overlay.tscn" id="7_37ld7"]
+[ext_resource type="PackedScene" uid="uid://byytv4d5ftk4g" path="res://scenes/world/options_menu.tscn" id="8_41vsx"]
 [ext_resource type="PackedScene" uid="uid://hkx7ck1fv7t7" path="res://scenes/computer/attacks/elements/laser_wheel_marker.tscn" id="9_aai1f"]
 [ext_resource type="AudioStream" uid="uid://bwdfqpilkas7y" path="res://assets/music/Three Red Hearts - Save the City.ogg" id="9_rak3v"]
 [ext_resource type="AudioStream" uid="uid://lht2v0rn3klp" path="res://assets/music/Three Red Hearts - Go (No Vocal).ogg" id="10_qc674"]
@@ -364,6 +365,8 @@ horizontal_alignment = 1
 visible = false
 z_index = 4
 auto_fade_in = false
+
+[node name="OptionsMenu" parent="." instance=ExtResource("8_41vsx")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

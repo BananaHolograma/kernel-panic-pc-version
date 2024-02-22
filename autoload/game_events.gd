@@ -15,6 +15,7 @@ signal unfocused(interactable: Interactable)
 
 ### UI ###
 signal show_pause_menu
+signal hidden_pause_menu
 
 ### SAVE & LOAD ###
 signal deleted_saved_game(filename: String)

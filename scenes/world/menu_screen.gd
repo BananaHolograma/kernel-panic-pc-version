@@ -9,14 +9,8 @@ extends Control
 @onready var version: Label = %Version
 @onready var options_menu: Control = $OptionsMenu
 
-
 const BOOTLOADER = preload("res://scenes/computer/bootloader.tscn")
-
-
-func _unhandled_input(event):
-	if Input.is_action_just_pressed("ui_cancel"):
-		options_menu.hide()
-		
+	
 		
 func _ready():
 	DisplayServer.window_set_mode(GameEvents.screen_mode)
@@ -28,6 +22,7 @@ func _ready():
 	start_button.grab_focus()
 	
 	version.text = ProjectSettings.get_setting("application/config/version")
+
 
 
 func _on_exit_pressed():
