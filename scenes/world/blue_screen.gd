@@ -4,7 +4,7 @@ extends Control
 
 @export var time_to_return := 10
 
-var seconds_passed := 0
+@onready var seconds_passed := 0
 
 func _input(_event: InputEvent):
 	if Input.is_action_just_pressed("blue_screen_shortcut") or Input.is_action_just_pressed("ui_accept"):
