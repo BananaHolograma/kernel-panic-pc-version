@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scenes/world/options_menu.gd" id="1_wqe1s"]
 
 [node name="OptionsMenu" type="Control"]
-z_index = 10
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -125,6 +124,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Close"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/SoundEffectsSlider" to="." method="_on_sound_effects_slider_value_changed"]

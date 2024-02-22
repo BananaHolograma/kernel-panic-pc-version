@@ -7,7 +7,7 @@ extends Control
 @onready var exit: Button = %Exit
 @onready var exit_confirmation: ConfirmationDialog = $ContentMarginContainer/ExitConfirmation
 @onready var version: Label = %Version
-@onready var options_menu: Control = $OptionsMenu
+@onready var options_menu: Control = %OptionsMenu
 
 const BOOTLOADER = preload("res://scenes/computer/bootloader.tscn")
 	

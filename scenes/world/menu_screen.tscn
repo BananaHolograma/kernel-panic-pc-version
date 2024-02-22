@@ -244,9 +244,11 @@ size_flags_vertical = 8
 text = "v1.0.0"
 label_settings = ExtResource("13_8r00x")
 
-[node name="OptionsMenu" parent="." instance=ExtResource("14_x663j")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="OptionsMenu" parent="CanvasLayer" instance=ExtResource("14_x663j")]
+unique_name_in_owner = true
 visible = false
-layout_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

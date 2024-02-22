@@ -99,8 +99,8 @@ func _on_music_slider_value_changed(value):
 
 
 func _on_sound_effects_slider_value_changed(value):
-		AudioManager.change_volume("SFX", value)
-		GameEvents.sfx_volume = value
+	AudioManager.change_volume("SFX", value)
+	GameEvents.sfx_volume = value
 
 
 func _on_close_button_pressed():
@@ -110,3 +110,8 @@ func _on_close_button_pressed():
 func _on_master_slider_value_changed(value):
 	AudioManager.change_volume("Master", value)
 	GameEvents.master_volume = value
+
+
+func _on_visibility_changed():
+	if visible:
+		music_slider.grab_focus()

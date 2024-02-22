@@ -367,7 +367,23 @@ visible = false
 z_index = 4
 auto_fade_in = false
 
-[node name="OptionsMenu" parent="." instance=ExtResource("8_41vsx")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="OptionsMenu" parent="CanvasLayer" instance=ExtResource("8_41vsx")]
+unique_name_in_owner = true
+visible = false
+
+[node name="BackMenuDialog" type="ConfirmationDialog" parent="CanvasLayer"]
+unique_name_in_owner = true
+process_mode = 3
+disable_3d = true
+title = "Quit current game"
+initial_position = 1
+size = Vector2i(269, 100)
+unresizable = true
+ok_button_text = "Yes"
+dialog_text = "Do you want to go back to the main menu?"
+cancel_button_text = "No"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -498,3 +514,6 @@ bus = &"Music"
 stream = ExtResource("12_01mxs")
 volume_db = -80.0
 bus = &"Music"
+
+[connection signal="canceled" from="CanvasLayer/BackMenuDialog" to="." method="_on_back_menu_dialog_canceled"]
+[connection signal="confirmed" from="CanvasLayer/BackMenuDialog" to="." method="_on_back_menu_dialog_confirmed"]

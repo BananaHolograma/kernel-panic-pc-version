@@ -8,6 +8,9 @@ signal losed_game
 
 const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 
+@onready var back_menu_dialog: ConfirmationDialog = %BackMenuDialog
+@onready var options_menu: Control = %OptionsMenu
+
 @onready var phase_calm_music: AudioStreamPlayer = $PhaseCalmMusic
 @onready var phase_alert_music: AudioStreamPlayer = $PhaseAlertMusic
 @onready var phase_danger_music: AudioStreamPlayer = $PhaseDangerMusic
@@ -40,6 +43,15 @@ var current_game_state := GAME_STATE.RUNNING:
 			GAME_STATE.LOSE:
 				losed_game.emit()
 
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_cancel") and not options_menu.visible:
+		back_menu_dialog.popup_centered()
+		
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_tree().paused = true	
+	
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -54,7 +66,9 @@ func _ready():
 	
 	timer_ended.connect(on_timer_ended)
 	animation_player.animation_finished.connect(on_animation_finished)
+	
 	GameEvents.lock_player.emit()
+	
 	game_camera.limit_smoothed = false
 	game_camera.global_position = get_viewport().get_visible_rect().size / 2
 	_add_overlay()
@@ -153,12 +167,19 @@ func on_winned_game():
 	print("GAME WINNED")
 	GameEvents.winned_game.emit()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	# TEMPORARY
-	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	#get_tree().pause = true
+
 
 func on_losed_game():
 	GameEvents.losed_game.emit()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	animation_player.play("system_recovered")
-	#get_tree().pause = true
+
+
+func _on_back_menu_dialog_confirmed():
+	get_tree().paused = true
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/world/menu_screen.tscn")
+
+
+func _on_back_menu_dialog_canceled():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	get_tree().paused = false
