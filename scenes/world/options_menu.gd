@@ -45,7 +45,10 @@ func _ready():
 	
 	resolution_options_button.select(resolution_option_index)
 	
+	if GameEvents.screen_mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		resolution_options_button.disabled = true
 	
+
 func open():
 	show()
 	GameEvents.show_pause_menu.emit()
