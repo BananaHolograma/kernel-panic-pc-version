@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b4wsixanrnmwy"]
+[gd_scene load_steps=22 format=3 uid="uid://b4wsixanrnmwy"]
 
 [ext_resource type="Script" path="res://scenes/world/menu_screen.gd" id="1_3briv"]
 [ext_resource type="FontFile" uid="uid://vvqo346kg6xj" path="res://ui/themes/fonts/Windows Regular.ttf" id="1_woiu2"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://culs5n75t4e2e" path="res://assets/social/github-square_3.svg" id="12_8hvs5"]
 [ext_resource type="LabelSettings" uid="uid://001lx81li1qk" path="res://ui/themes/classic-95/general/boot_label.tres" id="13_8r00x"]
 [ext_resource type="AudioStream" uid="uid://2caatrbsmfmd" path="res://assets/music/menu_screen.ogg" id="14_bveyf"]
+[ext_resource type="PackedScene" uid="uid://byytv4d5ftk4g" path="res://scenes/world/options_menu.tscn" id="14_x663j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o32rf"]
 
@@ -243,6 +244,10 @@ size_flags_vertical = 8
 text = "v1.0.0"
 label_settings = ExtResource("13_8r00x")
 
+[node name="OptionsMenu" parent="." instance=ExtResource("14_x663j")]
+visible = false
+layout_mode = 1
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_o3jtv")
@@ -254,6 +259,7 @@ autoplay = true
 bus = &"Music"
 
 [connection signal="pressed" from="ContentMarginContainer/MenuButtons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ContentMarginContainer/MenuButtons/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="ContentMarginContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="gui_input" from="ContentMarginContainer/Social/Itch" to="." method="_on_itch_gui_input"]
 [connection signal="gui_input" from="ContentMarginContainer/Social/Instagram" to="." method="_on_instagram_gui_input"]

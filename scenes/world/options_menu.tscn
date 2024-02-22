@@ -1,0 +1,109 @@
+[gd_scene load_steps=2 format=3 uid="uid://byytv4d5ftk4g"]
+
+[ext_resource type="Script" path="res://scenes/world/options_menu.gd" id="1_wqe1s"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wqe1s")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="MusicLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../ResolutionOptionsButton")
+max_value = 1.0
+step = 0.001
+
+[node name="SoundEffectsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound effects"
+horizontal_alignment = 1
+
+[node name="SoundEffectsSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScreenModeLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Screen mode"
+horizontal_alignment = 1
+
+[node name="ScreenModeOptionsButton" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 2
+selected = 1
+popup/item_0/text = "Windowed"
+popup/item_0/id = 1
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 2
+
+[node name="ResolutionLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resolution"
+horizontal_alignment = 1
+
+[node name="ResolutionOptionsButton" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../MusicSlider")
+item_count = 4
+selected = 0
+popup/item_0/text = "960x540"
+popup/item_0/id = 1
+popup/item_1/text = "1280x720"
+popup/item_1/id = 2
+popup/item_2/text = "1440x810"
+popup/item_2/id = 3
+popup/item_3/text = "1920x1080"
+popup/item_3/id = 3
+
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/SoundEffectsSlider" to="." method="_on_sound_effects_slider_value_changed"]
+[connection signal="item_selected" from="Panel/MarginContainer/VBoxContainer/ScreenModeOptionsButton" to="." method="_on_screen_mode_options_button_item_selected"]
+[connection signal="item_selected" from="Panel/MarginContainer/VBoxContainer/ResolutionOptionsButton" to="." method="_on_resolution_options_button_item_selected"]

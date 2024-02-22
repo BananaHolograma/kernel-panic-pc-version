@@ -7,12 +7,21 @@ extends Control
 @onready var exit: Button = %Exit
 @onready var exit_confirmation: ConfirmationDialog = $ContentMarginContainer/ExitConfirmation
 @onready var version: Label = %Version
+@onready var options_menu: Control = $OptionsMenu
 
 
 const BOOTLOADER = preload("res://scenes/computer/bootloader.tscn")
 
 
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		options_menu.hide()
+		
+		
 func _ready():
+	DisplayServer.window_set_mode(GameEvents.screen_mode)
+	DisplayServer.window_set_size(GameEvents.screen_resolution)
+	
 	animation_player.play("title_blink")
 	exit_confirmation.confirmed.connect(func(): get_tree().quit())
 	
@@ -42,3 +51,7 @@ func _on_instagram_gui_input(event):
 func _on_github_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		Utilities.open_external_link("https://github.com/bananaholograma")
+
+
+func _on_options_button_pressed():
+	options_menu.show()
