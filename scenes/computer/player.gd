@@ -44,6 +44,7 @@ func _ready():
 	GameEvents.lock_player.connect(lock_player.bind(true))
 	GameEvents.unlock_player.connect(lock_player.bind(false))
 	
+	appear_vfx.hide()
 	teleport_cooldown_bar.hide()
 	health_bar.hide()
 	health_bar.value = health_component.CURRENT_HEALTH
@@ -178,6 +179,7 @@ func _on_hurtbox_2d_hitbox_detected(hitbox):
 
 func on_animation_finished(animation_name: String):
 	if animation_name == "appear":
+		GameEvents.unlock_player.emit()
 		appear_vfx.hide()
 
 

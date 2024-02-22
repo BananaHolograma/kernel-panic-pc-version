@@ -292,7 +292,6 @@ func on_phase_changed(_from: PHASES, to: PHASES):
 			
 		
 func on_antivirus_prepared():
-	GameEvents.unlock_player.emit()
 	current_state = STATE.ATTACKING
 	
 	start_attack_routine()

@@ -31,8 +31,6 @@ func _ready():
 	SceneTransitioner.next_scene_path = "res://scenes/computer/main.tscn"
 	SceneTransitioner.no_background = true
 	
-	game_camera.global_position = get_viewport().get_visible_rect().size / 2
-	
 	animation_player.animation_finished.connect(on_animation_finished)
 	
 	ambient.stream = COMPUTER_IDLE

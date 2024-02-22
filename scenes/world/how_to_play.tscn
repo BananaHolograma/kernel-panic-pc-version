@@ -1,0 +1,295 @@
+[gd_scene load_steps=18 format=3 uid="uid://cy60nkg10qmwt"]
+
+[ext_resource type="Script" path="res://scenes/world/how_to_play.gd" id="1_d0vfx"]
+[ext_resource type="Texture2D" uid="uid://q6o5ca6tcnjd" path="res://assets/input/input_icons_16.png" id="1_gqm70"]
+[ext_resource type="FontFile" uid="uid://d0p5o4rhchkfv" path="res://ui/themes/fonts/Franklin Gothic Medium Regular.ttf" id="2_l16dn"]
+[ext_resource type="PackedScene" uid="uid://dlbbnag8ikm5e" path="res://scenes/computer/player.tscn" id="3_hbwrq"]
+[ext_resource type="Texture2D" uid="uid://csim1rwkol0fb" path="res://ui/themes/classic-95/general/LeftArrow.png" id="4_rwajq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n5ru"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(200, 72, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iteu"]
+resource_local_to_scene = true
+atlas = ExtResource("1_gqm70")
+region = Rect2(8, 8, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_684dl"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(72, 72, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7q6b"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(104, 8, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4lur"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(136, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hpyt"]
+resource_local_to_scene = true
+atlas = ExtResource("1_gqm70")
+region = Rect2(200, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b08t5"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(168, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l1gu"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(232, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bo7i"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(40, 40, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdwxu"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(72, 40, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kb8a"]
+size = Vector2(8, 469)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dk5e"]
+size = Vector2(240, 8)
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d0vfx")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Movement" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Movement"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="WKey" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Movement/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_8n5ru")
+expand_mode = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Movement"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="AKey" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Movement/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_1iteu")
+expand_mode = 1
+
+[node name="SKey" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Movement/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("AtlasTexture_684dl")
+expand_mode = 1
+
+[node name="DKey" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Movement/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("AtlasTexture_n7q6b")
+expand_mode = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/HBoxContainer/Movement"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Movement"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="WKey" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Movement/HBoxContainer3"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_f4lur")
+expand_mode = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Movement"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="AKey" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Movement/HBoxContainer4"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_0hpyt")
+expand_mode = 1
+
+[node name="SKey" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Movement/HBoxContainer4"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("AtlasTexture_b08t5")
+expand_mode = 1
+
+[node name="DKey" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Movement/HBoxContainer4"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("AtlasTexture_3l1gu")
+expand_mode = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/HBoxContainer/Movement"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/HBoxContainer/Movement"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_l16dn")
+theme_override_font_sizes/font_size = 40
+text = "MOVEMENT"
+
+[node name="Dash" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Dash/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("AtlasTexture_1bo7i")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Dash/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("AtlasTexture_jdwxu")
+expand_mode = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_l16dn")
+theme_override_font_sizes/font_size = 40
+text = "DASH"
+
+[node name="Label2" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_l16dn")
+theme_override_font_sizes/font_size = 24
+text = "Makes you invulnerable 1.5s"
+
+[node name="Label3" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_l16dn")
+theme_override_font_sizes/font_size = 24
+text = "Cooldown of 5s"
+
+[node name="HSeparator3" type="HSeparator" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_l16dn")
+theme_override_font_sizes/font_size = 40
+text = "GOAL"
+
+[node name="Label4" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/line_spacing = 3
+theme_override_fonts/font = ExtResource("2_l16dn")
+theme_override_font_sizes/font_size = 20
+text = "Resists antivirus attacks for 10 minutes 
+in order to infect the kernel."
+
+[node name="ColorRect" type="ColorRect" parent="Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="BackArrow" type="TextureRect" parent="Panel/MarginContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("4_rwajq")
+expand_mode = 1
+
+[node name="MovementPlayground" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="MovementPlayground"]
+position = Vector2(676, 271)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPlayground/LeftWall"]
+position = Vector2(2, -1.5)
+shape = SubResource("RectangleShape2D_4kb8a")
+
+[node name="RightWall" type="StaticBody2D" parent="MovementPlayground"]
+position = Vector2(922, 272)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPlayground/RightWall"]
+shape = SubResource("RectangleShape2D_4kb8a")
+
+[node name="TopWall" type="StaticBody2D" parent="MovementPlayground"]
+position = Vector2(738, 31)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPlayground/TopWall"]
+position = Vector2(64, 6)
+shape = SubResource("RectangleShape2D_6dk5e")
+
+[node name="BottomWall" type="StaticBody2D" parent="MovementPlayground"]
+position = Vector2(736, 496)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPlayground/BottomWall"]
+position = Vector2(64, 6)
+shape = SubResource("RectangleShape2D_6dk5e")
+
+[node name="Player" parent="MovementPlayground" instance=ExtResource("3_hbwrq")]
+position = Vector2(794, 249)
+
+[connection signal="gui_input" from="Panel/MarginContainer/BackArrow" to="." method="_on_back_arrow_gui_input"]

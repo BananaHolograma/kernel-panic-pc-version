@@ -6,6 +6,7 @@ extends Control
 @onready var version: Label = %Version
 @onready var options_menu: Control = %OptionsMenu
 @onready var credits: Control = %Credits
+@onready var how_to_play: Control = %HowToPlay
 
 
 const BOOTLOADER = preload("res://scenes/computer/bootloader.tscn")
@@ -54,3 +55,7 @@ func _on_options_button_pressed():
 
 func _on_credits_pressed():
 	credits.show()
+
+
+func _on_how_to_play_button_pressed():
+	how_to_play.show()
