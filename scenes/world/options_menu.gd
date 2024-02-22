@@ -9,10 +9,10 @@ extends Control
 
 
 func _unhandled_key_input(_event: InputEvent):
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause") and not visible:
 		open()
 		
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") and visible:
 		close()
 
 

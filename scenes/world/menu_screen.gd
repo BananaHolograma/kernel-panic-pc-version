@@ -13,6 +13,9 @@ const BOOTLOADER = preload("res://scenes/computer/bootloader.tscn")
 	
 		
 func _ready():
+	get_tree().paused = false
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	DisplayServer.window_set_mode(GameEvents.screen_mode)
 	DisplayServer.window_set_size(GameEvents.screen_resolution)
 	

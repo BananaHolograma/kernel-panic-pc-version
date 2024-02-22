@@ -46,9 +46,9 @@ var current_game_state := GAME_STATE.RUNNING:
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_cancel") and not options_menu.visible:
-		back_menu_dialog.popup_centered()
-		
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		back_menu_dialog.popup_centered()
+
 		get_tree().paused = true	
 	
 
