@@ -11,5 +11,10 @@ func _process(_delta):
 	global_position += direction * speed
 
 
+func _ready():
+	GameEvents.losed_game.connect(func(): queue_free())
+	GameEvents.winned_game.connect(func(): queue_free())
+	
+	
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

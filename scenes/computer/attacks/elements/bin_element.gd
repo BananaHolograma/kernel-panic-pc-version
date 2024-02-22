@@ -59,7 +59,9 @@ func _ready():
 	time_active_timer.timeout.connect(on_time_active_ended)
 	animation_player.animation_finished.connect(on_animation_finished)
 	spawn()
-
+	
+	GameEvents.losed_game.connect(func(): queue_free())
+	GameEvents.winned_game.connect(func(): queue_free())
 	
 func _process(_delta):
 	if id == "search":

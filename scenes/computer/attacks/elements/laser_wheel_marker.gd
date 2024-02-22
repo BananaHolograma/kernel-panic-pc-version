@@ -46,7 +46,9 @@ func _ready():
 	preparation_timer.autostart = false
 	preparation_timer.one_shot = true
 	
-	#charge_stream_player.finished.connect(on_finish_charge)
+	GameEvents.losed_game.connect(func(): queue_free())
+	GameEvents.winned_game.connect(func(): queue_free())
+	
 	
 	match(aim_direction):
 		Vector2.RIGHT:

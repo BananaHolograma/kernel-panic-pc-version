@@ -42,6 +42,9 @@ func _ready():
 	current_rotation_mode = ROTATION_MODE.get(ROTATION_MODE.keys()[randi() % ROTATION_MODE.size()])
 	current_speed_mode = SPEED_MODE.get(SPEED_MODE.keys()[randi() % SPEED_MODE.size()])
 	
+	GameEvents.losed_game.connect(func(): queue_free())
+	GameEvents.winned_game.connect(func(): queue_free())
+	
 	prepare_timers()
 	prepare_hitbox()
 	

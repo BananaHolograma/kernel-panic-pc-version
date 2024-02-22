@@ -11,7 +11,10 @@ class_name TextFileLetter extends Node2D
 func _ready():
 	letter.text = Utilities.generate_random_string(1)
 	direction = Vector2.RIGHT.rotated(deg_to_rad(angle))
-
+	
+	GameEvents.losed_game.connect(func(): queue_free())
+	GameEvents.winned_game.connect(func(): queue_free())
+	
 
 func _process(_delta):
 	if not direction.is_zero_approx():
