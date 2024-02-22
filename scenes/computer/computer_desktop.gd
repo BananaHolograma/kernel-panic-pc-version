@@ -18,6 +18,8 @@ const PM_GC_DISTORTED_GLITCH_LFE_IMPACT_18 = preload("res://assets/sounds/PM_GC_
 
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	
 	SceneTransitioner.next_scene_path = "res://scenes/computer/main.tscn"
 	SceneTransitioner.no_background = true
 	

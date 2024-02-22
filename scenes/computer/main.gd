@@ -7,6 +7,7 @@ signal winned_game
 signal losed_game
 
 const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
+const BLUE_SCREEN = preload("res://scenes/world/blue_screen.tscn")
 
 @onready var back_menu_dialog: ConfirmationDialog = %BackMenuDialog
 @onready var options_menu: Control = %OptionsMenu
@@ -179,9 +180,10 @@ func on_timer_ended():
 	
 	
 func on_winned_game():
-	print("GAME WINNED")
 	GameEvents.winned_game.emit()
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	## TODO - SHOW THE KERNEL BEFORE CHANGING TO BLUE SCREEN
+	get_tree().call_deferred("change_scene_to_packed", BLUE_SCREEN)
 
 
 func on_losed_game():

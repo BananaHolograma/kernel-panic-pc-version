@@ -18,6 +18,8 @@ const FLASHING_CARET = preload("res://scenes/computer/flashing_caret.tscn")
 @onready var detecting_hdd_labels := hard_drive_info_container.get_children()
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	
 	var overlay = FADE_OVERLAY.instantiate()
 	overlay.fade_in_duration = 4.5
 	overlay.auto_fade_in = false
