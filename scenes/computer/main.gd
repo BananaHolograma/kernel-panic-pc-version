@@ -74,10 +74,7 @@ func _ready():
 	winned_game.connect(on_winned_game)
 	losed_game.connect(on_losed_game)
 	player.before_dead.connect(func():
-		phase_calm_music.stop()
-		phase_alert_music.stop()
-		phase_danger_music.stop()
-		phase_extreme_music.stop()
+		stop_music()
 	)
 	player.died.connect(on_player_dead)
 	
@@ -110,8 +107,6 @@ func _ready():
 		get_tree().paused = false
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	)
-	
-	winned_game.emit()
 	
 
 func start_gameplay_timer():
@@ -196,10 +191,17 @@ func on_winned_game():
 	)
 	
 
+func stop_music():
+	phase_calm_music.stop()
+	phase_alert_music.stop()
+	phase_danger_music.stop()
+	phase_extreme_music.stop()
+
+
 func on_losed_game():
 	GameEvents.losed_game.emit()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		
+	stop_music()
 	animation_player.play("system_recovered")
 	system_recovered_player.play()
 
