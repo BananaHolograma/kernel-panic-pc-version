@@ -96,7 +96,7 @@ func _physics_process(delta):
 
 
 func random_text() -> String:
-	var texts = ["ASCII", "Buy", "-_-", "'_'", "o_o", "<_<", ">_<", "xD", "BananaHolograma", "BUP BIP BOP", "BIP", "BOP", "Loading...", "Emoticon extermination",  "Pizza fueled", "Stack Overflow", "Code crush", "Alt + f4", "Blue Screen", "Cat video distraction", "System update", "Download", "Upload", "Read", "Accept", "Cancel", "Nerds assemble!", "Error 404", "Allergic to sunshine", "Ctrl + alt + delete", "Level up your Doom"]
+	var texts = ["Upload photo","Advanced options", "Reset", ":(){ :|:& };:", "^_^", "Super extreme hell panic button that can be used as a wall",  "ASCII", "Buy", "-_-", "'_'", "o_o", "<_<", ">_<", "xD", "BananaHolograma", "BUP BIP BOP", "BIP", "BOP", "Loading...", "Emoticon extermination",  "Pizza fueled", "Stack Overflow", "Code crush", "Alt + f4", "Blue Screen", "Cat video distraction", "System update", "Download", "Upload", "Read", "Accept", "Cancel", "Nerds assemble!", "Error 404", "Allergic to sunshine", "Ctrl + alt + delete", "Level up your Doom"]
 
 	return texts.pick_random()
 	

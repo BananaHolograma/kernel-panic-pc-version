@@ -42,7 +42,7 @@ var available_elements := {
 		"params": {
 			antivirus.PHASES.CALM: {
 				"min_pulses": 1,
-				"max_pulses": 4,
+				"max_pulses": 2,
 				"min_angle_step": 45,
 				"max_angle_step": 60,
 				"time_between_pulses": 1.5

@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://components/camera/shake_camera.gd" id="1_kgsrw"]
 
 [node name="GameCamera" type="Camera2D" groups=["camera"]]
+anchor_mode = 0
 ignore_rotation = false
 process_callback = 0
 limit_left = 0

@@ -1,0 +1,221 @@
+[gd_scene load_steps=22 format=3 uid="uid://dyfx5ljnafyd2"]
+
+[ext_resource type="Script" path="res://scenes/computer/attacks/elements/world.gd" id="1_vfose"]
+[ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="1_w3hrj"]
+[ext_resource type="Texture2D" uid="uid://b7e5tto2nkyv7" path="res://ui/themes/classic-95/icons/world.png" id="2_20o2d"]
+[ext_resource type="Texture2D" uid="uid://d11mkl8a4m1yj" path="res://assets/vfx/world_explosion.png" id="2_dhldt"]
+
+[sub_resource type="Animation" id="Animation_65jpl"]
+resource_name = "world_explosion"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../WorldVFX:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"world_explosion"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../WorldVFX:frame")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cnk6p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../WorldVFX:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"world_explosion"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../WorldVFX:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mx7yk"]
+_data = {
+"RESET": SubResource("Animation_cnk6p"),
+"world_explosion": SubResource("Animation_65jpl")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60hur"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6apdx"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho8pe"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jy8ni"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhgtw"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8oyn"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0m2j"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce7ce"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2rgw"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1cnm"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xktgb"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(512, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3ds4"]
+atlas = ExtResource("2_dhldt")
+region = Rect2(640, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v2n8x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60hur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6apdx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho8pe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jy8ni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhgtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8oyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0m2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ce7ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2rgw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1cnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xktgb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3ds4")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"world_explosion",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x2sec"]
+radius = 31.1448
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_vfose")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../WorldHitbox")
+libraries = {
+"": SubResource("AnimationLibrary_mx7yk")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_20o2d")
+
+[node name="WorldVFX" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+sprite_frames = SubResource("SpriteFrames_v2n8x")
+animation = &"world_explosion"
+
+[node name="WorldHitbox" type="Area2D" parent="."]
+script = ExtResource("1_w3hrj")
+
+[node name="WorldRadiusExplosion" type="CollisionShape2D" parent="WorldHitbox"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_x2sec")
+disabled = true
+debug_color = Color(0.643137, 0.792157, 0.423529, 0.419608)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

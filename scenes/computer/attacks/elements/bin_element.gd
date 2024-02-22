@@ -6,14 +6,15 @@ signal finished
 
 const BEAM = preload("res://assets/sounds/Beam.ogg")
 const LASER = preload("res://assets/sounds/Laser.ogg")
-const WORLD_EXPLOSION = preload("res://assets/vfx/world_explosion.png")
-const WORLD_EXPLOSION_SOUND = preload("res://assets/sounds/WorldExplosion.wav")
+
 const TEXT_FILE_SHOOT = preload("res://assets/sounds/text_file_shoot.wav")
 const TEXT_FILE_SHOOT_2 = preload("res://assets/sounds/text_file_shoot_2.wav")
 const TEXT_FILE_SHOOT_3 = preload("res://assets/sounds/text_file_shoot_3.wav")
 
 const SPEAKER = preload("res://scenes/computer/attacks/elements/speaker.tscn")
 const TEXT_FILE_LETTER = preload("res://scenes/computer/attacks/elements/text_file_letter.tscn")
+const WORLD = preload("res://scenes/computer/attacks/elements/world.tscn")
+
 
 @onready var line_2d: Line2D = $LaserLine2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -21,9 +22,6 @@ const TEXT_FILE_LETTER = preload("res://scenes/computer/attacks/elements/text_fi
 @onready var visual_feedback_timer: Timer = $VisualFeedbackTimer
 @onready var time_active_timer: Timer = $TimeActiveTimer
 @onready var laser_hitbox: CollisionPolygon2D = $LaserHitbox/CollisionPolygon2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var world_vfx: AnimatedSprite2D = %WorldVFX
-@onready var world_radius_explosion: CollisionShape2D = %WorldRadiusExplosion
 
 var antivirus: Antivirus
 var params := {}
@@ -51,18 +49,20 @@ func _exit_tree():
 
 
 func _ready():
-	sprite_2d.texture = texture
+	if texture:
+		sprite_2d.texture = texture
+		
 	add_child(cursor_to_show)
 	
 	spawned.connect(on_spawned)
 	visual_feedback_timer.timeout.connect(on_visual_feedback_ended)
 	time_active_timer.timeout.connect(on_time_active_ended)
-	animation_player.animation_finished.connect(on_animation_finished)
 	spawn()
 	
 	GameEvents.losed_game.connect(func(): queue_free())
 	GameEvents.winned_game.connect(func(): queue_free())
-	
+
+
 func _process(_delta):
 	if id == "search":
 		if aiming:
@@ -92,6 +92,8 @@ func start():
 			world_attack()
 		"text_file":
 			text_file_attack()
+			
+			
 func movies_attack():
 	pass
 
@@ -156,19 +158,11 @@ func scale_dissapear_animation():
 	
 
 func world_attack():
-	world_vfx.show()
-	animation_player.play("world_explosion")
-	world_radius_explosion.disabled = false
+	sprite_2d.hide()
+	var world = WORLD.instantiate() as World
+	world.is_root_explosion = true
+	add_child(world)
 	
-	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 1.0).set_ease(Tween.EASE_OUT)
-	
-	var sfx = AudioStreamPlayer.new()
-	sfx.bus  = "SFX"
-	sfx.pitch_scale = randf_range(0.75, 1.5)
-	sfx.stream = WORLD_EXPLOSION_SOUND
-	add_child(sfx)
-	sfx.play()
 	
 
 func visual_feedback_aim_player():
@@ -183,13 +177,14 @@ func set_id(_id: String) -> BinElement:
 	
 	
 func set_texture(_texture) -> BinElement:
-	var new_texture = _texture
-	
-	if new_texture is Array:
-		new_texture = _texture.pick_random()
+	if _texture:
+		var new_texture = _texture
 		
-	texture = new_texture
-	
+		if new_texture is Array:
+			new_texture = _texture.pick_random()
+			
+		texture = new_texture
+		
 	return self
 
 
@@ -197,13 +192,6 @@ func on_spawned():
 	cursor_to_show.queue_free()
 	start()
 
-
-func on_animation_finished(animation_name: String):
-	if animation_name == "world_explosion":
-		world_radius_explosion.disabled = true
-		world_vfx.hide()
-		finished.emit()
-		queue_free()
 
 
 func on_visual_feedback_ended():

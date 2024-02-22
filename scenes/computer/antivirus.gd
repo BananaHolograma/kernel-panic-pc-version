@@ -65,23 +65,23 @@ enum STATE {
 		"phase": {
 			PHASES.CALM: {
 				"bullets_per_shoot": 10,
-				"shoot_delay": 1.6,
-				"time_shooting": 4.5,
+				"shoot_delay": 1.5,
+				"time_shooting": 6.5
 			},
 			PHASES.ALERT: {
-				"bullets_per_shoot": 5,
+				"bullets_per_shoot": 10,
 				"shoot_delay": 1.4,
-				"time_shooting": 6.5,
-			},
-			PHASES.DANGER: {
-				"bullets_per_shoot": 4,
-				"shoot_delay": 1.3,
 				"time_shooting": 8.0,
 			},
-			PHASES.EXTREME: {
-				"bullets_per_shoot": 3,
-				"shoot_delay": 1.1,
+			PHASES.DANGER: {
+				"bullets_per_shoot": 5,
+				"shoot_delay": 1.3,
 				"time_shooting": 9.0,
+			},
+			PHASES.EXTREME: {
+				"bullets_per_shoot": 2,
+				"shoot_delay": 1.1,
+				"time_shooting": 10.0,
 			},
 		}
 	},
@@ -95,13 +95,13 @@ enum STATE {
 				"elements_to_grab": 2,
 			},
 			PHASES.ALERT: {
-				"elements_to_grab": 3,
+				"elements_to_grab": 2,
 			},
 			PHASES.DANGER: {
-				"elements_to_grab": 4,
+				"elements_to_grab": 3,
 			},
 			PHASES.EXTREME: {
-				"elements_to_grab": 5,
+				"elements_to_grab": 4,
 			},
 		}
 	},
@@ -116,16 +116,16 @@ enum STATE {
 				"probability_to_spawn_all": 0.1
 			},
 			PHASES.ALERT: {
-				"lasers": 3,
-				"probability_to_spawn_all": 0.15
+				"lasers": 2,
+				"probability_to_spawn_all": 0.1
 			},
 			PHASES.DANGER: {
-				"lasers": 4,
-				"probability_to_spawn_all": 0.2
+				"lasers": 3,
+				"probability_to_spawn_all": 0.1
 			},
 			PHASES.EXTREME: {
-				"lasers": 5,
-				"probability_to_spawn_all": 0.25
+				"lasers": 4,
+				"probability_to_spawn_all": 0.15
 			},
 		}
 	}
@@ -133,9 +133,9 @@ enum STATE {
 
 @onready var delay_between_routines := {
 	PHASES.CALM: 2.5,
-	PHASES.ALERT: 2.0,
+	PHASES.ALERT: 2.5,
 	PHASES.DANGER: 2.0,
-	PHASES.EXTREME: 1.5
+	PHASES.EXTREME: 2.0
 }
 
 var current_state := STATE.WAITING
@@ -207,7 +207,7 @@ func select_attacks() -> Array:
 	var attacks := []
 	
 	for i in range(number_of_attacks):
-		var selected = attack_list.keys().pick_random()
+		var selected = "hand_recycle_bin" #attack_list.keys().pick_random()
 
 		attacks.append(attack_list[selected])
 		

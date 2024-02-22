@@ -84,7 +84,6 @@ func _ready():
 	GameEvents.lock_player.emit()
 	
 	game_camera.limit_smoothed = false
-	game_camera.global_position = get_viewport().get_visible_rect().size / 2
 	_add_overlay()
 	
 	game_timer.timeout.connect(on_game_timer_second_passed)
