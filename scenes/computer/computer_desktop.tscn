@@ -147,7 +147,7 @@ offset_top = 198.0
 offset_right = 374.0
 offset_bottom = 198.0
 icon_texture = ExtResource("5_leo2q")
-icon_name = "amazon_coupon.exe"
+icon_name = "winupgrade.exe"
 
 [node name="Network" parent="Interface" instance=ExtResource("3_ai10v")]
 offset_left = 374.0

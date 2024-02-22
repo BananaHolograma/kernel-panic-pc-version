@@ -330,8 +330,8 @@ debug_color = Color(0.847059, 0.298039, 0.141176, 0.419608)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("8_2vufd")
-MAX_HEALTH = 1
-CURRENT_HEALTH = 1
+MAX_HEALTH = 3
+CURRENT_HEALTH = 3
 
 [node name="MotionComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("10_nkwac")
