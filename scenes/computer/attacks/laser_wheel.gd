@@ -27,9 +27,10 @@ func collect_lasers_and_shoot():
 	
 	for i in range(spawn_amount):
 		var laser = available_lasers.pick_random()
-		laser.finished.connect(func(): remaining_lasers -= 1)
-		laser.shoot()
-		available_lasers.erase(laser)
+		if laser:
+			laser.finished.connect(func(): remaining_lasers -= 1)
+			laser.shoot()
+			available_lasers.erase(laser)
 
 
 func prepare_lasers():
