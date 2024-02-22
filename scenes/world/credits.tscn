@@ -106,7 +106,7 @@ size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("1_2re83")
 theme_override_font_sizes/font_size = 20
 text = "This game utilizes visual elements inspired by the Windows 95 user interface, which are owned by
-Microsoft Corporation. All rights reserved. This game is a non-commercial projectand does not claim 
+Microsoft Corporation. All rights reserved. This game is a non-commercial project and does not claim 
 ownership of any copyrighted material belonging to Microsoft. All trademarks and copyrights remain the 
 property of their respective owners.
 "

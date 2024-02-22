@@ -204,7 +204,6 @@ color = Color(1, 0.219608, 0.0784314, 0)
 
 [node name="GameCamera" parent="PostProcessingLayer" instance=ExtResource("15_fvlwn")]
 unique_name_in_owner = true
-anchor_mode = 0
 
 [node name="Cinematic" type="CanvasLayer" parent="."]
 layer = 2
