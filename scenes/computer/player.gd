@@ -51,7 +51,6 @@ func _ready():
 	motion_component.teleport_cooldown_ended.connect(func():
 		teleport_cooldown_bar.value = 0	
 		teleport_cooldown_bar.hide()
-		animated_sprite_2d.modulate.a = 1.0
 	)
 	
 	motion_component.teleported.connect(on_teleported)
@@ -143,7 +142,6 @@ func on_teleported(previous_position: Vector2, new_position: Vector2):
 	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 15)))
 	
 	health_component.enable_invulnerability(true, 1.5)
-	animated_sprite_2d.modulate.a = 0.5
 
 
 func on_invulnerability_changed(active: bool):

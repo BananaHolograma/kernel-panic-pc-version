@@ -2,15 +2,13 @@ extends Control
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var start_button: Button = %StartButton
-@onready var options_button: Button = %OptionsButton
-@onready var credits: Button = %Credits
-@onready var exit: Button = %Exit
 @onready var exit_confirmation: ConfirmationDialog = $ContentMarginContainer/ExitConfirmation
 @onready var version: Label = %Version
 @onready var options_menu: Control = %OptionsMenu
+@onready var credits: Control = %Credits
+
 
 const BOOTLOADER = preload("res://scenes/computer/bootloader.tscn")
-	
 		
 func _ready():
 	get_tree().paused = false
@@ -52,3 +50,7 @@ func _on_github_gui_input(event):
 
 func _on_options_button_pressed():
 	options_menu.show()
+
+
+func _on_credits_pressed():
+	credits.show()

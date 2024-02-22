@@ -289,7 +289,6 @@ sprite_frames = SubResource("SpriteFrames_wgqdo")
 animation = &"idle"
 
 [node name="AppearVFX" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -13.0

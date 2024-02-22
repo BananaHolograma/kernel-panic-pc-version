@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4wsixanrnmwy"]
+[gd_scene load_steps=23 format=3 uid="uid://b4wsixanrnmwy"]
 
 [ext_resource type="Script" path="res://scenes/world/menu_screen.gd" id="1_3briv"]
 [ext_resource type="FontFile" uid="uid://vvqo346kg6xj" path="res://ui/themes/fonts/Windows Regular.ttf" id="1_woiu2"]
@@ -15,6 +15,7 @@
 [ext_resource type="LabelSettings" uid="uid://001lx81li1qk" path="res://ui/themes/classic-95/general/boot_label.tres" id="13_8r00x"]
 [ext_resource type="AudioStream" uid="uid://2caatrbsmfmd" path="res://assets/music/menu_screen.ogg" id="14_bveyf"]
 [ext_resource type="PackedScene" uid="uid://byytv4d5ftk4g" path="res://scenes/world/options_menu.tscn" id="14_x663j"]
+[ext_resource type="PackedScene" uid="uid://cr26yv70o6ixr" path="res://scenes/world/credits.tscn" id="15_7fdui"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o32rf"]
 
@@ -175,7 +176,7 @@ text = "Options"
 icon = ExtResource("8_as70u")
 expand_icon = true
 
-[node name="Credits" type="Button" parent="ContentMarginContainer/MenuButtons"]
+[node name="CreditsButton" type="Button" parent="ContentMarginContainer/MenuButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
@@ -191,7 +192,7 @@ custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-focus_neighbor_top = NodePath("../MenuButtons/Credits")
+focus_neighbor_top = NodePath("../MenuButtons/CreditsButton")
 focus_neighbor_bottom = NodePath("../MenuButtons/StartButton")
 theme_override_font_sizes/font_size = 28
 text = "Exit"
@@ -250,6 +251,10 @@ label_settings = ExtResource("13_8r00x")
 unique_name_in_owner = true
 visible = false
 
+[node name="Credits" parent="Options" instance=ExtResource("15_7fdui")]
+unique_name_in_owner = true
+visible = false
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_o3jtv")
@@ -262,6 +267,7 @@ bus = &"Music"
 
 [connection signal="pressed" from="ContentMarginContainer/MenuButtons/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ContentMarginContainer/MenuButtons/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="ContentMarginContainer/MenuButtons/CreditsButton" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="ContentMarginContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="gui_input" from="ContentMarginContainer/Social/Itch" to="." method="_on_itch_gui_input"]
 [connection signal="gui_input" from="ContentMarginContainer/Social/Instagram" to="." method="_on_instagram_gui_input"]

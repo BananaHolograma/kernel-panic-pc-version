@@ -1,0 +1,120 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr26yv70o6ixr"]
+
+[ext_resource type="FontFile" uid="uid://d0p5o4rhchkfv" path="res://ui/themes/fonts/Franklin Gothic Medium Regular.ttf" id="1_2re83"]
+[ext_resource type="Script" path="res://scenes/world/credits.gd" id="1_06n44"]
+[ext_resource type="Texture2D" uid="uid://csim1rwkol0fb" path="res://ui/themes/classic-95/general/LeftArrow.png" id="2_g4n3c"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06n44")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ART" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "ART"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Emojies" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 0
+theme_override_fonts/font = ExtResource("1_2re83")
+theme_override_font_sizes/font_size = 24
+text = "https://kaboff.itch.io/128-emoji-pixel-art"
+
+[node name="WinIcons" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_2re83")
+theme_override_font_sizes/font_size = 24
+text = "https://aconfuseddragon.itch.io/windows-95-plus-1"
+
+[node name="Win95Theme" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_2re83")
+theme_override_font_sizes/font_size = 24
+text = "https://github.com/violinbg/godot-desktop-themes"
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Music & SFX" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "Music & SFX"
+
+[node name="AngelSounds" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_2re83")
+theme_override_font_sizes/font_size = 24
+text = "https://ateliermagicae.itch.io/be-not-afraid-biblically-accurate-angel-sfx-vol1"
+
+[node name="Music" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_2re83")
+theme_override_font_sizes/font_size = 24
+text = "https://tallbeard.itch.io/three-red-hearts-prepare-to-dev"
+
+[node name="HSeparator3" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Disclaimer" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "Disclaimer"
+
+[node name="DisclaimerText" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_2re83")
+theme_override_font_sizes/font_size = 20
+text = "This game utilizes visual elements inspired by the Windows 95 user interface, which are owned by
+Microsoft Corporation. All rights reserved. This game is a non-commercial projectand does not claim 
+ownership of any copyrighted material belonging to Microsoft. All trademarks and copyrights remain the 
+property of their respective owners.
+"
+
+[node name="BackArrow" type="TextureRect" parent="Panel"]
+layout_mode = 1
+offset_left = 19.0
+offset_top = 15.0
+offset_right = 59.0
+offset_bottom = 55.0
+texture = ExtResource("2_g4n3c")

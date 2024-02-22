@@ -15,5 +15,5 @@ func on_game_started():
 
 func _on_timer_timeout():
 	seconds_passed += 1
-	var displayed_minutes = round(seconds_passed / 60)
-	time_label.text = "12:%s PM" %  "3%s" % displayed_minutes if seconds_passed <= 600 else "40"
+	var minutes_passed = round(seconds_passed / 60.0)
+	time_label.text = "12:%s PM" %  "3%s" % minutes_passed if seconds_passed <= 600 else "40"
