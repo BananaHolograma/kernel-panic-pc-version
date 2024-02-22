@@ -68,6 +68,12 @@ func _ready():
 	
 	winned_game.connect(on_winned_game)
 	losed_game.connect(on_losed_game)
+	player.before_dead.connect(func():
+		phase_calm_music.stop()
+		phase_alert_music.stop()
+		phase_danger_music.stop()
+		phase_extreme_music.stop()
+	)
 	player.died.connect(on_player_dead)
 	
 	timer_ended.connect(on_timer_ended)
@@ -165,7 +171,6 @@ func on_animation_finished(animation_name: String):
 
 
 func on_player_dead():
-	## TEMPORARY
 	current_game_state = GAME_STATE.LOSE
 	
 
@@ -182,13 +187,9 @@ func on_winned_game():
 func on_losed_game():
 	GameEvents.losed_game.emit()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
 	animation_player.play("system_recovered")
-	phase_calm_music.stop()
-	phase_alert_music.stop()
-	phase_danger_music.stop()
-	phase_extreme_music.stop()
 	system_recovered_player.play()
-	
 
 
 func _on_back_menu_dialog_confirmed():

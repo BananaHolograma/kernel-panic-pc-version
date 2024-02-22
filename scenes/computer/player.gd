@@ -1,5 +1,6 @@
 class_name Player extends CharacterBody2D
 
+signal before_dead
 signal died
 
 @export var teleport_distance := 35
@@ -18,6 +19,9 @@ signal died
 
 @onready var teleport_audio_stream_player: AudioStreamPlayer = $TeleportAudioStreamPlayer
 @onready var hit_audio_stream_player: AudioStreamPlayer = $Hit
+@onready var dead_sound: AudioStreamPlayer = $DeadSound
+
+@onready var dead_particles: GPUParticles2D = $DeadParticles
 
 
 const REDUCED_SPEED_PARTICLES = preload("res://scenes/computer/attacks/elements/reduced_speed_particles.tscn")
@@ -25,6 +29,7 @@ const REDUCED_SPEED_PARTICLES = preload("res://scenes/computer/attacks/elements/
 var locked := false
 var is_left_direction: bool = false
 var teleporting := false
+var alive := true
 
 func _unhandled_input(_event: InputEvent):
 	if Input.is_action_just_pressed("dash"):
@@ -56,7 +61,7 @@ func _ready():
 	
 
 func on_health_changed(amount: int, _type: HealthComponent.TYPES):
-	if amount > 0:
+	if amount > 0 and alive:
 		show_health_feedback()
 	
 	
@@ -146,11 +151,17 @@ func on_invulnerability_changed(active: bool):
 			
 
 func on_died():
-	health_bar.hide()
-	teleport_cooldown_bar.hide()
-	
-	died.emit()
-
+	if alive:
+		before_dead.emit()
+		alive = false
+		var tween = create_tween()
+		tween.tween_property(animated_sprite_2d, "modulate:a", 0.0, 1.0).set_ease(Tween.EASE_OUT)
+		
+		health_bar.hide()
+		teleport_cooldown_bar.hide()
+		dead_sound.play()
+		dead_particles.emitting = true
+		
 
 func _on_hurtbox_2d_hitbox_detected(hitbox):
 	if hitbox.name == "LaserHitbox":
@@ -167,3 +178,7 @@ func _on_hurtbox_2d_hitbox_detected(hitbox):
 func on_animation_finished(animation_name: String):
 	if animation_name == "appear":
 		appear_vfx.hide()
+
+
+func _on_dead_particles_finished():
+	died.emit()
