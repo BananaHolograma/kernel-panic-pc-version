@@ -8,12 +8,10 @@ extends Control
 
 func _unhandled_key_input(_event: InputEvent):
 	if Input.is_action_just_pressed("pause"):
-		show()
-		GameEvents.show_pause_menu.emit()
+		open()
 		
 	if Input.is_action_just_pressed("ui_cancel"):
-		hide()
-		GameEvents.hidden_pause_menu.emit()
+		close()
 
 
 func _ready():
@@ -43,6 +41,15 @@ func _ready():
 	
 	resolution_options_button.select(resolution_option_index)
 	
+	
+func open():
+	show()
+	GameEvents.show_pause_menu.emit()
+	
+	
+func close():
+	hide()
+	GameEvents.hidden_pause_menu.emit()
 
 
 func _change_screen_resolution(id: int):
@@ -90,3 +97,7 @@ func _on_music_slider_value_changed(value):
 func _on_sound_effects_slider_value_changed(value):
 		AudioManager.change_volume("SFX", value)
 		GameEvents.sfx_volume = value
+
+
+func _on_close_button_pressed():
+	close()

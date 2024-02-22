@@ -12,7 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_wqe1s")
 
 [node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(250, 250)
+custom_minimum_size = Vector2(250, 275)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -103,7 +103,18 @@ popup/item_2/id = 3
 popup/item_3/text = "1920x1080"
 popup/item_3/id = 3
 
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CloseButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Close"
+
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/SoundEffectsSlider" to="." method="_on_sound_effects_slider_value_changed"]
 [connection signal="item_selected" from="Panel/MarginContainer/VBoxContainer/ScreenModeOptionsButton" to="." method="_on_screen_mode_options_button_item_selected"]
 [connection signal="item_selected" from="Panel/MarginContainer/VBoxContainer/ResolutionOptionsButton" to="." method="_on_resolution_options_button_item_selected"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
