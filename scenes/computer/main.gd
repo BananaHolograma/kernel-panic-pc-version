@@ -7,7 +7,7 @@ signal winned_game
 signal losed_game
 
 const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
-const BLUE_SCREEN = preload("res://scenes/world/blue_screen.tscn")
+const KERNEL = preload("res://scenes/world/kernel.tscn")
 
 @onready var back_menu_dialog: ConfirmationDialog = %BackMenuDialog
 @onready var options_menu: Control = %OptionsMenu
@@ -31,6 +31,9 @@ const BLUE_SCREEN = preload("res://scenes/world/blue_screen.tscn")
 @onready var terminal: MSDosTerminal = $Control/Terminal
 @onready var player: Player = $Player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@onready var kernel_spawn: Marker2D = %KernelSpawn
+
 
 enum GAME_STATE {
 	RUNNING,
@@ -67,6 +70,7 @@ func _ready():
 	phase_danger_music.volume_db = linear_to_db(0.0001) # -80 db
 	phase_extreme_music.volume_db = linear_to_db(0.0001) # -80 db
 	
+	
 	winned_game.connect(on_winned_game)
 	losed_game.connect(on_losed_game)
 	player.before_dead.connect(func():
@@ -94,7 +98,7 @@ func _ready():
 		game_timer.start()
 		GameEvents.game_started.emit()
 	)
-	start_gameplay_timer() ## TODO - move after all animations are loaded
+	start_gameplay_timer()
 	player.appear()
 	
 	GameEvents.show_pause_menu.connect(func():
@@ -106,6 +110,8 @@ func _ready():
 		get_tree().paused = false
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	)
+	
+	winned_game.emit()
 	
 
 func start_gameplay_timer():
@@ -142,7 +148,7 @@ func _add_overlay():
 	fade_overlay.fade_in_duration = 1.5
 	add_child(fade_overlay)
 	fade_overlay.on_complete_fade_in.connect(on_fade_in_completed.bind(fade_overlay))
-
+	
 
 func _back_to_menu() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/world/menu_screen.tscn")
@@ -182,9 +188,13 @@ func on_timer_ended():
 func on_winned_game():
 	GameEvents.winned_game.emit()
 	
-	## TODO - SHOW THE KERNEL BEFORE CHANGING TO BLUE SCREEN
-	get_tree().call_deferred("change_scene_to_packed", BLUE_SCREEN)
-
+	var kernel = KERNEL.instantiate()
+	kernel_spawn.add_child(kernel)
+	kernel.player_touched_kernel.connect(func():
+		GameEvents.lock_player.emit()
+		game_camera.shake_camera_component_2d.shake(20.0, 4.5)
+	)
+	
 
 func on_losed_game():
 	GameEvents.losed_game.emit()

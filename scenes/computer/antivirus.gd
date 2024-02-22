@@ -10,6 +10,7 @@ signal attack_routine_finished
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var vfx: AnimatedSprite2D = $VFX
 @onready var emotions: AnimatedSprite2D = $AnimatedSprite2D/Emotions
+@onready var dead_particles: GPUParticles2D = $DeadParticles
 
 @onready var cursors: CursorsOrbit = %Cursors
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -155,7 +156,11 @@ var remaining_attacks := 0:
 
 
 func _ready():
-	GameEvents.winned_game.connect(func(): current_state = STATE.WAITING)
+	GameEvents.winned_game.connect(func(): 
+		current_state = STATE.WAITING
+		dead_particles.emitting = true
+		vfx.hide()
+	)
 	GameEvents.losed_game.connect(func(): current_state = STATE.WAITING)
 	
 	animation_player.animation_finished.connect(on_animation_finished)
