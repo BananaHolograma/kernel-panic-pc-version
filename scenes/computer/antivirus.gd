@@ -207,7 +207,7 @@ func select_attacks() -> Array:
 	var attacks := []
 	
 	for i in range(number_of_attacks):
-		var selected = "hand_recycle_bin" #attack_list.keys().pick_random()
+		var selected = attack_list.keys().pick_random()
 
 		attacks.append(attack_list[selected])
 		
