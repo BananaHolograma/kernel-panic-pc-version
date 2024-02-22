@@ -19,7 +19,7 @@ const PM_GC_DISTORTED_GLITCH_LFE_IMPACT_18 = preload("res://assets/sounds/PM_GC_
 
 func _ready():
 	SceneTransitioner.next_scene_path = "res://scenes/computer/main.tscn"
-	#SceneTransitioner.no_background = true
+	SceneTransitioner.no_background = true
 	
 	game_camera.global_position = get_viewport().get_visible_rect().size / 2
 	

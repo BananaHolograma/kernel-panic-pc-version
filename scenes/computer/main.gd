@@ -11,10 +11,15 @@ const FADE_OVERLAY = preload("res://ui/overlays/fade_overlay.tscn")
 @onready var back_menu_dialog: ConfirmationDialog = %BackMenuDialog
 @onready var options_menu: Control = %OptionsMenu
 
+@onready var retry_button: Button = %RetryButton
+@onready var quit_button: Button = %QuitButton
+
+
 @onready var phase_calm_music: AudioStreamPlayer = $PhaseCalmMusic
 @onready var phase_alert_music: AudioStreamPlayer = $PhaseAlertMusic
 @onready var phase_danger_music: AudioStreamPlayer = $PhaseDangerMusic
 @onready var phase_extreme_music: AudioStreamPlayer = $PhaseExtremeMusic
+@onready var system_recovered_player: AudioStreamPlayer = $SystemRecoveredPlayer
 
 @export var minutes_to_resist := 10
 
@@ -53,6 +58,7 @@ func _input(event):
 	
 
 func _ready():
+	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	phase_calm_music.volume_db = linear_to_db(0.0001) # -80 db
@@ -131,6 +137,10 @@ func _add_overlay():
 	fade_overlay.on_complete_fade_in.connect(on_fade_in_completed.bind(fade_overlay))
 
 
+func _back_to_menu() -> void:
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/world/menu_screen.tscn")
+
+
 func on_antivirus_phase_changed(_previous: Antivirus.PHASES, current: Antivirus.PHASES):
 	match(current):
 		Antivirus.PHASES.ALERT:
@@ -173,13 +183,27 @@ func on_losed_game():
 	GameEvents.losed_game.emit()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	animation_player.play("system_recovered")
+	phase_calm_music.stop()
+	phase_alert_music.stop()
+	phase_danger_music.stop()
+	phase_extreme_music.stop()
+	system_recovered_player.play()
+	
 
 
 func _on_back_menu_dialog_confirmed():
 	get_tree().paused = true
-	get_tree().call_deferred("change_scene_to_file", "res://scenes/world/menu_screen.tscn")
+	_back_to_menu()
 
 
 func _on_back_menu_dialog_canceled():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().paused = false
+
+
+func _on_retry_button_pressed():
+	get_tree().call_deferred("reload_current_scene")
+	
+
+func _on_quit_button_pressed():
+	_back_to_menu()
