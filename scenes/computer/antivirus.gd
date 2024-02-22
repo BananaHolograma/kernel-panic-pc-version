@@ -159,6 +159,7 @@ func _ready():
 	GameEvents.winned_game.connect(func(): 
 		current_state = STATE.WAITING
 		dead_particles.emitting = true
+		animated_sprite_2d.hide()
 		vfx.hide()
 	)
 	GameEvents.losed_game.connect(func(): current_state = STATE.WAITING)

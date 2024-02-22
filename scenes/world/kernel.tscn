@@ -4,70 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dxyk5rvqdgcdh" path="res://assets/emojies/emoji2.png" id="1_r0ijo"]
 [ext_resource type="AudioStream" uid="uid://g3demntefqx5" path="res://assets/sounds/kernel_touch.wav" id="3_62m0m"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d380x"]
-atlas = ExtResource("1_r0ijo")
-region = Rect2(0, 112, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1o5b2"]
-atlas = ExtResource("1_r0ijo")
-region = Rect2(16, 112, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0rtoc"]
-atlas = ExtResource("1_r0ijo")
-region = Rect2(32, 112, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q2iyi"]
-atlas = ExtResource("1_r0ijo")
-region = Rect2(48, 112, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x3gjx"]
-atlas = ExtResource("1_r0ijo")
-region = Rect2(64, 112, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_th34b"]
-atlas = ExtResource("1_r0ijo")
-region = Rect2(80, 112, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_we1jl"]
-atlas = ExtResource("1_r0ijo")
-region = Rect2(96, 112, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lkbwi"]
-atlas = ExtResource("1_r0ijo")
-region = Rect2(112, 112, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_g2cxt"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d380x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1o5b2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0rtoc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q2iyi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x3gjx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_th34b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_we1jl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lkbwi")
-}],
-"loop": false,
-"name": &"swap",
-"speed": 7.0
-}]
-
 [sub_resource type="Animation" id="Animation_5ffxh"]
 length = 0.001
 tracks/0/type = "value"
@@ -178,6 +114,70 @@ _data = {
 "idle": SubResource("Animation_y6k0r")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_d380x"]
+atlas = ExtResource("1_r0ijo")
+region = Rect2(0, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o5b2"]
+atlas = ExtResource("1_r0ijo")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rtoc"]
+atlas = ExtResource("1_r0ijo")
+region = Rect2(32, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2iyi"]
+atlas = ExtResource("1_r0ijo")
+region = Rect2(48, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3gjx"]
+atlas = ExtResource("1_r0ijo")
+region = Rect2(64, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_th34b"]
+atlas = ExtResource("1_r0ijo")
+region = Rect2(80, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we1jl"]
+atlas = ExtResource("1_r0ijo")
+region = Rect2(96, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkbwi"]
+atlas = ExtResource("1_r0ijo")
+region = Rect2(112, 112, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2cxt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d380x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o5b2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rtoc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2iyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3gjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_th34b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we1jl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbwi")
+}],
+"loop": false,
+"name": &"swap",
+"speed": 7.0
+}]
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7bmf4"]
 particle_flag_disable_z = true
 emission_shape = 6
@@ -200,14 +200,17 @@ radius = 5.0
 [node name="Kernel" type="Node2D"]
 script = ExtResource("1_eosa0")
 
-[node name="HeartSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_g2cxt")
-animation = &"swap"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_p8u68")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_62m0m")
+
+[node name="HeartSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_g2cxt")
+animation = &"swap"
 
 [node name="ImplosionParticles" type="GPUParticles2D" parent="."]
 amount = 30
@@ -229,9 +232,6 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CoreArea"]
 shape = SubResource("CircleShape2D_7ld58")
 debug_color = Color(0.788235, 0.321569, 0.721569, 0.419608)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_62m0m")
 
 [connection signal="player_touched_kernel" from="." to="." method="_on_player_touched_kernel"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
