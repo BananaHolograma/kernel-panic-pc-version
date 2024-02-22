@@ -65,9 +65,11 @@ func _ready():
 	antivirus.prepared.connect(func(): 
 		animation_player.play("calm_music_start")
 		game_timer.start()
+		GameEvents.game_started.emit()
 	)
 	start_gameplay_timer() ## TODO - move after all animations are loaded
 	player.appear()
+	
 		
 
 func start_gameplay_timer():

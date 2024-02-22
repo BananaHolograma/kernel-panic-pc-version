@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://3npwtq6dd873"]
+[gd_scene load_steps=8 format=3 uid="uid://3npwtq6dd873"]
 
+[ext_resource type="Script" path="res://scenes/computer/task_bar.gd" id="1_mwp4p"]
 [ext_resource type="Texture2D" uid="uid://kh4t4jmm3bo2" path="res://ui/themes/classic-95/icons/Flag.png" id="1_ryw1p"]
 [ext_resource type="Texture2D" uid="uid://c82hfhjdvkwqe" path="res://ui/themes/classic-95/panel/PatchInverted.png" id="2_co85n"]
 [ext_resource type="PackedScene" uid="uid://ce0gokjcgsr7v" path="res://scenes/computer/app_icon.tscn" id="3_6qbt5"]
@@ -26,6 +27,7 @@ offset_top = -35.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_24o6u")
+script = ExtResource("1_mwp4p")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -82,3 +84,7 @@ grow_horizontal = 0
 grow_vertical = 2
 icon_texture = ExtResource("4_i66l6")
 icon_size = Vector2(16, 16)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

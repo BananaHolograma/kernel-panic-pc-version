@@ -5,6 +5,7 @@ signal lock_player
 signal unlock_player
 signal winned_game
 signal losed_game
+signal game_started
 
 ### INTERACTIONS ###
 signal interacted(interactable: Interactable)
