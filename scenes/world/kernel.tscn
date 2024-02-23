@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://bg061a0puwmcg"]
+[gd_scene load_steps=20 format=3 uid="uid://bg061a0puwmcg"]
 
 [ext_resource type="Script" path="res://scenes/world/kernel.gd" id="1_eosa0"]
 [ext_resource type="Texture2D" uid="uid://dxyk5rvqdgcdh" path="res://assets/emojies/emoji2.png" id="1_r0ijo"]
+[ext_resource type="AudioStream" uid="uid://bn1x3jjnc5xwo" path="res://assets/sounds/kernel_appearance.ogg" id="2_gfyxg"]
 [ext_resource type="AudioStream" uid="uid://g3demntefqx5" path="res://assets/sounds/kernel_touch.wav" id="3_62m0m"]
 
 [sub_resource type="Animation" id="Animation_5ffxh"]
@@ -205,7 +206,12 @@ libraries = {
 "": SubResource("AnimationLibrary_p8u68")
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gfyxg")
+autoplay = true
+bus = &"Ambient"
+
+[node name="TouchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_62m0m")
 bus = &"SFX"
 
