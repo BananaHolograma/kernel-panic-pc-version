@@ -26,6 +26,11 @@ const KERNEL = preload("res://scenes/world/kernel.tscn")
 
 @onready var game_camera: GameCamera = $GameCamera
 @onready var progress_bar: ProgressBar = %ProgressBar
+@onready var phase_alert_marker: TextureRect = %PhaseAlertMarker
+@onready var phase_danger_marker: TextureRect = %PhaseDangerMarker
+@onready var phase_extreme_marker: TextureRect = %PhaseExtremeMarker
+
+
 @onready var game_timer: Timer = $GameTimer
 @onready var antivirus: Antivirus = $Antivirus
 @onready var terminal: MSDosTerminal = $Control/Terminal
@@ -153,12 +158,15 @@ func on_antivirus_phase_changed(_previous: Antivirus.PHASES, current: Antivirus.
 		Antivirus.PHASES.ALERT:
 			phase_alert_music.play()
 			animation_player.play("calm_to_alert")
+			phase_alert_marker.modulate = Color("42f423")
 		Antivirus.PHASES.DANGER:
 			phase_danger_music.play()
 			animation_player.play("alert_to_danger")
+			phase_danger_marker.modulate = Color("42f423")
 		Antivirus.PHASES.EXTREME:
 			phase_extreme_music.play()
-			animation_player.play("danger_to_extreme")		
+			animation_player.play("danger_to_extreme")
+			phase_extreme_marker.modulate = Color("42f423")
 
 
 func on_animation_finished(animation_name: String):
