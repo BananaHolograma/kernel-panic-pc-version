@@ -95,7 +95,7 @@ func display_cooldown_feedback():
 	
 func show_health_feedback():	
 		health_bar.value = max(0, health_component.CURRENT_HEALTH)
-		if alive:
+		if alive and health_bar.value > 0:
 			health_bar.show()
 	
 

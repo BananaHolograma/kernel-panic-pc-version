@@ -207,6 +207,7 @@ libraries = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_62m0m")
+bus = &"SFX"
 
 [node name="HeartSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_g2cxt")

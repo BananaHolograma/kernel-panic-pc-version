@@ -19,7 +19,7 @@ enum SPEED_MODE {
 @export var change_speed_after_seconds := 1.5
 @export var change_angle_after_seconds := 0
 @export var change_direction_after_seconds := 2.5
-@export var change_direction_probability := 0.5
+@export var change_direction_probability := 0.45
 @export var min_speed := 75
 @export var max_speed := 150
 
@@ -115,9 +115,9 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_change_direction_timer_timeout():
 	if randf() <= change_direction_probability:
-		var new_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
+		var new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
 	  
 		while new_direction.is_zero_approx() or new_direction.is_equal_approx(direction):
-			new_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
+			new_direction = Vector2(randi_range(-1, 1), randi_range(-1, 1))
 			
 		direction = new_direction
