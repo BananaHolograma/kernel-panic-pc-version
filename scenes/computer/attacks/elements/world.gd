@@ -7,11 +7,9 @@ const WORLD_EXPLOSION_SOUND = preload("res://assets/sounds/WorldExplosion.wav")
 @onready var world_vfx: AnimatedSprite2D = %WorldVFX
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var world_radius_explosion: CollisionShape2D = %WorldRadiusExplosion
-@onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var indicator_rotation_point: Node2D = $IndicatorRotationPoint
-@onready var indicator: Sprite2D = $IndicatorRotationPoint/Indicator
 
-@export var probability_to_line_explosions := 0.05
+@export var probability_to_line_explosions := 0.1
 @export var number_of_explosions := 20
 @export var separation_between_explosions := 35
 
@@ -47,17 +45,14 @@ func create_line_explosions():
 			
 		var count = 0
 		
-		print("PUTA DIRECCION DE MIERDA ", new_direction)
-		print("puta mierda coño ", indicator_rotation_point.position.angle_to_point(position * new_direction))
-		print("puta existencia ya ",  indicator_rotation_point.position)
 		var tween = create_tween()
 		tween.set_parallel(true)
-		tween.tween_property(indicator_rotation_point, "modulate:a", 1.0, 1.2).set_ease(Tween.EASE_IN_OUT)
-		tween.tween_property(indicator_rotation_point, "rotation", Vector2.UP.angle_to(new_direction), 1.2)\
+		tween.tween_property(indicator_rotation_point, "modulate:a", 1.0, 0.75).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(indicator_rotation_point, "rotation", Vector2.UP.angle_to(new_direction), 0.75)\
 			.set_ease(Tween.EASE_IN)
 		
 		await tween.finished
-		await get_tree().create_timer(1.0).timeout ## Time to detect the feedback and react
+		await get_tree().create_timer(0.7).timeout ## Time to detect the feedback and react
 				
 		for i in range(number_of_explosions):
 			count += 1
