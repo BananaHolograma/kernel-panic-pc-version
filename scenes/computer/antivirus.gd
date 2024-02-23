@@ -69,17 +69,17 @@ enum STATE {
 				"time_shooting": 6.5
 			},
 			PHASES.ALERT: {
-				"bullets_per_shoot": 6,
+				"bullets_per_shoot": 5,
 				"shoot_delay": 1.4,
 				"time_shooting": 8.0,
 			},
 			PHASES.DANGER: {
-				"bullets_per_shoot": 5,
+				"bullets_per_shoot": 4,
 				"shoot_delay": 1.3,
 				"time_shooting": 9.0,
 			},
 			PHASES.EXTREME: {
-				"bullets_per_shoot": 2,
+				"bullets_per_shoot": 3,
 				"shoot_delay": 1.1,
 				"time_shooting": 10.0,
 			},

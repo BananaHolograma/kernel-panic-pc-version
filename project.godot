@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="Kernel Panic"
+config/description="Resists antivirus attacks for 10 minutes 
+in order to infect the kernel."
 config/version="v1.0.0"
 config/tags=PackedStringArray("new_projects", "template")
 run/main_scene="res://scenes/world/menu_screen.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.0117647, 0.0117647, 0.0117647, 1)
 boot_splash/image="res://assets/splash/square-dark.png"
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 boot_splash/minimum_display_time=2000
 
 [autoload]
