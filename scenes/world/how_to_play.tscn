@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cy60nkg10qmwt"]
+[gd_scene load_steps=19 format=3 uid="uid://cy60nkg10qmwt"]
 
 [ext_resource type="Script" path="res://scenes/world/how_to_play.gd" id="1_d0vfx"]
 [ext_resource type="Texture2D" uid="uid://q6o5ca6tcnjd" path="res://assets/input/input_icons_16.png" id="1_gqm70"]
@@ -47,6 +47,10 @@ region = Rect2(40, 40, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_jdwxu"]
 atlas = ExtResource("1_gqm70")
 region = Rect2(72, 40, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrvdf"]
+atlas = ExtResource("1_gqm70")
+region = Rect2(232, 40, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kb8a"]
 size = Vector2(8, 469)
@@ -211,16 +215,43 @@ text = "DASH"
 
 [node name="Label2" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_l16dn")
 theme_override_font_sizes/font_size = 24
 text = "Makes you invulnerable 1.5s"
 
 [node name="Label3" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_l16dn")
 theme_override_font_sizes/font_size = 24
 text = "Cooldown of 5s"
+
+[node name="HSeparator4" type="HSeparator" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_wrvdf")
+expand_mode = 1
+
+[node name="Label6" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+layout_mode = 2
+size_flags_horizontal = 4
+auto_translate = false
+theme_override_fonts/font = ExtResource("2_l16dn")
+theme_override_font_sizes/font_size = 40
+text = "PAUSE"
+
+[node name="Label7" type="Label" parent="Panel/MarginContainer/HBoxContainer/Dash"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_l16dn")
+theme_override_font_sizes/font_size = 24
+text = "Display options in the game"
 
 [node name="HSeparator3" type="HSeparator" parent="Panel/MarginContainer/HBoxContainer/Dash"]
 custom_minimum_size = Vector2(0, 20)

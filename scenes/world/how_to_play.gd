@@ -3,8 +3,8 @@ extends Control
 @onready var player: Player = $MovementPlayground/Player
 
 
-func _ready():
-	hide()
+#func _ready():
+	#hide()
 
 
 func _on_back_arrow_gui_input(event):

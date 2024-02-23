@@ -143,7 +143,10 @@ func on_teleported(previous_position: Vector2, new_position: Vector2):
 	teleport_effect(new_position + (finite_state_machine.current_state.input_direction * (teleport_distance + 15)))
 	
 	health_component.enable_invulnerability(true, 1.5)
-
+	
+	## Visual feedback to player
+	animation_player.play("invulnerable")
+		
 
 func on_invulnerability_changed(active: bool):
 	if not active and animation_player.is_playing() and animation_player.current_animation == "hit":
