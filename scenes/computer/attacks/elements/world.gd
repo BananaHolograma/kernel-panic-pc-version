@@ -8,8 +8,10 @@ const WORLD_EXPLOSION_SOUND = preload("res://assets/sounds/WorldExplosion.wav")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var world_radius_explosion: CollisionShape2D = %WorldRadiusExplosion
 @onready var indicator_rotation_point: Node2D = $IndicatorRotationPoint
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
-@export var probability_to_line_explosions := 0.1
+
+@export var probability_to_line_explosions := 0.5
 @export var number_of_explosions := 20
 @export var separation_between_explosions := 35
 
@@ -38,6 +40,8 @@ func _ready():
 func create_line_explosions():
 	if randf() <= probability_to_line_explosions:
 		visual_feedback = true
+		audio_stream_player.play()
+
 		var new_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
 	  
 		while new_direction.is_zero_approx():

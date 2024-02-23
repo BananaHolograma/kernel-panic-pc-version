@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dyfx5ljnafyd2"]
+[gd_scene load_steps=25 format=3 uid="uid://dyfx5ljnafyd2"]
 
 [ext_resource type="Script" path="res://scenes/computer/attacks/elements/world.gd" id="1_vfose"]
 [ext_resource type="Script" path="res://components/collision/2d/hitbox.gd" id="1_w3hrj"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d11mkl8a4m1yj" path="res://assets/vfx/world_explosion.png" id="2_dhldt"]
 [ext_resource type="Texture2D" uid="uid://bv306aubcuwhe" path="res://assets/vfx/world_explosion_indicator.png" id="4_ut5i3"]
 [ext_resource type="Texture2D" uid="uid://do0psfax2uk3s" path="res://assets/cursors/Win95/Win95Move.png" id="5_evhng"]
+[ext_resource type="AudioStream" uid="uid://j8n3tr7idvwp" path="res://assets/sounds/target-beep.wav" id="7_a8s0m"]
 
 [sub_resource type="Animation" id="Animation_cnk6p"]
 length = 0.001
@@ -231,5 +232,9 @@ unique_name_in_owner = true
 shape = SubResource("CircleShape2D_x2sec")
 disabled = true
 debug_color = Color(0.643137, 0.792157, 0.423529, 0.419608)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_a8s0m")
+bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -64,12 +64,12 @@ enum STATE {
 		"target": get_tree().get_first_node_in_group("battleground_rail"),
 		"phase": {
 			PHASES.CALM: {
-				"bullets_per_shoot": 10,
+				"bullets_per_shoot": 8,
 				"shoot_delay": 1.5,
 				"time_shooting": 6.5
 			},
 			PHASES.ALERT: {
-				"bullets_per_shoot": 10,
+				"bullets_per_shoot": 6,
 				"shoot_delay": 1.4,
 				"time_shooting": 8.0,
 			},
