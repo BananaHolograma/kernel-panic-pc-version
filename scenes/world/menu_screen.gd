@@ -23,7 +23,7 @@ func _ready():
 	
 	start_button.grab_focus()
 	
-	version.text = ProjectSettings.get_setting("application/config/version")
+	version.text = "v%s" % ProjectSettings.get_setting("application/config/version")
 
 
 func _on_exit_pressed():

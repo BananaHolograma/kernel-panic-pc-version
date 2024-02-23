@@ -13,7 +13,7 @@ config_version=5
 config/name="Kernel Panic"
 config/description="Resists antivirus attacks for 10 minutes 
 in order to infect the kernel."
-config/version="v1.0.0"
+config/version="1.0.0"
 config/tags=PackedStringArray("new_projects", "template")
 run/main_scene="res://scenes/world/menu_screen.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
