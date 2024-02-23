@@ -1,3 +1,8 @@
+<p align="center">
+	<h1 align="center"><a href="https://bananaholograma.itch.io/kernelpanic" target="_blank" rel="noopener noreferrer">Kernel panic - WINDOWS 95 VERSION</a></h1>
+
+</p>
+
 **IMPORTANT:**
 
 * The **Mac version is not yet available**. I'm working on it to ensure a pleasant experience, as Apple systems have stricter requirements.
