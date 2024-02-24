@@ -1,6 +1,8 @@
 <p align="center">
-	<h1 align="center"><a href="https://bananaholograma.itch.io/kernelpanic" target="_blank" rel="noopener noreferrer">Kernel panic - WINDOWS 95 VERSION</a></h1>
-
+	<p align="center">
+	<a href="https://bananaholograma.itch.io/kernelpanic" target="_blank" rel="noopener noreferrer">
+		<img width="950px" src="https://github.com/bananaholograma/kernel-panic-pc-version/blob/main/images/banner_itch.png" alt="kernel-panic-logo />
+	</a>
 </p>
 
 **IMPORTANT:**
@@ -20,3 +22,17 @@
 * **Regular updates and bug fixes:** I'm committed to keeping your experience smooth and polished, so don't hesitate to report any issues through the comments or directly to my [itch.io](https://bananaholograma.itch.io/kernelpanic) profile.
 
 **Remember, you are the virus. Infect or be deleted. The clock is ticking. Are you ready?**
+
+- - -
+
+![screenshot](images/screenshot.png)
+
+![screenshot](images/screenshot_2.png)
+
+![screenshot](images/screenshot_3.png)
+
+![screenshot](images/screenshot_4.png)
+
+![screenshot](images/screenshot_2.png)
+
+![screenshot](images/tutorial_screenshot.png)

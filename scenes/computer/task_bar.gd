@@ -7,7 +7,7 @@ var seconds_passed := 0
 
 func _ready():
 	GameEvents.game_started.connect(on_game_started)
-
+	time_label.text = "12:30 PM"
 
 func on_game_started():
 	timer.start()
