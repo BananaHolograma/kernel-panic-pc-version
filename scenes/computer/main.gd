@@ -189,6 +189,7 @@ func on_timer_ended():
 	
 func on_winned_game():
 	GameEvents.winned_game.emit()
+	stop_music()
 	
 	var kernel = KERNEL.instantiate()
 	kernel_spawn.add_child(kernel)
