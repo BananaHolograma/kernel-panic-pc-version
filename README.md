@@ -1,7 +1,7 @@
 <p align="center">
 	<p align="center">
 	<a href="https://bananaholograma.itch.io/kernelpanic" target="_blank" rel="noopener noreferrer">
-		<img width="950px" src="https://github.com/bananaholograma/kernel-panic-pc-version/blob/main/images/banner_itch.png" alt="kernel-panic-logo />
+		<img width="950px" src="https://github.com/bananaholograma/kernel-panic-pc-version/blob/main/images/banner_itch.png" alt="kernel-panic-logo" />
 	</a>
 </p>
 
